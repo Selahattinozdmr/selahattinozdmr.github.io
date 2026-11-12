@@ -158,7 +158,6 @@ const tr: Dictionary = {
     title: "Birlikte bir şeyler inşa edelim.",
     subtitle: "Tam zamanlı pozisyonlara ve freelance projelere açığım. Mesajlarıma her zaman dönüş yaparım.",
     emailLabel: "E-posta gönder",
-    cvLabel: "CV'yi indir",
     copy: "Kopyala",
     copied: "Kopyalandı!",
   },

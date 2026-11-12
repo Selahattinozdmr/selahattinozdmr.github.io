@@ -32,7 +32,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           <SkillsGlobe hint={t.skills.dragHint} />
         </Skills>
         <Education t={t} />
-        <Contact t={t} lang={lang}>
+        <Contact t={t}>
           <ContactVideoOrb />
         </Contact>
       </main>

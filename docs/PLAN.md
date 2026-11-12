@@ -15,7 +15,7 @@ References: Bruno Simon (playful 3D), Codrops 2026 R3F + GSAP portfolio case stu
 - Next.js 16 App Router, React 19, TypeScript, Tailwind v4 (`cacheComponents: true`)
 - three + @react-three/fiber 9 + @react-three/drei 10
 - gsap 3 + ScrollTrigger (+ @gsap/react `useGSAP`), lenis smooth scroll, motion (motion/react)
-- No database. Contact = mailto + copy-email + CV download. (Supabase intentionally not used.)
+- No database. Contact = mailto + copy-email. (Supabase intentionally not used.)
 
 ## i18n
 - Routes: `/tr`, `/en` (`src/app/[lang]`), statically generated.
@@ -34,7 +34,6 @@ Colors: bg #050a18, cyan #22d3ee, orange #fb923c.
   `/video/hero-mobile.mp4` — 854×480 variant chosen via `<source media>`. Poster `/video/hero-poster.jpg`.
 - `/video/orb-loop.mp4` — 720×720 seamless glass-orb loop for the contact section (radial mask + screen blend). Poster `/video/orb-poster.jpg`.
 - `/images/workstation-desk.jpg` (1344×752 render matching the hero video), `/images/{autosuchen24,takasgo,mutfix,nerdeyemek,quiz}.jpg` (1344×752), `/images/og.jpg`.
-- `/cv/Selahattin_Ozdemir_ENG.pdf`
 
 ## Component contracts (page composition in `src/app/[lang]/page.tsx`)
 | File | Export default | Props | Owner |
@@ -50,7 +49,7 @@ Colors: bg #050a18, cyan #22d3ee, orange #fb923c.
 | components/sections/Projects.tsx | | `{t}` | Agent C |
 | components/sections/Skills.tsx | | `{t, children}` (children = 3D globe) | Agent C |
 | components/sections/Education.tsx | | `{t}` | Agent C |
-| components/sections/Contact.tsx | | `{t, lang, children}` (children = 3D orb) | Agent C |
+| components/sections/Contact.tsx | | `{t, children}` (children = orb video) | Agent C |
 | components/sections/Footer.tsx | | `{t}` | Agent C |
 
 Section anchor ids: `#about #experience #projects #skills #education #contact`; hero `#top`.

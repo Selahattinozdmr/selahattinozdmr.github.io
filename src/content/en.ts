@@ -158,7 +158,6 @@ const en: Dictionary = {
     title: "Let's build something.",
     subtitle: "Open to full-time roles and freelance projects. My inbox is always open.",
     emailLabel: "Send an email",
-    cvLabel: "Download CV",
     copy: "Copy",
     copied: "Copied!",
   },

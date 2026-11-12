@@ -99,7 +99,6 @@ export type Dictionary = {
     title: string;
     subtitle: string;
     emailLabel: string;
-    cvLabel: string;
     copy: string;
     copied: string;
   };

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Dictionary, Locale } from "@/content/types";
+import type { Dictionary } from "@/content/types";
 import { site } from "@/content/site";
 import Reveal from "@/components/ui/Reveal";
 import CopyEmailButton from "@/components/ui/CopyEmailButton";
@@ -7,15 +7,7 @@ import CopyEmailButton from "@/components/ui/CopyEmailButton";
 const iconBtn =
   "grid h-11 w-11 place-items-center rounded-full border border-line text-muted transition hover:border-cyan/50 hover:text-cyan focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan";
 
-export default function Contact({
-  t,
-  lang,
-  children,
-}: {
-  t: Dictionary;
-  lang: Locale;
-  children?: ReactNode;
-}) {
+export default function Contact({ t, children }: { t: Dictionary; children?: ReactNode }) {
   const c = t.contact;
   const github: string = site.github;
   const linkedin: string = site.linkedin;
@@ -53,16 +45,6 @@ export default function Contact({
                 {c.emailLabel}
               </a>
               <CopyEmailButton email={site.email} label={c.copy} copiedLabel={c.copied} />
-              <a
-                href={site.cv[lang]}
-                download
-                className="inline-flex items-center gap-2 rounded-full border border-orange/40 bg-orange/10 px-6 py-3 text-sm font-medium text-orange transition hover:bg-orange hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
-              >
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" />
-                </svg>
-                {c.cvLabel}
-              </a>
             </div>
             {github || linkedin ? (
               <div className="mt-6 flex gap-3">
