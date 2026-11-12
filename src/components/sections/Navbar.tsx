@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Dictionary, Locale } from "@/content/types";
 import { site } from "@/content/site";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import Logo from "@/components/ui/Logo";
 
 const links = ["about", "experience", "projects", "skills", "contact"] as const;
 
@@ -55,10 +56,13 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
           aria-label={t.nav.primary}
           className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:h-20"
         >
-          <a href="#top" className={`group flex items-center gap-3 ${focus}`} onClick={() => setOpen(false)}>
-            <span className="font-display grid h-9 w-9 place-items-center rounded-lg border border-cyan/40 bg-cyan/10 text-sm font-bold text-cyan shadow-[0_0_18px_rgb(var(--cyan-rgb)/0.25)] transition group-hover:shadow-[0_0_26px_rgb(var(--cyan-rgb)/0.5)]">
-              SÖ
-            </span>
+          <a
+            href="#top"
+            aria-label={site.name}
+            className={`group flex items-center gap-3 ${focus}`}
+            onClick={() => setOpen(false)}
+          >
+            <Logo className="h-9 w-9 drop-shadow-[0_0_10px_rgb(var(--cyan-rgb)/0.35)] transition group-hover:scale-105 group-hover:drop-shadow-[0_0_16px_rgb(var(--cyan-rgb)/0.6)]" />
             <span className="font-display hidden text-sm font-semibold tracking-wide sm:block">{site.name}</span>
           </a>
 
