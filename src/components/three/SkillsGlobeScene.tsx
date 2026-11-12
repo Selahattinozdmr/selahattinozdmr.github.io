@@ -5,6 +5,7 @@ import { OrbitControls, Text } from "@react-three/drei";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { allSkills } from "@/content/skills";
+import { useTheme, type Theme } from "@/components/providers/theme";
 
 const RADIUS = 3;
 const CYAN = "#22d3ee";
@@ -29,12 +30,15 @@ function Label({
   text,
   position,
   index,
+  theme,
 }: {
   text: string;
   position: THREE.Vector3;
   index: number;
+  theme: Theme;
 }) {
   const [hovered, setHovered] = useState(false);
+  const light = theme === "light";
   const groupRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
@@ -61,9 +65,21 @@ function Label({
           fontSize={0.36}
           anchorX="center"
           anchorY="middle"
-          color={hovered ? ORANGE : index % 3 === 0 ? WHITE : CYAN}
+          color={
+            light
+              ? hovered
+                ? "#ea580c"
+                : index % 3 === 0
+                  ? "#0b1530"
+                  : "#0e7490"
+              : hovered
+                ? ORANGE
+                : index % 3 === 0
+                  ? WHITE
+                  : CYAN
+          }
           outlineWidth={0.012}
-          outlineColor="#050a18"
+          outlineColor={light ? "#f3f6fc" : "#050a18"}
           onPointerOver={(e) => {
             e.stopPropagation();
             setHovered(true);
@@ -77,7 +93,7 @@ function Label({
   );
 }
 
-function Globe({ reduced }: { reduced: boolean }) {
+function Globe({ reduced, theme }: { reduced: boolean; theme: Theme }) {
   const points = useMemo(() => fibonacciSphere(allSkills.length, RADIUS), []);
   const ref = useRef<THREE.Group>(null);
   useFrame((_, dt) => {
@@ -86,11 +102,16 @@ function Globe({ reduced }: { reduced: boolean }) {
   return (
     <group ref={ref}>
       {allSkills.map((s, i) => (
-        <Label key={s} text={s} position={points[i]} index={i} />
+        <Label key={s} text={s} position={points[i]} index={i} theme={theme} />
       ))}
       <mesh>
         <sphereGeometry args={[RADIUS * 0.97, 24, 18]} />
-        <meshBasicMaterial color={CYAN} wireframe transparent opacity={0.07} />
+        <meshBasicMaterial
+          color={theme === "light" ? "#0891b2" : CYAN}
+          wireframe
+          transparent
+          opacity={theme === "light" ? 0.12 : 0.07}
+        />
       </mesh>
     </group>
   );
@@ -110,7 +131,7 @@ function FitCamera() {
   return null;
 }
 
-function Glow() {
+function Glow({ theme }: { theme: Theme }) {
   const tex = useMemo(() => {
     const c = document.createElement("canvas");
     c.width = c.height = 128;
@@ -132,6 +153,7 @@ function Glow() {
     <sprite scale={[RADIUS * 2.4, RADIUS * 2.4, 1]}>
       <spriteMaterial
         map={tex}
+        opacity={theme === "light" ? 0.18 : 1}
         transparent
         depthWrite={false}
         blending={THREE.AdditiveBlending}
@@ -142,6 +164,7 @@ function Glow() {
 
 export default function SkillsGlobeScene({ active }: { active: boolean }) {
   const [reduced, setReduced] = useState(false);
+  const theme = useTheme();
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -160,8 +183,8 @@ export default function SkillsGlobeScene({ active }: { active: boolean }) {
       style={{ touchAction: "pan-y" }}
     >
       <FitCamera />
-      <Glow />
-      <Globe reduced={reduced} />
+      <Glow theme={theme} />
+      <Globe reduced={reduced} theme={theme} />
       <OrbitControls
         enableZoom={false}
         enablePan={false}

@@ -16,6 +16,8 @@ const tr: Dictionary = {
     openMenu: "Menüyü aç",
     closeMenu: "Menüyü kapat",
     primary: "Ana menü",
+    themeToLight: "Açık temaya geç",
+    themeToDark: "Koyu temaya geç",
   },
   hero: {
     greeting: "Merhaba, ben",

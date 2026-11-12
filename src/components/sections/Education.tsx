@@ -40,7 +40,7 @@ export default function Education({ t }: { t: Dictionary }) {
                           aria-hidden
                           className={`h-2.5 w-2.5 rounded-full ${
                             i < l.score
-                              ? "bg-cyan shadow-[0_0_10px_rgba(34,211,238,0.7)]"
+                              ? "bg-cyan shadow-[0_0_10px_rgb(var(--cyan-rgb)/0.7)]"
                               : "border border-line bg-transparent"
                           }`}
                         />
@@ -64,7 +64,7 @@ export default function Education({ t }: { t: Dictionary }) {
                   href={e.publication.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-orange/40 bg-orange/10 px-5 py-2.5 text-sm font-medium text-orange transition hover:bg-orange hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
+                  className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-orange/40 bg-orange/10 px-5 py-2.5 text-sm font-medium text-orange transition hover:bg-orange hover:text-on-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange"
                 >
                   {e.publication.cta}
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

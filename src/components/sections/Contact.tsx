@@ -36,7 +36,7 @@ export default function Contact({ t, children }: { t: Dictionary; children?: Rea
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href={`mailto:${site.email}`}
-                className="inline-flex items-center gap-2 rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-bg shadow-[0_0_30px_-4px_rgba(34,211,238,0.6)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
+                className="inline-flex items-center gap-2 rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-on-accent shadow-[0_0_30px_-4px_rgb(var(--cyan-rgb)/0.6)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
               >
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                   <rect x="3" y="5" width="18" height="14" rx="2" />

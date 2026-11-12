@@ -60,7 +60,7 @@ function Intro({ t }: { t: Dictionary }) {
       >
         <a
           href="#projects"
-          className="bg-cyan text-bg rounded-full px-5 py-2.5 text-sm font-semibold shadow-[0_0_30px_rgba(34,211,238,0.35)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+          className="bg-cyan text-on-accent rounded-full px-5 py-2.5 text-sm font-semibold shadow-[0_0_30px_rgb(var(--cyan-rgb)/0.35)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
         >
           {t.hero.ctaProjects}
         </a>
@@ -111,15 +111,29 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
       });
       gsap.from(frame, { opacity: 0, scale: 0.94, duration: 1.2, ease: "power3.out", delay: 0.3 });
 
-      // Cached geometry
+      // Cached geometry. The start card is placed in the space left *below* the
+      // intro block (measured, not guessed) so it never overlaps the CTAs.
       const geo = { W: 0, H: 0, w0: 0, h0: 0, y0: 0 };
       const measure = () => {
         const W = stage.clientWidth;
         const H = stage.clientHeight;
         const mobile = W < 768;
-        const w0 = mobile ? W * 0.88 : W * 0.62;
-        const h0 = mobile ? Math.min(w0 * 0.62, H * 0.3) : Math.min(w0 * 0.5625, H * 0.42);
-        const y0 = H / 2 - h0 / 2 - H * (mobile ? 0.06 : 0.07);
+        const intro = introRef.current;
+        // offsetTop/offsetHeight ignore the transforms we animate on the intro.
+        const introBottom = intro ? intro.offsetTop + intro.offsetHeight : H * 0.5;
+        const gap = mobile ? 20 : 28;
+        const hintSpace = mobile ? 72 : 84; // scroll hint + progress bar below the card
+        const top = introBottom + gap;
+        const avail = Math.max(H - top - hintSpace, 96);
+        const ratio = mobile ? 0.62 : 0.5625;
+        let w0 = mobile ? W * 0.88 : W * 0.62;
+        let h0 = w0 * ratio;
+        if (h0 > avail) {
+          h0 = avail;
+          w0 = Math.min(w0, Math.max(h0 / ratio, W * (mobile ? 0.6 : 0.36)));
+        }
+        // translateY is relative to the vertically centred flex position.
+        const y0 = top + h0 / 2 - H / 2;
         Object.assign(geo, { W, H, w0, h0, y0 });
       };
       measure();
@@ -213,6 +227,7 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
         apply(state.cur);
       });
       ro.observe(stage);
+      if (introRef.current) ro.observe(introRef.current); // font swap / locale text changes height
 
       return () => {
         ro.disconnect();
@@ -280,7 +295,7 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
               className="pointer-events-none absolute inset-0 opacity-25"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, rgba(5,10,24,0) 35%, rgba(5,10,24,0.85) 100%), linear-gradient(to bottom, rgba(5,10,24,0.1), rgba(5,10,24,0.55))",
+                  "radial-gradient(ellipse at center, rgb(var(--bg-rgb) / 0) 35%, rgb(var(--bg-rgb) / 0.85) 100%), linear-gradient(to bottom, rgb(var(--bg-rgb) / 0.1), rgb(var(--bg-rgb) / 0.55))",
               }}
             />
             <div
@@ -288,13 +303,16 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
               className="pointer-events-none absolute inset-0 opacity-0"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(5,10,24,0.35) 0%, rgba(5,10,24,0.8) 60%, #050a18 100%)",
+                  "linear-gradient(to bottom, rgb(var(--bg-rgb) / 0.35) 0%, rgb(var(--bg-rgb) / 0.8) 60%, var(--bg) 100%)",
               }}
             />
             <div
               ref={glowRef}
               className="pointer-events-none absolute inset-0 rounded-[inherit] border border-cyan/60"
-              style={{ boxShadow: "0 0 60px rgba(34,211,238,0.35), inset 0 0 40px rgba(34,211,238,0.12)" }}
+              style={{
+                boxShadow:
+                  "0 0 60px rgb(var(--cyan-rgb) / 0.35), inset 0 0 40px rgb(var(--cyan-rgb) / 0.12), 0 24px 60px -20px var(--shadow)",
+              }}
             />
           </div>
         </div>

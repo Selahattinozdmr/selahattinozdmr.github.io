@@ -16,6 +16,8 @@ const en: Dictionary = {
     openMenu: "Open menu",
     closeMenu: "Close menu",
     primary: "Primary",
+    themeToLight: "Switch to light theme",
+    themeToDark: "Switch to dark theme",
   },
   hero: {
     greeting: "Hi, I'm",

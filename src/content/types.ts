@@ -40,6 +40,8 @@ export type Dictionary = {
     openMenu: string;
     closeMenu: string;
     primary: string;
+    themeToLight: string;
+    themeToDark: string;
   };
   hero: {
     greeting: string;

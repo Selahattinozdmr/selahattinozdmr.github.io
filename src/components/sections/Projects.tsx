@@ -18,7 +18,7 @@ export default function Projects({ t }: { t: Dictionary }) {
                 <Reveal delay={(i % 2) * 0.1} className="h-full">
                   <TiltCard className="h-full rounded-3xl" max={featured ? 5 : 8}>
                     <article
-                      className={`glass group flex h-full flex-col overflow-hidden rounded-3xl transition-shadow duration-500 hover:shadow-[0_20px_80px_-20px_rgba(34,211,238,0.35)] ${
+                      className={`glass group flex h-full flex-col overflow-hidden rounded-3xl transition-shadow duration-500 hover:shadow-[0_20px_80px_-20px_rgb(var(--cyan-rgb)/0.35)] ${
                         featured ? "md:grid md:grid-cols-[1.3fr_1fr]" : ""
                       }`}
                     >
@@ -33,7 +33,7 @@ export default function Projects({ t }: { t: Dictionary }) {
                         />
                         <div
                           aria-hidden
-                          className="absolute inset-0 bg-gradient-to-t from-bg/60 via-transparent to-transparent"
+                          className="absolute inset-0 bg-gradient-to-t from-[#050a18]/60 via-transparent to-transparent"
                         />
                       </div>
                       <div className={`flex flex-1 flex-col p-6 md:p-8 ${featured ? "md:justify-center" : ""}`}>
@@ -47,7 +47,7 @@ export default function Projects({ t }: { t: Dictionary }) {
                           {item.stack.map((s) => (
                             <li
                               key={s}
-                              className="rounded-full border border-line bg-white/[0.03] px-3 py-1 font-mono text-xs text-cyan"
+                              className="rounded-full border border-line bg-fg/[0.04] px-3 py-1 font-mono text-xs text-cyan"
                             >
                               {s}
                             </li>
@@ -58,7 +58,7 @@ export default function Projects({ t }: { t: Dictionary }) {
                             href={item.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-cyan/40 bg-cyan/10 px-5 py-2.5 text-sm font-medium text-cyan transition hover:bg-cyan hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
+                            className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-cyan/40 bg-cyan/10 px-5 py-2.5 text-sm font-medium text-cyan transition hover:bg-cyan hover:text-on-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
                           >
                             {item.linkLabel ?? p.visit}
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

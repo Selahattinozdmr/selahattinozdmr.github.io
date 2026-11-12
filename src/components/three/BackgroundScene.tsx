@@ -3,6 +3,7 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+import { useTheme, type Theme } from "@/components/providers/theme";
 
 function mulberry32(seed: number): () => number {
   let a = seed;
@@ -24,7 +25,10 @@ interface Inputs {
 const particleVertex = /* glsl */ `
   attribute float aSize;
   attribute float aPhase;
-  attribute vec3 aColor;
+  attribute float aKind;
+  uniform vec3 uCyan;
+  uniform vec3 uOrange;
+  uniform vec3 uWhite;
   uniform float uTime;
   uniform float uPixelRatio;
   varying vec3 vColor;
@@ -34,7 +38,7 @@ const particleVertex = /* glsl */ `
     float tw = 0.65 + 0.35 * sin(uTime * 1.4 + aPhase);
     gl_PointSize = aSize * uPixelRatio * tw * (60.0 / -mv.z);
     gl_Position = projectionMatrix * mv;
-    vColor = aColor;
+    vColor = aKind < 0.5 ? uCyan : aKind < 1.5 ? uOrange : uWhite;
     vAlpha = tw * smoothstep(120.0, 20.0, -mv.z);
   }
 `;
@@ -42,15 +46,16 @@ const particleVertex = /* glsl */ `
 const particleFragment = /* glsl */ `
   varying vec3 vColor;
   varying float vAlpha;
+  uniform float uAlpha;
   void main() {
     float d = length(gl_PointCoord - 0.5);
     float a = smoothstep(0.5, 0.0, d);
     a *= a;
-    gl_FragColor = vec4(vColor, a * vAlpha);
+    gl_FragColor = vec4(vColor, a * vAlpha * uAlpha);
   }
 `;
 
-function Particles({ count, inputs }: { count: number; inputs: Inputs }) {
+function Particles({ count, inputs, theme }: { count: number; inputs: Inputs; theme: Theme }) {
   const ref = useRef<THREE.Points>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const gl = useThree((s) => s.gl);
@@ -60,10 +65,7 @@ function Particles({ count, inputs }: { count: number; inputs: Inputs }) {
     const pos = new Float32Array(count * 3);
     const size = new Float32Array(count);
     const phase = new Float32Array(count);
-    const col = new Float32Array(count * 3);
-    const cyan = new THREE.Color("#22d3ee");
-    const orange = new THREE.Color("#fb923c");
-    const white = new THREE.Color("#e6edf9");
+    const kind = new Float32Array(count);
     for (let i = 0; i < count; i++) {
       pos[i * 3] = (rnd() - 0.5) * 70;
       pos[i * 3 + 1] = (rnd() - 0.2) * 40;
@@ -71,16 +73,13 @@ function Particles({ count, inputs }: { count: number; inputs: Inputs }) {
       size[i] = 0.6 + rnd() * 1.8;
       phase[i] = rnd() * Math.PI * 2;
       const r = rnd();
-      const c = r < 0.55 ? cyan : r < 0.65 ? orange : white;
-      col[i * 3] = c.r;
-      col[i * 3 + 1] = c.g;
-      col[i * 3 + 2] = c.b;
+      kind[i] = r < 0.55 ? 0 : r < 0.65 ? 1 : 2;
     }
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
     g.setAttribute("aSize", new THREE.BufferAttribute(size, 1));
     g.setAttribute("aPhase", new THREE.BufferAttribute(phase, 1));
-    g.setAttribute("aColor", new THREE.BufferAttribute(col, 3));
+    g.setAttribute("aKind", new THREE.BufferAttribute(kind, 1));
     return g;
   }, [count]);
 
@@ -90,9 +89,26 @@ function Particles({ count, inputs }: { count: number; inputs: Inputs }) {
     () => ({
       uTime: { value: 0 },
       uPixelRatio: { value: 1 },
+      uCyan: { value: new THREE.Color("#22d3ee") },
+      uOrange: { value: new THREE.Color("#fb923c") },
+      uWhite: { value: new THREE.Color("#e6edf9") },
+      uAlpha: { value: 1 },
     }),
     [],
   );
+
+  useEffect(() => {
+    const light = theme === "light";
+    if (matRef.current) {
+      const u = matRef.current.uniforms;
+      u.uCyan.value.set(light ? "#0891b2" : "#22d3ee");
+      u.uOrange.value.set(light ? "#ea580c" : "#fb923c");
+      u.uWhite.value.set(light ? "#64748b" : "#e6edf9");
+      u.uAlpha.value = light ? 0.7 : 1;
+      matRef.current.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+      matRef.current.needsUpdate = true;
+    }
+  }, [theme]);
 
   useFrame((state) => {
     if (matRef.current) {
@@ -136,6 +152,8 @@ const gridFragment = /* glsl */ `
   uniform vec3 uColor;
   uniform vec3 uCamPos;
   uniform float uTime;
+  uniform float uLight;
+  uniform float uIntensity;
   float gridLine(vec2 p, float size) {
     vec2 g = abs(fract(p / size - 0.5) - 0.5) / fwidth(p / size);
     return 1.0 - min(min(g.x, g.y), 1.0);
@@ -145,20 +163,33 @@ const gridFragment = /* glsl */ `
     float line = gridLine(p, 2.0) * 0.9 + gridLine(p, 10.0) * 0.6;
     float dist = distance(vWorld.xz, uCamPos.xz);
     float fade = 1.0 - smoothstep(10.0, 55.0, dist);
-    gl_FragColor = vec4(uColor * line, line * fade * 0.55);
+    gl_FragColor = vec4(uLight > 0.5 ? uColor : uColor * line, line * fade * uIntensity);
   }
 `;
 
-function GridFloor({ inputs }: { inputs: Inputs }) {
+function GridFloor({ inputs, theme }: { inputs: Inputs; theme: Theme }) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const uniforms = useMemo(
     () => ({
       uColor: { value: new THREE.Color("#22d3ee") },
       uCamPos: { value: new THREE.Vector3() },
       uTime: { value: 0 },
+      uLight: { value: 0 },
+      uIntensity: { value: 0.55 },
     }),
     [],
   );
+  useEffect(() => {
+    const light = theme === "light";
+    if (matRef.current) {
+      const u = matRef.current.uniforms;
+      u.uColor.value.set(light ? "#0e7490" : "#22d3ee");
+      u.uLight.value = light ? 1 : 0;
+      u.uIntensity.value = light ? 0.3 : 0.55;
+      matRef.current.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+      matRef.current.needsUpdate = true;
+    }
+  }, [theme]);
   useFrame((state) => {
     if (!matRef.current) return;
     matRef.current.uniforms.uCamPos.value.copy(state.camera.position);
@@ -182,7 +213,8 @@ function GridFloor({ inputs }: { inputs: Inputs }) {
   );
 }
 
-function Shapes({ inputs }: { inputs: Inputs }) {
+function Shapes({ inputs, theme }: { inputs: Inputs; theme: Theme }) {
+  const light = theme === "light";
   const ico = useRef<THREE.Mesh>(null);
   const knot = useRef<THREE.Mesh>(null);
   useFrame((_, dt) => {
@@ -200,15 +232,15 @@ function Shapes({ inputs }: { inputs: Inputs }) {
     <>
       <mesh ref={ico} position={[-17, 3, -26]}>
         <icosahedronGeometry args={[3.2, 1]} />
-        <meshBasicMaterial color="#22d3ee" wireframe transparent opacity={0.18} />
+        <meshBasicMaterial color={light ? "#0e7490" : "#22d3ee"} wireframe transparent opacity={light ? 0.1 : 0.18} />
       </mesh>
       <mesh position={[-17, 3, -26]} scale={0.98}>
         <icosahedronGeometry args={[3.2, 1]} />
-        <meshBasicMaterial color="#22d3ee" transparent opacity={0.04} />
+        <meshBasicMaterial color={light ? "#0e7490" : "#22d3ee"} transparent opacity={light ? 0.03 : 0.04} />
       </mesh>
       <mesh ref={knot} position={[19, 4, -32]}>
         <torusKnotGeometry args={[2.6, 0.7, 140, 16]} />
-        <meshBasicMaterial color="#fb923c" wireframe transparent opacity={0.14} />
+        <meshBasicMaterial color={light ? "#c2410c" : "#fb923c"} wireframe transparent opacity={light ? 0.07 : 0.14} />
       </mesh>
     </>
   );
@@ -236,7 +268,16 @@ function Rig({ inputs }: { inputs: Inputs }) {
 
 const inputs: Inputs = { pointer: { x: 0, y: 0 }, scroll: 0, reduced: false };
 
+function Fog({ theme }: { theme: Theme }) {
+  const scene = useThree((s) => s.scene);
+  useEffect(() => {
+    if (scene.fog) scene.fog.color.set(theme === "light" ? "#f3f6fc" : "#050a18");
+  }, [scene, theme]);
+  return <fog attach="fog" args={["#050a18", 25, 80]} />;
+}
+
 export default function BackgroundScene() {
+  const theme = useTheme();
   // Scene is client-only (dynamic ssr:false), so window is available here.
   const [count] = useState(() => (window.innerWidth < 768 ? 1200 : 3500));
 
@@ -274,11 +315,11 @@ export default function BackgroundScene() {
       camera={{ position: [0, 2, 12], fov: 60, near: 0.1, far: 150 }}
       style={{ position: "absolute", inset: 0 }}
     >
-      <fog attach="fog" args={["#050a18", 25, 80]} />
+      <Fog theme={theme} />
       <Rig inputs={inputs} />
-      <GridFloor inputs={inputs} />
-      <Particles count={count} inputs={inputs} />
-      <Shapes inputs={inputs} />
+      <GridFloor inputs={inputs} theme={theme} />
+      <Particles count={count} inputs={inputs} theme={theme} />
+      <Shapes inputs={inputs} theme={theme} />
     </Canvas>
   );
 }

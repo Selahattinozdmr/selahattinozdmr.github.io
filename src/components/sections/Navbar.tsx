@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary, Locale } from "@/content/types";
 import { site } from "@/content/site";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const links = ["about", "experience", "projects", "skills", "contact"] as const;
 
@@ -55,7 +56,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
           className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:h-20"
         >
           <a href="#top" className={`group flex items-center gap-3 ${focus}`} onClick={() => setOpen(false)}>
-            <span className="font-display grid h-9 w-9 place-items-center rounded-lg border border-cyan/40 bg-cyan/10 text-sm font-bold text-cyan shadow-[0_0_18px_rgba(34,211,238,0.25)] transition group-hover:shadow-[0_0_26px_rgba(34,211,238,0.5)]">
+            <span className="font-display grid h-9 w-9 place-items-center rounded-lg border border-cyan/40 bg-cyan/10 text-sm font-bold text-cyan shadow-[0_0_18px_rgb(var(--cyan-rgb)/0.25)] transition group-hover:shadow-[0_0_26px_rgb(var(--cyan-rgb)/0.5)]">
               SÖ
             </span>
             <span className="font-display hidden text-sm font-semibold tracking-wide sm:block">{site.name}</span>
@@ -85,15 +86,24 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
                 <span>{other.toUpperCase()}</span>
               </a>
             </li>
+            <li>
+              <ThemeToggle toLightLabel={t.nav.themeToLight} toDarkLabel={t.nav.themeToDark} />
+            </li>
           </ul>
 
+          <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle
+            toLightLabel={t.nav.themeToLight}
+            toDarkLabel={t.nav.themeToDark}
+            className="relative z-[60]"
+          />
           <button
             type="button"
             aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
-            className={`relative z-[60] grid h-10 w-10 place-items-center md:hidden ${focus}`}
+            className={`relative z-[60] grid h-10 w-10 place-items-center ${focus}`}
           >
             <span className="sr-only">{open ? t.nav.closeMenu : t.nav.openMenu}</span>
             <span
@@ -109,6 +119,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
               className={`absolute h-0.5 w-6 bg-fg transition-transform duration-300 ${open ? "-rotate-45" : "translate-y-1.5"}`}
             />
           </button>
+          </div>
         </nav>
       </header>
 

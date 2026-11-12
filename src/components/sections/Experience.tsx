@@ -55,7 +55,7 @@ export default function Experience({ t }: { t: Dictionary }) {
           <div aria-hidden className="absolute top-0 bottom-0 left-0 w-px bg-line md:left-[11.5rem]" />
           <div
             aria-hidden
-            className="tl-line absolute top-0 bottom-0 left-0 w-px origin-top bg-gradient-to-b from-cyan via-cyan to-orange shadow-[0_0_14px_2px_rgba(34,211,238,0.6)] md:left-[11.5rem]"
+            className="tl-line absolute top-0 bottom-0 left-0 w-px origin-top bg-gradient-to-b from-cyan via-cyan to-orange shadow-[0_0_14px_2px_rgb(var(--cyan-rgb)/0.6)] md:left-[11.5rem]"
           />
           {e.items.map((item) => (
             <li
@@ -68,7 +68,7 @@ export default function Experience({ t }: { t: Dictionary }) {
               </div>
               <span
                 aria-hidden
-                className="tl-dot absolute top-1.5 -left-[5px] h-[11px] w-[11px] rounded-full bg-cyan shadow-[0_0_14px_3px_rgba(34,211,238,0.7)] md:left-[11.5rem] md:-translate-x-1/2"
+                className="tl-dot absolute top-1.5 -left-[5px] h-[11px] w-[11px] rounded-full bg-cyan shadow-[0_0_14px_3px_rgb(var(--cyan-rgb)/0.7)] md:left-[11.5rem] md:-translate-x-1/2"
               />
               <div className="glass rounded-2xl p-6 md:ml-10 md:p-8">
                 <h3 className="font-display text-2xl font-bold">{item.role}</h3>

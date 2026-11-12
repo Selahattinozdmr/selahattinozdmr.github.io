@@ -4,6 +4,7 @@ import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import { getDictionary, hasLocale, locales } from "@/content";
 import { site } from "@/content/site";
+import ThemeScript from "@/components/providers/ThemeScript";
 
 const sans = Inter({ subsets: ["latin", "latin-ext"], variable: "--font-inter" });
 const display = Space_Grotesk({ subsets: ["latin", "latin-ext"], variable: "--font-grotesk" });
@@ -38,8 +39,16 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
   if (!hasLocale(lang)) notFound();
 
   return (
-    <html lang={lang} className={`${sans.variable} ${display.variable} ${mono.variable}`}>
-      <body className="min-h-dvh bg-bg text-fg">{children}</body>
+    <html
+      lang={lang}
+      className={`${sans.variable} ${display.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-dvh bg-bg text-fg">
+        {/* Applies the saved theme before first paint (no flash). */}
+        <ThemeScript />
+        {children}
+      </body>
     </html>
   );
 }

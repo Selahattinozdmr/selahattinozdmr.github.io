@@ -44,8 +44,12 @@ export default function TiltCard({ children, className = "", max = 10, glare = t
       s.ty = py * 2 - 1;
       s.hover = 1;
       if (glareRef.current) {
+        const glareColor =
+          document.documentElement.getAttribute("data-theme") === "light"
+            ? "rgb(255 255 255 / 0.35)"
+            : "rgba(255,255,255,0.16)";
         glareRef.current.style.opacity = "1";
-        glareRef.current.style.background = `radial-gradient(420px circle at ${px * 100}% ${py * 100}%, rgba(255,255,255,0.16), transparent 55%)`;
+        glareRef.current.style.background = `radial-gradient(420px circle at ${px * 100}% ${py * 100}%, ${glareColor}, transparent 55%)`;
       }
       start();
     };

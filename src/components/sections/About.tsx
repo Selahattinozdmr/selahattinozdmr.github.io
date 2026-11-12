@@ -46,10 +46,10 @@ export default function About({ t }: { t: Dictionary }) {
           <div className="relative">
             <div
               aria-hidden
-              className="absolute -inset-6 rounded-[2rem] bg-[radial-gradient(circle_at_50%_50%,rgba(34,211,238,0.28),rgba(251,146,60,0.12)_55%,transparent_75%)] blur-2xl"
+              className="absolute -inset-6 rounded-[2rem] bg-[radial-gradient(circle_at_50%_50%,rgb(var(--cyan-rgb)/0.28),rgb(251_146_60/0.12)_55%,transparent_75%)] blur-2xl"
             />
             <TiltCard max={12} className="rounded-3xl">
-              <div className="glass overflow-hidden rounded-3xl p-2 shadow-[0_0_60px_-10px_rgba(34,211,238,0.35)]">
+              <div className="glass overflow-hidden rounded-3xl p-2 shadow-[0_0_60px_-10px_rgb(var(--cyan-rgb)/0.35)]">
                 <Image
                   src="/images/workstation-desk.jpg"
                   alt=""
