@@ -360,6 +360,13 @@ checks.push(
   [globals.includes("hero-in") || globals.includes("heroIn"), "hero keyframes"],
 );
 
+checks.push(
+  [!source("src/components/sections/About.tsx").includes("italic"), "About serif italic kalktı"],
+  [source("src/components/motion/TimelineLine.tsx").includes("useScroll"), "timeline line"],
+  [source("src/components/sections/Contact.tsx").includes("email-underline"), "email underline"],
+  [!source("src/components/sections/Footer.tsx").includes("↑"), "footer tek ok"],
+);
+
 const darkBlock = globals.match(/:root\s*\{([\s\S]*?)\}/)?.[1] ?? "";
 const lightBlock = globals.match(/:root\[data-theme="light"\]\s*\{([\s\S]*?)\}/)?.[1] ?? "";
 const token = (block, name) => block.match(new RegExp(`--${name}:\\s*([^;]+);`))?.[1]?.trim();

@@ -13,12 +13,11 @@ export default function Footer({ t }: { t: Dictionary }) {
         <a
           href="#top"
           aria-label={t.footer.backToTop}
-          className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 transition hover:border-accent/50 hover:text-accent-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          className="group inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 transition hover:border-accent/50 hover:text-accent-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="transition-transform duration-300 group-hover:-translate-y-0.5 motion-reduce:transform-none">
             <path d="M12 19V5m0 0-6 6m6-6 6 6" />
           </svg>
-          <span aria-hidden>↑</span>
         </a>
       </div>
     </footer>

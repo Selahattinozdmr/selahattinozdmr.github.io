@@ -20,7 +20,7 @@ export default function Contact({ t }: { t: Dictionary }) {
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted">{c.emailLabel}</p>
         <a
           href={`mailto:${site.email}`}
-          className="font-display mt-3 block break-all text-[clamp(1.5rem,4vw,3rem)] leading-tight text-fg underline decoration-accent/40 underline-offset-8 transition hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          className="email-underline font-display mt-3 block w-fit max-w-full break-all text-[clamp(1.5rem,4vw,3rem)] leading-tight text-fg transition-colors hover:text-accent-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
           {site.email}
         </a>

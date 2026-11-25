@@ -264,6 +264,67 @@ body {
   }
 }
 
+/* Skill groups: the same hairline accent grows under the active group. */
+.skill-group {
+  position: relative;
+}
+
+.skill-group::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -0.75rem;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .skill-group:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Contact email: the accent rule is drawn left to right on hover/focus. */
+.email-underline {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .email-underline:hover {
+    background-size: 100% 2px;
+  }
+}
+
+.email-underline:focus-visible {
+  background-size: 100% 2px;
+}
+
+/* Copy success: the icon pops once, the label swap stays aria-live. */
+@keyframes copy-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.copy-email[data-copied="true"] svg {
+  animation: copy-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 /* Native details: content fades/slides in when opened; the icon rotates via
    Tailwind's group-open variant. No JS disclosure. */
 @keyframes details-in {
@@ -287,6 +348,13 @@ details[open] .details-body {
   }
   .work-row::after {
     transition: none;
+  }
+  .skill-group::after,
+  .email-underline {
+    transition: none;
+  }
+  .copy-email[data-copied="true"] svg {
+    animation: none;
   }
   .site-backdrop::before {
     animation: none;
