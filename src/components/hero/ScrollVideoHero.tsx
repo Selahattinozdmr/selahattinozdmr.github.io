@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import type { Dictionary } from "@/content/types";
+import { asset } from "@/lib/asset";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -248,7 +249,7 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/video/hero-poster.jpg"
+          src={asset("/video/hero-poster.jpg")}
           alt=""
           className="absolute inset-0 h-full w-full object-cover opacity-40"
         />
@@ -280,15 +281,15 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
             <video
               ref={videoRef}
               className="absolute inset-0 h-full w-full object-cover"
-              poster="/video/hero-poster.jpg"
+              poster={asset("/video/hero-poster.jpg")}
               muted
               playsInline
               preload="auto"
               aria-hidden="true"
               tabIndex={-1}
             >
-              <source src="/video/hero-mobile.mp4" type="video/mp4" media="(max-width: 767px)" />
-              <source src="/video/hero.mp4" type="video/mp4" />
+              <source src={asset("/video/hero-mobile.mp4")} type="video/mp4" media="(max-width: 767px)" />
+              <source src={asset("/video/hero.mp4")} type="video/mp4" />
             </video>
             <div
               ref={shadeRef}

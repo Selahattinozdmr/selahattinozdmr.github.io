@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary, Locale } from "@/content/types";
 import { site } from "@/content/site";
+import { localeHref } from "@/lib/asset";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import Logo from "@/components/ui/Logo";
 
@@ -79,7 +80,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
             ))}
             <li>
               <a
-                href={`/${other}`}
+                href={localeHref(other)}
                 hrefLang={other}
                 lang={other}
                 aria-label={t.nav.switchLanguage}
@@ -160,7 +161,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
               ))}
             </ul>
             <motion.a
-              href={`/${other}`}
+              href={localeHref(other)}
               hrefLang={other}
               lang={other}
               initial={{ opacity: 0 }}

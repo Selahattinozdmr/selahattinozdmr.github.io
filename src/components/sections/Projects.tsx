@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Dictionary } from "@/content/types";
+import { asset } from "@/lib/asset";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import TiltCard from "@/components/ui/TiltCard";
@@ -24,7 +25,7 @@ export default function Projects({ t }: { t: Dictionary }) {
                     >
                       <div className="relative aspect-[1344/752] w-full overflow-hidden">
                         <Image
-                          src={item.image}
+                          src={asset(item.image)}
                           alt={item.name}
                           width={1344}
                           height={752}

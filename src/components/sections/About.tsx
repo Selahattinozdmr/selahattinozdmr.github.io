@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Dictionary } from "@/content/types";
+import { asset } from "@/lib/asset";
 import Reveal from "@/components/ui/Reveal";
 import TiltCard from "@/components/ui/TiltCard";
 import CountUp from "@/components/ui/CountUp";
@@ -51,7 +52,7 @@ export default function About({ t }: { t: Dictionary }) {
             <TiltCard max={12} className="rounded-3xl">
               <div className="glass overflow-hidden rounded-3xl p-2 shadow-[0_0_60px_-10px_rgb(var(--cyan-rgb)/0.35)]">
                 <Image
-                  src="/images/workstation-desk.jpg"
+                  src={asset("/images/workstation-desk.jpg")}
                   alt=""
                   width={1344}
                   height={752}

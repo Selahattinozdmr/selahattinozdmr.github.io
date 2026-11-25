@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "../../globals.css";
 import { getDictionary, hasLocale, locales } from "@/content";
-import { site } from "@/content/site";
+import { asset, localeHref, siteUrl } from "@/lib/asset";
 import ThemeScript from "@/components/providers/ThemeScript";
 
 const sans = Inter({ subsets: ["latin", "latin-ext"], variable: "--font-inter" });
@@ -19,18 +19,21 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang);
   return {
-    metadataBase: new URL(site.url),
+    metadataBase: new URL(siteUrl),
     title: t.meta.title,
     description: t.meta.description,
-    alternates: { canonical: `/${lang}`, languages: { tr: "/tr", en: "/en" } },
+    alternates: {
+      canonical: localeHref(lang),
+      languages: { tr: localeHref("tr"), en: localeHref("en") },
+    },
     openGraph: {
       title: t.meta.title,
       description: t.meta.description,
-      images: ["/images/og.jpg"],
+      images: [asset("/images/og.jpg")],
       locale: lang === "tr" ? "tr_TR" : "en_US",
       type: "website",
     },
-    twitter: { card: "summary_large_image", title: t.meta.title, images: ["/images/og.jpg"] },
+    twitter: { card: "summary_large_image", title: t.meta.title, images: [asset("/images/og.jpg")] },
   };
 }
 

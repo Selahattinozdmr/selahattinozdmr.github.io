@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useTheme } from "@/components/providers/theme";
+import { asset } from "@/lib/asset";
 
 const MASK = "radial-gradient(circle at 50% 50%, #000 42%, transparent 68%)";
 const PORTAL_MASK = "radial-gradient(circle at 50% 50%, #000 55%, transparent 98%)";
@@ -47,8 +48,8 @@ export default function ContactVideoOrb() {
           ref={ref}
           className={`relative h-full w-full object-cover ${light ? "" : "mix-blend-screen"}`}
           style={{ maskImage: mask, WebkitMaskImage: mask }}
-          src="/video/orb-loop.mp4"
-          poster="/video/orb-poster.jpg"
+          src={asset("/video/orb-loop.mp4")}
+          poster={asset("/video/orb-poster.jpg")}
           muted
           loop
           playsInline
