@@ -66,6 +66,7 @@ export type Dictionary = {
     title: string;
     paragraphs: string[];
     stats: { value: string; label: string }[];
+    pullQuote: string;
   };
   experience: {
     eyebrow: string;

@@ -98,7 +98,6 @@ checks.push(
   [source("src/components/sections/Navbar.tsx").includes("localeHref(other)"), "dil bağlantıları basePath'e duyarlı"],
   [source("src/components/ui/ContactVideoOrb.tsx").includes('asset("/video/orb-loop.mp4")'), "contact video basePath'e duyarlı"],
   [source("src/components/sections/Projects.tsx").includes("asset(item.image)"), "proje görselleri basePath'e duyarlı"],
-  [source("src/components/sections/About.tsx").includes('asset("/images/workstation-desk.jpg")'), "about görseli basePath'e duyarlı"],
   [source("src/app/(root)/page.tsx").includes("basePath"), "kök yönlendirme basePath'e duyarlı"],
   [
     source("src/components/ui/SiteBackdrop.tsx").includes("export default function SiteBackdrop"),
@@ -195,7 +194,13 @@ checks.push(
     source("src/content/tr.ts").includes("GSAP & Motion") && source("src/content/en.ts").includes("GSAP & Motion"),
     "footer metni güncel",
   ],
-  [source("src/components/sections/About.tsx").includes("<figure"), "About görseli figure"],
+);
+
+checks.push(
+  [source("src/components/ui/SectionShell.tsx").includes("export default function SectionShell"), "SectionShell"],
+  [source("src/components/sections/About.tsx").includes("SectionShell"), "About SectionShell kullanıyor"],
+  [!source("src/components/sections/About.tsx").includes("next/image"), "About görseli kalktı"],
+  [source("src/content/tr.ts").includes("pullQuote") && source("src/content/en.ts").includes("pullQuote"), "pull quote içeriği"],
 );
 
 checks.push(

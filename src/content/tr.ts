@@ -50,6 +50,7 @@ const tr: Dictionary = {
       { value: "1", label: "Yayımlanmış makale" },
       { value: "3.42", label: "GNO / 4.00" },
     ],
+    pullQuote: "Doğruluğun ve entegrasyonun kritik olduğu kurumsal backend işleri.",
   },
   experience: {
     eyebrow: "02 — Deneyim",

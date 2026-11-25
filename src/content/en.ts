@@ -50,6 +50,7 @@ const en: Dictionary = {
       { value: "1", label: "Published paper" },
       { value: "3.42", label: "GPA / 4.00" },
     ],
+    pullQuote: "Enterprise backend work where correctness and integration matter.",
   },
   experience: {
     eyebrow: "02 — Experience",
