@@ -147,6 +147,20 @@ checks.push(
   ],
 );
 
+const nav = source("src/components/sections/Navbar.tsx");
+
+checks.push(
+  [
+    nav.includes("const menuRef") && nav.includes("const toggleRef"),
+    "mobil menü ref'leri mevcut",
+  ],
+  [
+    nav.includes('querySelectorAll<HTMLElement>("a[href],button:not([disabled])")'),
+    "mobil menü odak tuzağı",
+  ],
+  [nav.includes("toggle?.focus()"), "odak tetikleyiciye dönüyor"],
+);
+
 let failed = false;
 for (const [ok, label] of checks) {
   console.log(`${ok ? "PASS" : "FAIL"} ${label}`);

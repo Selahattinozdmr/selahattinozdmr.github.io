@@ -15,6 +15,8 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const last = useRef(0);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const reduce = useReducedMotion();
   const other: Locale = lang === "tr" ? "en" : "tr";
 
@@ -34,12 +36,33 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
+    const root = menuRef.current;
+    const toggle = toggleRef.current;
+    root?.querySelector<HTMLElement>("a[href],button")?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || !root) return;
+      const items = [...root.querySelectorAll<HTMLElement>("a[href],button:not([disabled])")];
+      if (!items.length) return;
+      const first = items[0];
+      const lastItem = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        lastItem.focus();
+      } else if (!e.shiftKey && document.activeElement === lastItem) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
     document.documentElement.style.overflow = "hidden";
     return () => {
-      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("keydown", onKey);
       document.documentElement.style.overflow = "";
+      toggle?.focus();
     };
   }, [open]);
 
@@ -103,6 +126,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
             className="relative z-[60]"
           />
           <button
+            ref={toggleRef}
             type="button"
             aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
             aria-expanded={open}
@@ -131,6 +155,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={menuRef}
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
