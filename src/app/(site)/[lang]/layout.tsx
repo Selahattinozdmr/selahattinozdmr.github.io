@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "../../globals.css";
 import { getDictionary, hasLocale, locales } from "@/content";
 import { siteUrl } from "@/lib/asset";
 import ThemeScript from "@/components/providers/ThemeScript";
 
 const sans = Inter({ subsets: ["latin", "latin-ext"], variable: "--font-inter" });
-const display = Space_Grotesk({ subsets: ["latin", "latin-ext"], variable: "--font-grotesk" });
+const serif = Instrument_Serif({
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-serif",
+});
 const mono = JetBrains_Mono({ subsets: ["latin", "latin-ext"], variable: "--font-jetbrains" });
 
 export function generateStaticParams() {
@@ -44,7 +49,7 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
   return (
     <html
       lang={lang}
-      className={`${sans.variable} ${display.variable} ${mono.variable}`}
+      className={`${sans.variable} ${serif.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh bg-bg text-fg">

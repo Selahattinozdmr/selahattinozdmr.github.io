@@ -1,59 +1,54 @@
 @import "tailwindcss";
 
-/* Palette derived from the Higgsfield workstation render.
+/* Warm editorial palette: paper/ink canvas with a single clay accent.
    Dark is the default; <html data-theme="light"> switches to the light palette.
-   --bg-rgb / --cyan-rgb are space-separated channels for rgb(var(--x-rgb) / a). */
+   --bg-rgb / --accent-rgb are space-separated channels for rgb(var(--x-rgb) / a). */
 :root {
-  --bg: #050a18;
-  --bg-rgb: 5 10 24;
-  --bg-elev: #0b1530;
-  --bg-card: rgba(13, 23, 48, 0.82);
-  --line: rgba(140, 180, 255, 0.16);
-  --fg: #e6edf9;
-  --fg-rgb: 230 237 249;
-  --fg-muted: #a6b4d2;
-  --cyan: #22d3ee;
-  --cyan-rgb: 34 211 238;
-  --cyan-soft: rgba(34, 211, 238, 0.15);
-  --orange: #fb923c;
-  --violet: #a78bfa;
-  --on-accent: #050a18;
+  --bg: #0d0b09;
+  --bg-rgb: 13 11 9;
+  --bg-elev: #15110e;
+  --card: rgba(244, 239, 230, 0.04);
+  --line: rgba(244, 239, 230, 0.14);
+  --fg: #f4efe6;
+  --fg-rgb: 244 239 230;
+  --fg-muted: #b8aea2;
+  --accent: #d97745;
+  --accent-rgb: 217 119 69;
+  --accent-ink: #e08a5b;
+  --on-accent: #0d0b09;
   --shadow: rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
 
 :root[data-theme="light"] {
-  --bg: #f3f6fc;
-  --bg-rgb: 243 246 252;
-  --bg-elev: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --line: rgba(15, 40, 90, 0.14);
-  --fg: #0b1530;
-  --fg-rgb: 11 21 48;
-  --fg-muted: #4b5a7a;
-  --cyan: #0e7490;
-  --cyan-rgb: 14 116 144;
-  --cyan-soft: rgba(14, 116, 144, 0.12);
-  --orange: #c2410c;
-  --violet: #7c3aed;
-  --on-accent: #ffffff;
-  --shadow: rgba(15, 40, 90, 0.14);
+  --bg: #f4efe6;
+  --bg-rgb: 244 239 230;
+  --bg-elev: #fbf8f2;
+  --card: rgba(255, 255, 255, 0.55);
+  --line: rgba(26, 21, 18, 0.14);
+  --fg: #1a1512;
+  --fg-rgb: 26 21 18;
+  --fg-muted: #5f574f;
+  --accent: #b8501f;
+  --accent-rgb: 184 80 31;
+  --accent-ink: #9a3d17;
+  --on-accent: #fff8f0;
+  --shadow: rgba(26, 21, 18, 0.14);
   color-scheme: light;
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-elev: var(--bg-elev);
-  --color-card: var(--bg-card);
+  --color-card: var(--card);
   --color-line: var(--line);
   --color-fg: var(--fg);
   --color-muted: var(--fg-muted);
-  --color-cyan: var(--cyan);
-  --color-orange: var(--orange);
-  --color-violet: var(--violet);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
   --color-on-accent: var(--on-accent);
   --font-sans: var(--font-inter);
-  --font-display: var(--font-grotesk);
+  --font-display: var(--font-serif);
   --font-mono: var(--font-jetbrains);
 }
 
@@ -82,8 +77,8 @@ body {
 }
 
 ::selection {
-  background: var(--cyan);
-  color: var(--bg);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 /* Lenis */
@@ -99,17 +94,14 @@ html.lenis body {
 }
 
 .text-gradient {
-  background: linear-gradient(100deg, var(--fg) 20%, var(--cyan) 60%, var(--orange) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--fg);
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
 
 .glass {
-  background: var(--bg-card);
+  background: var(--card);
   border: 1px solid var(--line);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .site-backdrop {
@@ -118,8 +110,8 @@ html.lenis body {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(1100px 560px at 20% -10%, rgb(var(--cyan-rgb) / 0.16), transparent 68%),
-    radial-gradient(900px 520px at 88% 6%, rgb(251 146 60 / 0.12), transparent 66%),
+    radial-gradient(1100px 560px at 20% -10%, rgb(var(--accent-rgb) / 0.16), transparent 68%),
+    radial-gradient(900px 520px at 88% 6%, rgb(var(--accent-rgb) / 0.12), transparent 66%),
     var(--bg);
 }
 
@@ -133,8 +125,8 @@ html.lenis body {
 
 :root[data-theme="light"] .site-backdrop {
   background:
-    radial-gradient(1100px 560px at 20% -10%, rgb(var(--cyan-rgb) / 0.1), transparent 68%),
-    radial-gradient(900px 520px at 88% 6%, rgb(234 88 12 / 0.07), transparent 66%),
+    radial-gradient(1100px 560px at 20% -10%, rgb(var(--accent-rgb) / 0.1), transparent 68%),
+    radial-gradient(900px 520px at 88% 6%, rgb(var(--accent-rgb) / 0.08), transparent 66%),
     var(--bg);
 }
 

@@ -39,6 +39,7 @@ export type Dictionary = {
     switchLanguage: string;
     openMenu: string;
     closeMenu: string;
+    menu: string;
     primary: string;
     themeToLight: string;
     themeToDark: string;

@@ -15,6 +15,7 @@ const en: Dictionary = {
     switchLanguage: "Türkçe",
     openMenu: "Open menu",
     closeMenu: "Close menu",
+    menu: "Menu",
     primary: "Primary",
     themeToLight: "Switch to light theme",
     themeToDark: "Switch to dark theme",

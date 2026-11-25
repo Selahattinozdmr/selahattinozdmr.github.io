@@ -55,7 +55,7 @@ export default function Experience({ t }: { t: Dictionary }) {
           <div aria-hidden className="absolute top-0 bottom-0 left-0 w-px bg-line md:left-[13rem]" />
           <div
             aria-hidden
-            className="tl-line absolute top-0 bottom-0 left-0 w-px origin-top bg-gradient-to-b from-cyan via-cyan to-orange shadow-[0_0_14px_2px_rgb(var(--cyan-rgb)/0.6)] md:left-[13rem]"
+            className="tl-line absolute top-0 bottom-0 left-0 w-px origin-top bg-gradient-to-b from-accent via-accent to-accent-ink shadow-[0_0_14px_2px_rgb(var(--accent-rgb)/0.6)] md:left-[13rem]"
           />
           {e.items.map((item) => (
             <li
@@ -63,20 +63,20 @@ export default function Experience({ t }: { t: Dictionary }) {
               className="tl-item relative pb-12 pl-8 last:pb-0 md:grid md:grid-cols-[13rem_1fr] md:pl-0"
             >
               <div className="mb-3 md:mb-0 md:pr-8 md:text-right">
-                <p className="font-mono text-xs tracking-normal whitespace-nowrap text-cyan uppercase">{item.period}</p>
+                <p className="font-mono text-xs tracking-normal whitespace-nowrap text-accent-ink uppercase">{item.period}</p>
                 <p className="mt-1 font-mono text-xs text-muted">{item.location}</p>
               </div>
               <span
                 aria-hidden
-                className="tl-dot absolute top-1.5 -left-[5px] h-[11px] w-[11px] rounded-full bg-cyan shadow-[0_0_14px_3px_rgb(var(--cyan-rgb)/0.7)] md:left-[13rem] md:-translate-x-1/2"
+                className="tl-dot absolute top-1.5 -left-[5px] h-[11px] w-[11px] rounded-full bg-accent shadow-[0_0_14px_3px_rgb(var(--accent-rgb)/0.7)] md:left-[13rem] md:-translate-x-1/2"
               />
               <div className="glass rounded-2xl p-6 md:ml-10 md:p-7">
                 <h3 className="font-display text-2xl font-bold">{item.role}</h3>
-                <p className="font-display mt-1 text-lg font-semibold text-orange">{item.company}</p>
+                <p className="font-display mt-1 text-lg font-semibold text-accent-ink">{item.company}</p>
                 <ul className="mt-4 space-y-3 text-muted">
                   {item.bullets.map((b) => (
                     <li key={b} className="flex gap-3 leading-relaxed">
-                      <span aria-hidden className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-cyan" />
+                      <span aria-hidden className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
                       <span>{b}</span>
                     </li>
                   ))}

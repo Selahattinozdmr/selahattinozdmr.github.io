@@ -36,11 +36,11 @@ export default function ContactVideoOrb() {
 
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[460px]" aria-hidden="true">
-      {light ? null : <div className="absolute inset-[18%] rounded-full bg-cyan/20 blur-3xl" />}
+      {light ? null : <div className="absolute inset-[18%] rounded-full bg-accent/20 blur-3xl" />}
       <div
         className={
           light
-            ? "absolute inset-[6%] overflow-hidden rounded-full bg-[#0b1530] shadow-[0_24px_70px_-12px_var(--shadow),0_0_0_1px_rgb(var(--cyan-rgb)/0.35),0_0_40px_-6px_rgb(var(--cyan-rgb)/0.35)]"
+            ? "absolute inset-[6%] overflow-hidden rounded-full bg-[#0b1530] shadow-[0_24px_70px_-12px_var(--shadow),0_0_0_1px_rgb(var(--accent-rgb)/0.35),0_0_40px_-6px_rgb(var(--accent-rgb)/0.35)]"
             : "absolute inset-0"
         }
       >

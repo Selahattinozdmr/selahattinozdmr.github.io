@@ -15,6 +15,7 @@ const tr: Dictionary = {
     switchLanguage: "English",
     openMenu: "Menüyü aç",
     closeMenu: "Menüyü kapat",
+    menu: "Menü",
     primary: "Ana menü",
     themeToLight: "Açık temaya geç",
     themeToDark: "Koyu temaya geç",

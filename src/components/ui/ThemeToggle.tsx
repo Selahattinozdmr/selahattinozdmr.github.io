@@ -20,7 +20,7 @@ export default function ThemeToggle({
       aria-label={label}
       title={label}
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line text-muted transition hover:border-cyan/50 hover:text-cyan focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan ${className}`}
+      className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line text-muted transition hover:border-accent/50 hover:text-accent-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${className}`}
     >
       <svg
         viewBox="0 0 24 24"

@@ -67,14 +67,14 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
   }, [open]);
 
   const focus =
-    "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan rounded-sm";
+    "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent rounded-sm";
 
   return (
     <>
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ${
           hidden && !open ? "-translate-y-full" : "translate-y-0"
-        } ${scrolled || open ? "glass border-x-0 border-t-0" : "border-b border-transparent"}`}
+        } ${scrolled || open ? "border-b border-line bg-bg/90 backdrop-blur-md" : "border-b border-transparent"}`}
       >
         <nav
           aria-label={t.nav.primary}
@@ -86,7 +86,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
             className={`group flex items-center gap-3 ${focus}`}
             onClick={() => setOpen(false)}
           >
-            <Logo className="h-9 w-9 drop-shadow-[0_0_10px_rgb(var(--cyan-rgb)/0.35)] transition group-hover:scale-105 group-hover:drop-shadow-[0_0_16px_rgb(var(--cyan-rgb)/0.6)]" />
+            <Logo className="h-9 w-9 drop-shadow-[0_0_10px_rgb(var(--accent-rgb)/0.35)] transition group-hover:scale-105 group-hover:drop-shadow-[0_0_16px_rgb(var(--accent-rgb)/0.6)]" />
             <span className="font-display hidden text-sm font-semibold tracking-wide sm:block">{site.name}</span>
           </a>
 
@@ -107,9 +107,9 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
                 hrefLang={other}
                 lang={other}
                 aria-label={t.nav.switchLanguage}
-                className={`flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-mono text-xs text-muted transition hover:border-cyan/50 hover:text-fg ${focus}`}
+                className={`flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-mono text-xs text-muted transition hover:border-accent/50 hover:text-fg ${focus}`}
               >
-                <span className="text-cyan">{lang.toUpperCase()}</span>
+                <span className="text-accent-ink">{lang.toUpperCase()}</span>
                 <span aria-hidden>→</span>
                 <span>{other.toUpperCase()}</span>
               </a>
@@ -159,7 +159,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
-            aria-label="Menu"
+            aria-label={t.nav.menu}
             initial={reduce ? { opacity: 0 } : { clipPath: "circle(0% at calc(100% - 38px) 32px)" }}
             animate={reduce ? { opacity: 1 } : { clipPath: "circle(150% at calc(100% - 38px) 32px)" }}
             exit={reduce ? { opacity: 0 } : { clipPath: "circle(0% at calc(100% - 38px) 32px)" }}
@@ -179,7 +179,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
                     onClick={() => setOpen(false)}
                     className={`font-display flex items-baseline gap-4 text-4xl font-bold ${focus}`}
                   >
-                    <span className="font-mono text-sm text-cyan">0{i + 1}</span>
+                    <span className="font-mono text-sm text-accent-ink">0{i + 1}</span>
                     {t.nav[k]}
                   </a>
                 </motion.li>
@@ -194,7 +194,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
               transition={{ delay: 0.6 }}
               className={`mt-12 inline-flex w-fit items-center gap-3 rounded-full border border-line px-4 py-2 font-mono text-sm ${focus}`}
             >
-              <span className="text-cyan">{lang.toUpperCase()}</span>
+              <span className="text-accent-ink">{lang.toUpperCase()}</span>
               <span aria-hidden>→</span>
               <span>{t.nav.switchLanguage}</span>
             </motion.a>

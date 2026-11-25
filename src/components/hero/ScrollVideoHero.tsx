@@ -28,7 +28,7 @@ function Intro({ t }: { t: Dictionary }) {
     <>
       <p
         data-intro
-        className="font-mono text-xs tracking-[0.25em] text-cyan uppercase sm:text-sm"
+        className="font-mono text-xs tracking-[0.25em] text-accent-ink uppercase sm:text-sm"
       >
         {t.hero.greeting}
       </p>
@@ -61,13 +61,13 @@ function Intro({ t }: { t: Dictionary }) {
       >
         <a
           href="#projects"
-          className="bg-cyan text-on-accent rounded-full px-5 py-2.5 text-sm font-semibold shadow-[0_0_30px_rgb(var(--cyan-rgb)/0.35)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+          className="bg-accent text-on-accent rounded-full px-5 py-2.5 text-sm font-semibold shadow-[0_0_30px_rgb(var(--accent-rgb)/0.35)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {t.hero.ctaProjects}
         </a>
         <a
           href="#contact"
-          className="glass text-fg hover:border-cyan/50 rounded-full px-5 py-2.5 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+          className="glass text-fg hover:border-accent/50 rounded-full px-5 py-2.5 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {t.hero.ctaContact}
         </a>
@@ -299,10 +299,10 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
             />
             <div
               ref={glowRef}
-              className="pointer-events-none absolute inset-0 rounded-[inherit] border border-cyan/60"
+              className="pointer-events-none absolute inset-0 rounded-[inherit] border border-accent/60"
               style={{
                 boxShadow:
-                  "0 0 60px rgb(var(--cyan-rgb) / 0.35), inset 0 0 40px rgb(var(--cyan-rgb) / 0.12), 0 24px 60px -20px var(--shadow)",
+                  "0 0 60px rgb(var(--accent-rgb) / 0.35), inset 0 0 40px rgb(var(--accent-rgb) / 0.12), 0 24px 60px -20px var(--shadow)",
               }}
             />
           </div>
@@ -323,7 +323,7 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
         >
           <span className="text-center">{t.hero.scrollHint}</span>
           <span className="border-fg/40 relative flex h-8 w-5 justify-center rounded-full border">
-            <span className="bg-cyan mt-1.5 h-1.5 w-1 animate-bounce rounded-full" />
+            <span className="bg-accent mt-1.5 h-1.5 w-1 animate-bounce rounded-full" />
           </span>
         </div>
 
@@ -331,7 +331,7 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
         <div className="bg-fg/10 absolute inset-x-0 bottom-0 z-30 h-[2px]">
           <div
             ref={barRef}
-            className="bg-cyan h-full origin-left shadow-[0_0_10px_var(--cyan)]"
+            className="bg-accent h-full origin-left shadow-[0_0_10px_var(--accent-ink)]"
             style={{ transform: "scaleX(0)" }}
           />
         </div>

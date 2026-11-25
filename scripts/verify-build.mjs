@@ -150,13 +150,42 @@ const sectionFiles = ["About", "Experience", "Projects", "Skills", "Education", 
 const globals = source("src/app/globals.css");
 
 checks.push(
+  [globals.includes("--bg: #0d0b09;"), "koyu kanvas"],
+  [globals.includes("--bg: #f4efe6;"), "açık kanvas"],
+  [globals.includes("--accent: #d97745;"), "koyu accent"],
+  [globals.includes("--accent: #b8501f;"), "açık accent"],
+  [globals.includes("--accent-ink: #e08a5b;"), "koyu accent metin"],
+  [globals.includes("--accent-ink: #9a3d17;"), "açık accent metin"],
+  [globals.includes("--font-display: var(--font-serif)"), "serif display token'ı"],
+  [!(/--cyan|--orange|--violet/.test(globals)), "eski renk token'ları kalktı"],
+  [source("src/app/(site)/[lang]/layout.tsx").includes("Instrument_Serif"), "Instrument Serif yüklü"],
+  [!source("src/app/(site)/[lang]/layout.tsx").includes("Space_Grotesk"), "Space Grotesk kalktı"],
+  [
+    !/(text|bg|border|outline|decoration|from|via|to)-(cyan|orange)/.test(
+      [...sectionFiles, "src/app/(root)/page.tsx", "src/components/hero/ScrollVideoHero.tsx",
+       "src/components/ui/ContactVideoOrb.tsx", "src/components/ui/CopyEmailButton.tsx",
+       "src/components/ui/SectionHeading.tsx", "src/components/ui/ThemeToggle.tsx", "src/components/ui/Logo.tsx"]
+        .map(source).join("\n"),
+    ),
+    "cyan/orange sınıfları kalktı",
+  ],
+  [
+    !/var\(--(cyan|orange)/.test(
+      [...sectionFiles, "src/app/globals.css", "src/components/hero/ScrollVideoHero.tsx",
+       "src/components/ui/ContactVideoOrb.tsx", "src/components/ui/Logo.tsx"].map(source).join("\n"),
+    ),
+    "eski renk değişkenleri kalktı",
+  ],
+  [source("src/components/ui/Logo.tsx").includes("var(--accent)"), "logo accent kullanıyor"],
+  [!source("src/app/icon.svg").includes("#22d3ee") && !source("src/app/icon.svg").includes("#fb923c"), "favicon yeni palet"],
+  [source("src/content/tr.ts").includes('menu: "Menü"'), "TR menü etiketi"],
+  [source("src/content/en.ts").includes('menu: "Menu"'), "EN menü etiketi"],
+);
+
+checks.push(
   [!existsSync("src/components/ui/TiltCard.tsx"), "TiltCard silindi"],
   [sectionFiles.every((f) => !source(f).includes("TiltCard")), "bölümler TiltCard kullanmıyor"],
   [sectionFiles.every((f) => !source(f).includes("py-28 md:py-40")), "bölüm boşlukları sıkılaştı"],
-  [globals.includes("--bg-card: rgba(13, 23, 48, 0.82)"), "koyu tema kart opaklığı"],
-  [globals.includes("--fg-muted: #a6b4d2"), "koyu tema metin kontrastı"],
-  [globals.includes("--bg-card: rgba(255, 255, 255, 0.9)"), "açık tema kart opaklığı"],
-  [!globals.includes("blur(14px)") && globals.includes("blur(8px)"), "glass blur azaltıldı"],
   [!source("src/components/ui/SectionHeading.tsx").includes("md:text-6xl"), "başlık ölçeği sakinleşti"],
   [
     source("src/components/sections/Experience.tsx").includes("whitespace-nowrap") &&
@@ -237,16 +266,17 @@ const contrast = (a, b) => {
   return (high + 0.05) / (low + 0.05);
 };
 
-for (const [themeName, block] of [
-  ["koyu", darkBlock],
-  ["açık", lightBlock],
-]) {
+for (const [themeName, block] of [["koyu", darkBlock], ["açık", lightBlock]]) {
   const bg = hex(token(block, "bg"));
-  for (const colorName of ["cyan", "orange", "fg-muted"]) {
-    const fg = hex(token(block, colorName));
+  for (const name of ["accent-ink", "fg-muted"]) {
+    const fg = hex(token(block, name));
     const ratio = bg && fg ? contrast(fg, bg) : 0;
-    checks.push([ratio >= 4.5, `${themeName} tema ${colorName} AA (${ratio ? ratio.toFixed(2) : "?"})`]);
+    checks.push([ratio >= 4.5, `${themeName} ${name} AA (${ratio ? ratio.toFixed(2) : "?"})`]);
   }
+  const accent = hex(token(block, "accent"));
+  const onAccent = hex(token(block, "on-accent"));
+  const ratio = accent && onAccent ? contrast(onAccent, accent) : 0;
+  checks.push([ratio >= 4.5, `${themeName} on-accent AA (${ratio ? ratio.toFixed(2) : "?"})`]);
 }
 
 let failed = false;

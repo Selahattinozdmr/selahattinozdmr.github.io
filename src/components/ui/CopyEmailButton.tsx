@@ -31,7 +31,7 @@ export default function CopyEmailButton({
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-2 rounded-full border border-line bg-fg/[0.04] px-6 py-3 text-sm font-medium text-fg transition hover:border-cyan/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
+      className="inline-flex items-center gap-2 rounded-full border border-line bg-fg/[0.04] px-6 py-3 text-sm font-medium text-fg transition hover:border-accent/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
     >
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         {copied ? (

@@ -5,7 +5,7 @@ import Reveal from "@/components/ui/Reveal";
 import CopyEmailButton from "@/components/ui/CopyEmailButton";
 
 const iconBtn =
-  "grid h-11 w-11 place-items-center rounded-full border border-line text-muted transition hover:border-cyan/50 hover:text-cyan focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan";
+  "grid h-11 w-11 place-items-center rounded-full border border-line text-muted transition hover:border-accent/50 hover:text-accent-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 export default function Contact({ t, children }: { t: Dictionary; children?: ReactNode }) {
   const c = t.contact;
@@ -16,7 +16,7 @@ export default function Contact({ t, children }: { t: Dictionary; children?: Rea
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div>
           <Reveal>
-            <p className="font-mono text-sm tracking-widest text-cyan uppercase">{c.eyebrow}</p>
+            <p className="font-mono text-sm tracking-widest text-accent-ink uppercase">{c.eyebrow}</p>
             <h2
               id="contact-title"
               className="font-display text-gradient mt-4 text-4xl leading-[1.02] font-bold tracking-tight sm:text-5xl"
@@ -29,14 +29,14 @@ export default function Contact({ t, children }: { t: Dictionary; children?: Rea
             <p className="mt-8 font-mono text-xs tracking-widest text-muted uppercase">{c.emailLabel}</p>
             <a
               href={`mailto:${site.email}`}
-              className="font-display mt-2 block text-xl font-semibold break-all text-fg underline decoration-cyan/40 underline-offset-8 transition hover:decoration-cyan focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan sm:text-2xl"
+              className="font-display mt-2 block text-xl font-semibold break-all text-fg underline decoration-accent/40 underline-offset-8 transition hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:text-2xl"
             >
               {site.email}
             </a>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href={`mailto:${site.email}`}
-                className="inline-flex items-center gap-2 rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-on-accent shadow-[0_0_30px_-4px_rgb(var(--cyan-rgb)/0.6)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent shadow-[0_0_30px_-4px_rgb(var(--accent-rgb)/0.6)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               >
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                   <rect x="3" y="5" width="18" height="14" rx="2" />

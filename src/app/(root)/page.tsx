@@ -12,7 +12,7 @@ export default function RootPage() {
     <main className="grid min-h-dvh place-items-center p-6 text-center">
       <meta httpEquiv="refresh" content={`0; url=${basePath}/tr/`} />
       <p className="text-muted">
-        <Link href="/tr/" className="text-cyan underline">
+        <Link href="/tr/" className="text-accent-ink underline">
           Devam et / Continue
         </Link>
       </p>

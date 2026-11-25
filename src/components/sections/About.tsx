@@ -11,7 +11,7 @@ export default function About({ t }: { t: Dictionary }) {
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
         <div>
           <Reveal>
-            <p className="font-mono text-sm tracking-widest text-cyan uppercase">{a.eyebrow}</p>
+            <p className="font-mono text-sm tracking-widest text-accent-ink uppercase">{a.eyebrow}</p>
             <h2
               id="about-title"
               className="font-display mt-4 text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl"

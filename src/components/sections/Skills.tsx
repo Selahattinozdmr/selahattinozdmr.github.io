@@ -7,7 +7,7 @@ export default function Skills({ t }: { t: Dictionary }) {
     <section id="skills" aria-labelledby="skills-title" className="relative py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
-          <p className="font-mono text-sm tracking-widest text-cyan uppercase">{s.eyebrow}</p>
+          <p className="font-mono text-sm tracking-widest text-accent-ink uppercase">{s.eyebrow}</p>
           <h2
             id="skills-title"
             className="font-display mt-4 text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
@@ -20,7 +20,7 @@ export default function Skills({ t }: { t: Dictionary }) {
           {s.groups.map((g, i) => (
             <Reveal key={g.title} delay={0.04 * i} y={20} className="h-full">
               <div className="glass h-full rounded-2xl p-6">
-                <h3 className="font-mono text-xs tracking-widest text-orange uppercase">{g.title}</h3>
+                <h3 className="font-mono text-xs tracking-widest text-accent-ink uppercase">{g.title}</h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {g.items.map((it) => (
                     <li
