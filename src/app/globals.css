@@ -144,6 +144,72 @@ body {
   }
 }
 
+/* Hero intro: pure CSS keyframes so the stagger runs with JS disabled too. */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+[data-hero] {
+  animation: hero-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+[data-hero][data-delay="1"] {
+  animation-delay: 0.06s;
+}
+
+[data-hero][data-delay="2"] {
+  animation-delay: 0.12s;
+}
+
+[data-hero][data-delay="3"] {
+  animation-delay: 0.18s;
+}
+
+[data-hero][data-delay="4"] {
+  animation-delay: 0.24s;
+}
+
+[data-hero][data-delay="5"] {
+  animation-delay: 0.3s;
+}
+
+/* Local pointer spotlight: a decorative radial sheen driven by CSS vars. */
+.spotlight {
+  position: relative;
+  --spot-x: 50%;
+  --spot-y: 50%;
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    220px circle at var(--spot-x) var(--spot-y),
+    rgb(var(--accent-rgb) / 0.14),
+    transparent 70%
+  );
+  transition: opacity 0.3s ease;
+}
+
+.spotlight[data-spot="on"]::before {
+  opacity: 1;
+}
+
+.magnetic {
+  transition: transform 0.2s ease;
+}
+
 .site-backdrop::after {
   content: "";
   position: absolute;
@@ -164,6 +230,18 @@ body {
   }
   .site-backdrop::before {
     animation: none;
+  }
+  [data-hero] {
+    animation: none !important;
+  }
+  .availability-dot {
+    animation: none !important;
+  }
+  .spotlight::before {
+    display: none;
+  }
+  .magnetic {
+    transition: none;
   }
   *,
   *::before,

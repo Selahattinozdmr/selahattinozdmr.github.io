@@ -344,6 +344,13 @@ checks.push(
   [globals.includes("gridDrift") || globals.includes("grid-drift"), "grid drift keyframes"],
 );
 
+checks.push(
+  [source("src/components/hero/Hero.tsx").includes("CursorSpotlight"), "hero spotlight"],
+  [source("src/components/hero/Hero.tsx").includes("Magnetic"), "hero magnetic"],
+  [source("src/components/hero/Hero.tsx").includes("data-hero"), "hero CSS giriş"],
+  [globals.includes("hero-in") || globals.includes("heroIn"), "hero keyframes"],
+);
+
 const darkBlock = globals.match(/:root\s*\{([\s\S]*?)\}/)?.[1] ?? "";
 const lightBlock = globals.match(/:root\[data-theme="light"\]\s*\{([\s\S]*?)\}/)?.[1] ?? "";
 const token = (block, name) => block.match(new RegExp(`--${name}:\\s*([^;]+);`))?.[1]?.trim();
