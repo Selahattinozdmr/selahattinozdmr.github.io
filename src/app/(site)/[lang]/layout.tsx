@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
-import "../globals.css";
+import "../../globals.css";
 import { getDictionary, hasLocale, locales } from "@/content";
 import { site } from "@/content/site";
 import ThemeScript from "@/components/providers/ThemeScript";
