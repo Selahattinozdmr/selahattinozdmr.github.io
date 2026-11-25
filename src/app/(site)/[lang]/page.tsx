@@ -8,7 +8,6 @@ import About from "@/components/sections/About";
 import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
-import SkillsGlobe from "@/components/three/SkillsGlobe";
 import Education from "@/components/sections/Education";
 import Contact from "@/components/sections/Contact";
 import ContactVideoOrb from "@/components/ui/ContactVideoOrb";
@@ -28,9 +27,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <About t={t} />
         <Experience t={t} />
         <Projects t={t} />
-        <Skills t={t}>
-          <SkillsGlobe hint={t.skills.dragHint} />
-        </Skills>
+        <Skills t={t} />
         <Education t={t} />
         <Contact t={t}>
           <ContactVideoOrb />

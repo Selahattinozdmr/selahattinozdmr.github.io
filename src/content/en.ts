@@ -125,7 +125,6 @@ const en: Dictionary = {
     eyebrow: "04 — Skills",
     title: "My toolbox",
     subtitle: "From enterprise Java to mobile and machine learning.",
-    dragHint: "Drag to rotate",
     groups: [
       { title: "Languages", items: ["TypeScript", "JavaScript", "Java", "Python 3", "C#", "SQL"] },
       { title: "Web & Mobile", items: ["React", "React Native", "Next.js", "Tailwind CSS"] },

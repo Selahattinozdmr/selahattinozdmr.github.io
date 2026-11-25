@@ -81,6 +81,32 @@ checks.push(
   [source("src/app/globals.css").includes(".site-backdrop"), "backdrop CSS mevcut"],
 );
 
+const pkg = JSON.parse(source("package.json"));
+const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+
+checks.push(
+  [source("src/components/sections/Skills.tsx").includes("lg:grid-cols-3"), "yetenekler chip matrisi"],
+  [!source("src/components/sections/Skills.tsx").includes("children"), "Skills children prop'u kalktı"],
+  [
+    source("src/app/(site)/[lang]/page.tsx").includes("<Skills t={t} />") &&
+      !source("src/app/(site)/[lang]/page.tsx").includes("SkillsGlobe"),
+    "sayfa küresiz Skills kullanıyor",
+  ],
+  [
+    !existsSync("src/components/three/SkillsGlobe.tsx") &&
+      !existsSync("src/components/three/SkillsGlobeScene.tsx") &&
+      !existsSync("src/content/skills.ts"),
+    "eski küre dosyaları silinmiş",
+  ],
+  [!('three' in deps) && !('@react-three/fiber' in deps) && !('@react-three/drei' in deps), "three bağımlılıkları kalktı"],
+  [
+    !source("src/content/types.ts").includes("dragHint") &&
+      !source("src/content/tr.ts").includes("dragHint") &&
+      !source("src/content/en.ts").includes("dragHint"),
+    "dragHint sözlükten kalktı",
+  ],
+);
+
 let failed = false;
 for (const [ok, label] of checks) {
   console.log(`${ok ? "PASS" : "FAIL"} ${label}`);

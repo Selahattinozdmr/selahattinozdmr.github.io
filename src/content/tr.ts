@@ -125,7 +125,6 @@ const tr: Dictionary = {
     eyebrow: "04 — Yetenekler",
     title: "Araç kutum",
     subtitle: "Kurumsal Java'dan mobile ve makine öğrenmesine.",
-    dragHint: "Döndürmek için sürükle",
     groups: [
       { title: "Programlama Dilleri", items: ["TypeScript", "JavaScript", "Java", "Python 3", "C#", "SQL"] },
       { title: "Web & Mobil", items: ["React", "React Native", "Next.js", "Tailwind CSS"] },

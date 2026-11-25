@@ -76,7 +76,6 @@ export type Dictionary = {
     title: string;
     subtitle: string;
     groups: SkillGroup[];
-    dragHint: string;
   };
   education: {
     eyebrow: string;
