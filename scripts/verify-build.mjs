@@ -66,8 +66,22 @@ const metaContent = (html, prop) => {
 };
 
 const plainTr = tr.replace(/<!--[\s\S]*?-->/g, "");
+const sectionById = (html, id) => {
+  const start = html.search(new RegExp(`<section[^>]*id="${id}"`));
+  if (start === -1) return null;
+  const end = html.indexOf("</section>", start);
+  return end === -1 ? null : html.slice(start, end);
+};
+const h3Count = (html, id) => {
+  const section = sectionById(html, id);
+  return section ? [...section.matchAll(/<h3\b/g)].length : -1;
+};
 
 checks.push(
+  [h3Count(tr, "skills") === 3, `TR yetenek grupları tam 3 h3 (${h3Count(tr, "skills")})`],
+  [h3Count(en, "skills") === 3, `EN yetenek grupları tam 3 h3 (${h3Count(en, "skills")})`],
+  [tr.includes("Next.js, Motion &amp; Tailwind ile geliştirildi"), "TR footer metni birebir"],
+  [en.includes("Built with Next.js, Motion &amp; Tailwind"), "EN footer metni birebir"],
   [pathOf(hrefOf(findLink(tr, "canonical"))) === `${base}/tr/`, "TR canonical basePath bir kez"],
   [pathOf(hrefOf(findLink(en, "canonical"))) === `${base}/en/`, "EN canonical basePath bir kez"],
   [pathOf(hrefOf(findLink(tr, "alternate", "tr"))) === `${base}/tr/`, "TR hreflang basePath bir kez"],
@@ -187,9 +201,9 @@ checks.push(
   [sectionFiles.every((f) => !source(f).includes("TiltCard")), "bölümler TiltCard kullanmıyor"],
   [sectionFiles.every((f) => !source(f).includes("py-28 md:py-40")), "bölüm boşlukları sıkılaştı"],
   [
-    source("src/content/tr.ts").includes("Motion & Tailwind") &&
-      source("src/content/en.ts").includes("Motion & Tailwind"),
-    "footer metni güncel",
+    source("src/content/tr.ts").includes('builtWith: "Next.js, Motion & Tailwind ile geliştirildi"') &&
+      source("src/content/en.ts").includes('builtWith: "Built with Next.js, Motion & Tailwind"'),
+    "footer metni birebir",
   ],
   [source("src/components/sections/Education.tsx").includes("SectionShell"), "Education SectionShell"],
   [!source("src/content/types.ts").includes("score: number"), "dil score kalktı"],
@@ -295,7 +309,9 @@ checks.push(
   [
     !existsSync("src/components/hero/ScrollVideoHero.tsx") &&
       !existsSync("src/components/ui/ContactVideoOrb.tsx") &&
-      !existsSync("src/components/providers/SmoothScroll.tsx"),
+      !existsSync("src/components/ui/SectionHeading.tsx") &&
+      !existsSync("src/components/providers/SmoothScroll.tsx") &&
+      !existsSync("public/video"),
     "legacy bileşenler silindi",
   ],
   [
