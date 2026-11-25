@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import type { Project } from "@/content/types";
 import { asset } from "@/lib/asset";
@@ -20,6 +20,7 @@ const PREVIEW_HEIGHT = Math.round((PREVIEW_WIDTH * 314) / 560);
 export default function WorkRow({ project, index, labels }: Props) {
   const [enabled, setEnabled] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const hoverRef = useRef(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const opacity = useMotionValue(0);
@@ -39,23 +40,45 @@ export default function WorkRow({ project, index, labels }: Props) {
     };
   }, []);
 
-  const place = (clientX: number, clientY: number) => {
+  const target = (clientX: number, clientY: number) => {
     const maxX = Math.max(16, window.innerWidth - PREVIEW_WIDTH - 16);
     const maxY = Math.max(16, window.innerHeight - PREVIEW_HEIGHT - 16);
-    x.set(Math.max(16, Math.min(clientX + 24, maxX)));
-    y.set(Math.max(16, Math.min(clientY + 24, maxY)));
+    return {
+      x: Math.max(16, Math.min(clientX + 24, maxX)),
+      y: Math.max(16, Math.min(clientY + 24, maxY)),
+    };
+  };
+
+  const place = (clientX: number, clientY: number) => {
+    const next = target(clientX, clientY);
+    x.set(next.x);
+    y.set(next.y);
   };
 
   const handlePointerEnter = (event: PointerEvent<HTMLLIElement>) => {
     if (!enabled) return;
-    place(event.clientX, event.clientY);
+    const next = target(event.clientX, event.clientY);
+    x.set(next.x);
+    y.set(next.y);
+    springX.jump(next.x);
+    springY.jump(next.y);
+    opacity.set(0);
+    hoverRef.current = true;
     setHovered(true);
-    opacity.set(1);
+    requestAnimationFrame(() => {
+      if (hoverRef.current) opacity.set(1);
+    });
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLLIElement>) => {
-    if (!enabled || !hovered) return;
+    if (!enabled || !hoverRef.current) return;
     place(event.clientX, event.clientY);
+    opacity.set(1);
+  };
+
+  const handlePointerLeave = () => {
+    hoverRef.current = false;
+    opacity.set(0);
   };
 
   return (
@@ -63,7 +86,7 @@ export default function WorkRow({ project, index, labels }: Props) {
       className="work-row grid gap-4 border-t border-line py-10 md:grid-cols-[3rem_1fr_auto] md:gap-8"
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
-      onPointerLeave={() => opacity.set(0)}
+      onPointerLeave={handlePointerLeave}
     >
       <span className="font-mono text-xs uppercase tracking-[0.16em] text-muted">
         {String(index + 1).padStart(2, "0")}
