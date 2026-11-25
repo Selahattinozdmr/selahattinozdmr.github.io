@@ -14,6 +14,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
   const last = useRef(0);
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -32,6 +33,25 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const sections = links
+      .map((k) => document.getElementById(k))
+      .filter((el): el is HTMLElement => el !== null);
+    if (!sections.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const current = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (current) setActive(current.target.id);
+      },
+      { rootMargin: "-40% 0px -50% 0px" },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -72,6 +92,7 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
   return (
     <>
       <header
+        inert={hidden && !open ? true : undefined}
         className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ${
           hidden && !open ? "-translate-y-full" : "translate-y-0"
         } ${scrolled || open ? "border-b border-line bg-bg/90 backdrop-blur-md" : "border-b border-transparent"}`}
@@ -95,7 +116,12 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
               <li key={k}>
                 <a
                   href={`#${k}`}
-                  className={`text-sm text-muted transition-colors hover:text-fg ${focus}`}
+                  aria-current={active === k ? "true" : undefined}
+                  className={`after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-accent after:content-[''] relative py-1 text-sm transition-colors ${
+                    active === k
+                      ? "text-fg after:scale-x-100"
+                      : "text-muted after:scale-x-0 hover:text-fg hover:after:scale-x-100"
+                  } after:transition-transform ${focus}`}
                 >
                   {t.nav[k]}
                 </a>
@@ -163,41 +189,55 @@ export default function Navbar({ t, lang }: { t: Dictionary; lang: Locale }) {
             initial={reduce ? { opacity: 0 } : { clipPath: "circle(0% at calc(100% - 38px) 32px)" }}
             animate={reduce ? { opacity: 1 } : { clipPath: "circle(150% at calc(100% - 38px) 32px)" }}
             exit={reduce ? { opacity: 0 } : { clipPath: "circle(0% at calc(100% - 38px) 32px)" }}
-            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 flex flex-col justify-center bg-bg/95 px-8 backdrop-blur-xl md:hidden"
+            transition={reduce ? { duration: 0 } : { duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+            className="nav-grid fixed inset-0 z-40 overflow-y-auto bg-bg/95 backdrop-blur-xl md:hidden"
           >
-            <ul className="space-y-5">
-              {links.map((k, i) => (
-                <motion.li
-                  key={k}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 + i * 0.07, duration: 0.5 }}
-                >
-                  <a
-                    href={`#${k}`}
-                    onClick={() => setOpen(false)}
-                    className={`font-display flex items-baseline gap-4 text-4xl font-bold ${focus}`}
+            <div className="relative mx-auto flex min-h-full max-w-6xl flex-col justify-center px-8 py-24">
+              <div className="mb-6 flex items-baseline justify-between border-b border-line pb-3 font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
+                <span>{t.nav.menu}</span>
+                <span className="text-accent-ink" aria-hidden>
+                  / {String(links.length).padStart(2, "0")}
+                </span>
+              </div>
+              <ul className="border-t border-line">
+                {links.map((k, i) => (
+                  <motion.li
+                    key={k}
+                    initial={reduce ? false : { opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={reduce ? { duration: 0 } : { delay: 0.15 + i * 0.07, duration: 0.5 }}
+                    className="border-b border-line"
                   >
-                    <span className="font-mono text-sm text-accent-ink">0{i + 1}</span>
-                    {t.nav[k]}
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-            <motion.a
-              href={localeHref(other)}
-              hrefLang={other}
-              lang={other}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className={`mt-12 inline-flex w-fit items-center gap-3 rounded-full border border-line px-4 py-2 font-mono text-sm ${focus}`}
-            >
-              <span className="text-accent-ink">{lang.toUpperCase()}</span>
-              <span aria-hidden>→</span>
-              <span>{t.nav.switchLanguage}</span>
-            </motion.a>
+                    <a
+                      href={`#${k}`}
+                      onClick={() => setOpen(false)}
+                      aria-current={active === k ? "true" : undefined}
+                      className={`group flex items-baseline gap-4 py-5 font-display text-4xl font-bold transition-colors ${
+                        active === k ? "text-accent-ink" : "text-fg hover:text-accent-ink"
+                      } ${focus}`}
+                    >
+                      <span className={`font-mono text-sm ${active === k ? "text-accent-ink" : "text-muted"}`}>
+                        0{i + 1}
+                      </span>
+                      {t.nav[k]}
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.a
+                href={localeHref(other)}
+                hrefLang={other}
+                lang={other}
+                initial={reduce ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={reduce ? { duration: 0 } : { delay: 0.6 }}
+                className={`mt-12 inline-flex w-fit items-center gap-3 rounded-full border border-line px-4 py-2 font-mono text-sm transition-colors hover:border-accent/50 ${focus}`}
+              >
+                <span className="text-accent-ink">{lang.toUpperCase()}</span>
+                <span aria-hidden>→</span>
+                <span>{t.nav.switchLanguage}</span>
+              </motion.a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

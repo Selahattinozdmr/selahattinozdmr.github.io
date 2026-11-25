@@ -206,6 +206,21 @@ body {
   opacity: 1;
 }
 
+/* Mobile menu panel: a faint hairline grid for the technical system. */
+.nav-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 20%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 50% 20%, #000 0%, transparent 78%);
+}
+
 .magnetic {
   transition: transform 0.2s ease;
 }

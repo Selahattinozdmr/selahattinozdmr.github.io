@@ -287,6 +287,10 @@ checks.push(
     "mobil menü odak tuzağı",
   ],
   [nav.includes("toggle?.focus()"), "odak tetikleyiciye dönüyor"],
+  [nav.includes("IntersectionObserver"), "navbar active observer"],
+  [nav.includes("inert={hidden"), "hidden nav inert"],
+  [nav.includes("active"), "navbar active state"],
+  [nav.includes("md:hidden"), "mobile menu korunuyor"],
 );
 
 const workflow = source(".github/workflows/deploy.yml");
