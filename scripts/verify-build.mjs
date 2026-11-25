@@ -161,6 +161,24 @@ checks.push(
   [nav.includes("toggle?.focus()"), "odak tetikleyiciye dönüyor"],
 );
 
+const workflow = source(".github/workflows/deploy.yml");
+const readme = source("README.md");
+
+checks.push(
+  [
+    workflow.includes("actions/deploy-pages@v4") &&
+      workflow.includes("npm run verify") &&
+      workflow.includes("NEXT_PUBLIC_BASE_PATH") &&
+      workflow.includes("branches: [main]"),
+    "deploy workflow mevcut",
+  ],
+  [
+    readme.includes("selahattinozdmr.github.io") && readme.includes("GitHub Actions"),
+    "README yayın talimatı",
+  ],
+  [source("docs/PLAN.md").includes("Superseded"), "eski plan superseded notlu"],
+);
+
 let failed = false;
 for (const [ok, label] of checks) {
   console.log(`${ok ? "PASS" : "FAIL"} ${label}`);

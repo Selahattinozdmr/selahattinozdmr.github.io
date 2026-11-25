@@ -1,3 +1,6 @@
+> **Superseded:** Bu belge ilk 3B sürümü anlatır. Güncel tasarım:
+> [2026-11-25 portfolio design](superpowers/specs/2026-11-25-portfolio-simplify-github-pages-design.md).
+
 # 3D Portfolio — Plan
 
 ## Concept: "Step into the workspace"
