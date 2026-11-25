@@ -273,6 +273,11 @@ checks.push(
   [source("src/components/work/WorkRow.tsx").includes("<details"), "vaka notu details"],
   [source("src/components/sections/Projects.tsx").includes("WorkRow"), "Projects WorkRow kullanıyor"],
   [source("src/components/sections/Projects.tsx").includes("SectionShell"), "Projects SectionShell"],
+  [source("src/components/work/WorkRow.tsx").includes("useSpring"), "preview spring"],
+  [source("src/components/work/WorkRow.tsx").includes("onPointerEnter"), "preview mount on hover"],
+  [source("src/components/work/WorkRow.tsx").includes("aria-label"), "project link context"],
+  [source("src/components/work/CompactWorkRow.tsx").includes("aria-label"), "compact link context"],
+  [globals.includes("details[open]") || globals.includes("details summary"), "details motion"],
 );
 
 const nav = source("src/components/sections/Navbar.tsx");

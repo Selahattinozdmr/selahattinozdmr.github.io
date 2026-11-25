@@ -18,6 +18,7 @@ export default function CompactWorkRow({ project, labels }: Props) {
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`${project.name} — ${project.linkLabel ?? labels.visit}`}
           className="w-fit text-sm text-accent-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
           {project.linkLabel ?? labels.visit}

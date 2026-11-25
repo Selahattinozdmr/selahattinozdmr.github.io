@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState, type PointerEvent } from "react";
+import { motion, useMotionValue, useSpring } from "motion/react";
 import type { Project } from "@/content/types";
 import { asset } from "@/lib/asset";
 
@@ -18,8 +19,12 @@ const PREVIEW_HEIGHT = Math.round((PREVIEW_WIDTH * 314) / 560);
 
 export default function WorkRow({ project, index, labels }: Props) {
   const [enabled, setEnabled] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const opacity = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 160, damping: 20 });
+  const springY = useSpring(y, { stiffness: 160, damping: 20 });
 
   useEffect(() => {
     const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -34,22 +39,31 @@ export default function WorkRow({ project, index, labels }: Props) {
     };
   }, []);
 
-  const handlePointerMove = (event: PointerEvent<HTMLLIElement>) => {
+  const place = (clientX: number, clientY: number) => {
+    const maxX = Math.max(16, window.innerWidth - PREVIEW_WIDTH - 16);
+    const maxY = Math.max(16, window.innerHeight - PREVIEW_HEIGHT - 16);
+    x.set(Math.max(16, Math.min(clientX + 24, maxX)));
+    y.set(Math.max(16, Math.min(clientY + 24, maxY)));
+  };
+
+  const handlePointerEnter = (event: PointerEvent<HTMLLIElement>) => {
     if (!enabled) return;
-    const maxX = window.innerWidth - PREVIEW_WIDTH - 16;
-    const maxY = window.innerHeight - PREVIEW_HEIGHT - 16;
-    setPosition({
-      x: Math.max(16, Math.min(event.clientX + 24, maxX)),
-      y: Math.max(16, Math.min(event.clientY + 24, maxY)),
-    });
-    setVisible(true);
+    place(event.clientX, event.clientY);
+    setHovered(true);
+    opacity.set(1);
+  };
+
+  const handlePointerMove = (event: PointerEvent<HTMLLIElement>) => {
+    if (!enabled || !hovered) return;
+    place(event.clientX, event.clientY);
   };
 
   return (
     <li
-      className="grid gap-4 border-t border-line py-10 md:grid-cols-[3rem_1fr_auto] md:gap-8"
+      className="work-row grid gap-4 border-t border-line py-10 md:grid-cols-[3rem_1fr_auto] md:gap-8"
+      onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
-      onPointerLeave={() => setVisible(false)}
+      onPointerLeave={() => opacity.set(0)}
     >
       <span className="font-mono text-xs uppercase tracking-[0.16em] text-muted">
         {String(index + 1).padStart(2, "0")}
@@ -70,11 +84,17 @@ export default function WorkRow({ project, index, labels }: Props) {
         </p>
         <p className="mt-4 font-mono text-xs text-accent-ink">{project.stack.join(" · ")}</p>
         {project.details && project.details.length > 0 ? (
-          <details className="mt-5">
-            <summary className="w-fit cursor-pointer font-mono text-xs uppercase tracking-[0.12em] text-accent-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
+          <details className="group mt-5">
+            <summary className="flex w-fit cursor-pointer items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-accent-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
               {labels.caseNote}
+              <span
+                aria-hidden="true"
+                className="inline-grid h-4 w-4 place-items-center text-sm leading-none transition-transform duration-300 ease-out group-open:rotate-45"
+              >
+                +
+              </span>
             </summary>
-            <ul className="mt-3 space-y-2 text-sm text-muted">
+            <ul className="details-body mt-3 space-y-2 text-sm text-muted">
               {project.details.map((detail) => (
                 <li key={detail}>{detail}</li>
               ))}
@@ -88,6 +108,7 @@ export default function WorkRow({ project, index, labels }: Props) {
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`${project.name} — ${project.linkLabel ?? labels.visit}`}
             className="inline-flex w-fit items-center gap-2 text-sm text-accent-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-current focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           >
             {project.linkLabel ?? labels.visit}
@@ -107,25 +128,23 @@ export default function WorkRow({ project, index, labels }: Props) {
           </a>
         ) : null}
       </div>
-      {enabled ? (
-        <div
+      {hovered && enabled ? (
+        <motion.div
           aria-hidden
-          className="pointer-events-none fixed z-40 transition-opacity duration-300"
-          style={{
-            left: position.x,
-            top: position.y,
-            opacity: visible ? 1 : 0,
-          }}
+          className="pointer-events-none fixed top-0 left-0 z-40 transition-opacity duration-300 will-change-transform"
+          style={{ x: springX, y: springY, opacity }}
         >
           <Image
             src={asset(project.image)}
             alt=""
+            aria-hidden
+            loading="lazy"
             width={560}
             height={314}
             sizes="280px"
             className="h-auto w-[280px] rounded-sm border border-line object-cover"
           />
-        </div>
+        </motion.div>
       ) : null}
     </li>
   );

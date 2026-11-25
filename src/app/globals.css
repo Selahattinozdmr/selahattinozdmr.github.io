@@ -239,9 +239,54 @@ body {
     var(--bg);
 }
 
+/* Project rows: a hairline accent line grows on row hover, no layout shift. */
+.work-row {
+  position: relative;
+}
+
+.work-row::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .work-row:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Native details: content fades/slides in when opened; the icon rotates via
+   Tailwind's group-open variant. No JS disclosure. */
+@keyframes details-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+details[open] .details-body {
+  animation: details-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .work-row::after {
+    transition: none;
   }
   .site-backdrop::before {
     animation: none;
