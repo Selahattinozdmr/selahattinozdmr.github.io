@@ -87,6 +87,10 @@ const en: Dictionary = {
     title: "Selected work",
     subtitle: "Products I've designed and built end to end.",
     visit: "Visit",
+    problemLabel: "Problem",
+    outcomeLabel: "Outcome",
+    caseNoteLabel: "Case note",
+    otherTitle: "Other work",
     items: [
       {
         id: "autosuchen24",
@@ -94,6 +98,15 @@ const en: Dictionary = {
         stack: ["React Native", "Node.js", "PostgreSQL"],
         description:
           "Multilingual vehicle marketplace built for a Swiss client. Realtime chat, an admin approval workflow and push notifications on a Node.js + PostgreSQL backend.",
+        problem:
+          "A Swiss client needed a multilingual vehicle marketplace with realtime communication.",
+        outcome:
+          "A live marketplace on Node.js + PostgreSQL with chat, admin approval and push notifications.",
+        details: [
+          "Multilingual vehicle listing and search",
+          "Realtime chat",
+          "Admin approval workflow and push notifications",
+        ],
         image: "/images/autosuchen24.jpg",
         url: "https://autosuchen24.ch",
       },
@@ -103,6 +116,14 @@ const en: Dictionary = {
         stack: ["Next.js", "Node.js", "PostgreSQL"],
         description:
           "End-to-end bartering marketplace with a normalized PostgreSQL schema and a Node.js REST API handling concurrent offer transactions, plus realtime messaging.",
+        problem: "Concurrent barter offers and related data needed to stay consistent.",
+        outcome:
+          "A normalized PostgreSQL schema and Node.js REST API handling concurrent offers, with realtime messaging; live.",
+        details: [
+          "Normalized PostgreSQL schema",
+          "Concurrent offer transactions",
+          "Realtime messaging",
+        ],
         image: "/images/takasgo.jpg",
         url: "https://www.takasgoglobal.com.tr/",
       },
@@ -112,6 +133,15 @@ const en: Dictionary = {
         stack: ["Next.js", "Node.js", "PostgreSQL", "RBAC"],
         description:
           "Recipe platform with role-based access control (Chef/Member) and a dynamic reward algorithm. Node.js API on PostgreSQL via Drizzle ORM, with an admin analytics dashboard.",
+        problem:
+          "A recipe platform needed to separate chef/member roles and calculate rewards dynamically.",
+        outcome:
+          "An end-to-end platform with RBAC, a dynamic reward algorithm and an admin analytics panel.",
+        details: [
+          "Chef/Member role-based access",
+          "Dynamic reward algorithm",
+          "Admin analytics panel",
+        ],
         image: "/images/mutfix.jpg",
       },
       {
@@ -120,6 +150,9 @@ const en: Dictionary = {
         stack: ["Next.js", "React Native", "Node.js"],
         description:
           "Platform listing meals prepared by home chefs. Node.js service layer with server-side caching for high-performance data delivery.",
+        problem: "A platform needed to list home-chef meals with high performance.",
+        outcome:
+          "A server-side cached Node.js service layer with Next.js and React Native clients.",
         image: "/images/nerdeyemek.jpg",
         url: "https://nerdeyemek.com",
       },
@@ -129,6 +162,9 @@ const en: Dictionary = {
         stack: ["Next.js", "Node.js", "PostgreSQL"],
         description:
           "Parametric exam generation system for schools. Published in a peer-reviewed journal (BILMES, 2024).",
+        problem: "Schools needed parametric exam generation and management.",
+        outcome:
+          "A K-12 exam system built with Next.js + Node.js; peer-reviewed at BILMES 2024.",
         image: "/images/quiz.jpg",
         url: "https://dergipark.org.tr/tr/pub/bilmes/article/1613874",
         linkLabel: "Read the article",

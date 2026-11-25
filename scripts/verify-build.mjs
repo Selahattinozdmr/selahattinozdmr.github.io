@@ -97,7 +97,7 @@ checks.push(
   ],
   [source("src/components/sections/Navbar.tsx").includes("localeHref(other)"), "dil bağlantıları basePath'e duyarlı"],
   [source("src/components/ui/ContactVideoOrb.tsx").includes('asset("/video/orb-loop.mp4")'), "contact video basePath'e duyarlı"],
-  [source("src/components/sections/Projects.tsx").includes("asset(item.image)"), "proje görselleri basePath'e duyarlı"],
+  [source("src/components/work/WorkRow.tsx").includes("asset(project.image)"), "proje görselleri basePath'e duyarlı"],
   [source("src/app/(root)/page.tsx").includes("basePath"), "kök yönlendirme basePath'e duyarlı"],
   [
     source("src/components/ui/SiteBackdrop.tsx").includes("export default function SiteBackdrop"),
@@ -233,6 +233,17 @@ checks.push(
       ),
     "Experience outcome içeriği",
   ],
+);
+
+checks.push(
+  [
+    source("src/content/types.ts").includes("problem: string") &&
+      source("src/content/types.ts").includes("details?: string[]"),
+    "proje vaka alanları",
+  ],
+  [source("src/components/work/WorkRow.tsx").includes("<details"), "vaka notu details"],
+  [source("src/components/sections/Projects.tsx").includes("WorkRow"), "Projects WorkRow kullanıyor"],
+  [source("src/components/sections/Projects.tsx").includes("SectionShell"), "Projects SectionShell"],
 );
 
 const nav = source("src/components/sections/Navbar.tsx");

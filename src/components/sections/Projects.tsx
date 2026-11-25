@@ -1,78 +1,43 @@
-import Image from "next/image";
 import type { Dictionary } from "@/content/types";
-import { asset } from "@/lib/asset";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Reveal from "@/components/ui/Reveal";
+import SectionShell from "@/components/ui/SectionShell";
+import WorkRow from "@/components/work/WorkRow";
+import CompactWorkRow from "@/components/work/CompactWorkRow";
 
 export default function Projects({ t }: { t: Dictionary }) {
   const p = t.projects;
+  const featured = p.items.slice(0, 3);
+  const other = p.items.slice(3);
+
   return (
-    <section id="projects" aria-labelledby="projects-title" className="relative py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5">
-        <SectionHeading id="projects-title" eyebrow={p.eyebrow} title={p.title} subtitle={p.subtitle} />
-        <ul className="grid gap-6 md:grid-cols-2 md:gap-8">
-          {p.items.map((item, i) => {
-            const featured = i === 0;
-            return (
-              <li key={item.id} className={featured ? "md:col-span-2" : ""}>
-                <Reveal delay={(i % 2) * 0.1} className="h-full">
-                    <article
-                      className={`glass group flex h-full flex-col overflow-hidden rounded-3xl transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_80px_-20px_rgb(var(--accent-rgb)/0.35)] ${
-                        featured ? "md:grid md:grid-cols-[1.3fr_1fr]" : ""
-                      }`}
-                    >
-                      <div className="relative aspect-[1344/752] w-full overflow-hidden">
-                        <Image
-                          src={asset(item.image)}
-                          alt={item.name}
-                          width={1344}
-                          height={752}
-                          sizes={featured ? "(min-width: 768px) 700px, 100vw" : "(min-width: 768px) 560px, 100vw"}
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                        />
-                        <div
-                          aria-hidden
-                          className="absolute inset-0 bg-gradient-to-t from-[#050a18]/60 via-transparent to-transparent"
-                        />
-                      </div>
-                      <div className={`flex flex-1 flex-col p-6 md:p-8 ${featured ? "md:justify-center" : ""}`}>
-                        <h3
-                          className={`font-display font-bold tracking-tight ${featured ? "text-3xl md:text-4xl" : "text-2xl"}`}
-                        >
-                          {item.name}
-                        </h3>
-                        <p className="mt-3 leading-relaxed text-muted">{item.description}</p>
-                        <ul className="mt-5 flex flex-wrap gap-2" aria-hidden={false}>
-                          {item.stack.map((s) => (
-                            <li
-                              key={s}
-                              className="rounded-full border border-line bg-fg/[0.04] px-3 py-1 font-mono text-xs text-accent-ink"
-                            >
-                              {s}
-                            </li>
-                          ))}
-                        </ul>
-                        {item.url ? (
-                          <a
-                            href={item.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 py-2.5 text-sm font-medium text-accent-ink transition hover:bg-accent hover:text-on-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-                          >
-                            {item.linkLabel ?? p.visit}
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                              <path d="M7 17 17 7M8 7h9v9" />
-                            </svg>
-                          </a>
-                        ) : null}
-                      </div>
-                    </article>
-                </Reveal>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </section>
+    <SectionShell id="projects" label={p.eyebrow} title={p.title}>
+      <p className="max-w-[62ch] text-muted">{p.subtitle}</p>
+      <ul className="mt-10">
+        {featured.map((project, index) => (
+          <WorkRow
+            key={project.id}
+            project={project}
+            index={index}
+            labels={{
+              problem: p.problemLabel,
+              outcome: p.outcomeLabel,
+              caseNote: p.caseNoteLabel,
+              visit: p.visit,
+            }}
+          />
+        ))}
+      </ul>
+      {other.length > 0 ? (
+        <div className="mt-16">
+          <h3 className="font-mono text-xs uppercase tracking-[0.16em] text-accent-ink">
+            {p.otherTitle}
+          </h3>
+          <ul className="mt-4">
+            {other.map((project) => (
+              <CompactWorkRow key={project.id} project={project} labels={{ visit: p.visit }} />
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </SectionShell>
   );
 }

@@ -10,6 +10,9 @@ export type Project = {
   name: string;
   stack: string[];
   description: string;
+  problem: string;
+  outcome: string;
+  details?: string[];
   image: string;
   url?: string;
   linkLabel?: string;
@@ -80,6 +83,10 @@ export type Dictionary = {
     title: string;
     subtitle: string;
     visit: string;
+    problemLabel: string;
+    outcomeLabel: string;
+    caseNoteLabel: string;
+    otherTitle: string;
     items: Project[];
   };
   skills: {

@@ -87,6 +87,10 @@ const tr: Dictionary = {
     title: "Seçili işler",
     subtitle: "Uçtan uca tasarlayıp geliştirdiğim ürünler.",
     visit: "Ziyaret et",
+    problemLabel: "Problem",
+    outcomeLabel: "Sonuç",
+    caseNoteLabel: "Vaka notu",
+    otherTitle: "Diğer işler",
     items: [
       {
         id: "autosuchen24",
@@ -94,6 +98,15 @@ const tr: Dictionary = {
         stack: ["React Native", "Node.js", "PostgreSQL"],
         description:
           "İsviçreli bir müşteri için çok dilli araç pazaryeri. Node.js + PostgreSQL backend üzerinde gerçek zamanlı sohbet, admin onay akışı ve push bildirimleri.",
+        problem:
+          "İsviçreli müşteri için çok dilli, gerçek zamanlı iletişimli bir araç pazaryeri gerekiyordu.",
+        outcome:
+          "Node.js + PostgreSQL üzerinde canlı pazaryeri; sohbet, admin onayı ve push bildirimleri.",
+        details: [
+          "Çok dilli araç listeleme ve arama",
+          "Gerçek zamanlı sohbet",
+          "Admin onay akışı ve push bildirimleri",
+        ],
         image: "/images/autosuchen24.jpg",
         url: "https://autosuchen24.ch",
       },
@@ -103,6 +116,15 @@ const tr: Dictionary = {
         stack: ["Next.js", "Node.js", "PostgreSQL"],
         description:
           "Normalize PostgreSQL şeması ve eşzamanlı teklif işlemlerini yöneten Node.js REST API'si ile uçtan uca takas pazaryeri; gerçek zamanlı mesajlaşma dahil.",
+        problem:
+          "Eşzamanlı takas tekliflerini ve ilişkili verileri tutarlı yönetmek gerekiyordu.",
+        outcome:
+          "Normalize PostgreSQL şeması ve Node.js REST API'si; gerçek zamanlı mesajlaşma; canlı ürün.",
+        details: [
+          "Normalize PostgreSQL şeması",
+          "Eşzamanlı teklif işlemleri",
+          "Gerçek zamanlı mesajlaşma",
+        ],
         image: "/images/takasgo.jpg",
         url: "https://www.takasgoglobal.com.tr/",
       },
@@ -112,6 +134,15 @@ const tr: Dictionary = {
         stack: ["Next.js", "Node.js", "PostgreSQL", "RBAC"],
         description:
           "Rol tabanlı erişim kontrolü (Şef/Üye) ve dinamik ödül algoritmasına sahip tarif platformu. Drizzle ORM ile PostgreSQL kullanan Node.js API ve admin analitik paneli.",
+        problem:
+          "Şef/üye rollerini ayıran ve ödülleri dinamik hesaplayan bir tarif platformu gerekiyordu.",
+        outcome:
+          "RBAC, dinamik ödül algoritması ve admin analitik paneliyle uçtan uca platform.",
+        details: [
+          "Şef/Üye rol tabanlı erişim",
+          "Dinamik ödül algoritması",
+          "Admin analitik paneli",
+        ],
         image: "/images/mutfix.jpg",
       },
       {
@@ -120,6 +151,10 @@ const tr: Dictionary = {
         stack: ["Next.js", "React Native", "Node.js"],
         description:
           "Ev şeflerinin hazırladığı yemekleri listeleyen platform. Yüksek performanslı veri sunumu için sunucu taraflı önbellekli Node.js servis katmanı.",
+        problem:
+          "Ev şeflerinin yemeklerini yüksek performansla listeleyen bir platform gerekiyordu.",
+        outcome:
+          "Sunucu taraflı önbellekli Node.js servis katmanı; Next.js ve React Native istemcileri.",
         image: "/images/nerdeyemek.jpg",
         url: "https://nerdeyemek.com",
       },
@@ -129,6 +164,9 @@ const tr: Dictionary = {
         stack: ["Next.js", "Node.js", "PostgreSQL"],
         description:
           "Okullar için parametrik sınav üretim sistemi. Hakemli bir dergide yayımlandı (BILMES, 2024).",
+        problem: "Okullar için parametrik sınav üretimi ve yönetimi gerekiyordu.",
+        outcome:
+          "Next.js + Node.js ile K-12 sınav sistemi; BILMES 2024'te hakemli yayın.",
         image: "/images/quiz.jpg",
         url: "https://dergipark.org.tr/tr/pub/bilmes/article/1613874",
         linkLabel: "Makaleyi oku",
