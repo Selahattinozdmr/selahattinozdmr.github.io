@@ -133,6 +133,20 @@ checks.push(
   [source("src/components/sections/About.tsx").includes("<figure"), "About görseli figure"],
 );
 
+const hero = source("src/components/hero/ScrollVideoHero.tsx");
+
+checks.push(
+  [hero.includes("h-[180vh]") && hero.includes("md:h-[240vh]"), "hero yüksekliği kısaldı"],
+  [
+    !hero.includes("beatRef") && !hero.includes("const bIn") && !hero.includes("const bOut"),
+    "hero ikinci beat kalktı",
+  ],
+  [
+    hero.includes("lastElementChild") && hero.includes("Math.min(W * 0.9, 420)"),
+    "hero mobil ölçümü son intro öğesine bağlı",
+  ],
+);
+
 let failed = false;
 for (const [ok, label] of checks) {
   console.log(`${ok ? "PASS" : "FAIL"} ${label}`);

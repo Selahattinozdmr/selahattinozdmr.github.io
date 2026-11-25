@@ -87,7 +87,6 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
   const shadeRef = useRef<HTMLDivElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
-  const beatRef = useRef<HTMLDivElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
 
@@ -110,7 +109,7 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
         stagger: 0.12,
         delay: 0.15,
       });
-      gsap.from(frame, { opacity: 0, scale: 0.94, duration: 1.2, ease: "power3.out", delay: 0.3 });
+      gsap.from(frame, { opacity: 0, duration: 1.2, ease: "power3.out", delay: 0.3 });
 
       // Cached geometry. The start card is placed in the space left *below* the
       // intro block (measured, not guessed) so it never overlaps the CTAs.
@@ -120,14 +119,15 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
         const H = stage.clientHeight;
         const mobile = W < 768;
         const intro = introRef.current;
+        const last = intro?.lastElementChild as HTMLElement | null;
         // offsetTop/offsetHeight ignore the transforms we animate on the intro.
-        const introBottom = intro ? intro.offsetTop + intro.offsetHeight : H * 0.5;
-        const gap = mobile ? 20 : 28;
-        const hintSpace = mobile ? 72 : 84; // scroll hint + progress bar below the card
+        const introBottom = intro && last ? intro.offsetTop + last.offsetTop + last.offsetHeight : H * 0.5;
+        const gap = mobile ? 12 : 24;
+        const hintSpace = mobile ? 64 : 84; // scroll hint + progress bar below the card
         const top = introBottom + gap;
         const avail = Math.max(H - top - hintSpace, 96);
         const ratio = mobile ? 0.62 : 0.5625;
-        let w0 = mobile ? W * 0.88 : W * 0.62;
+        let w0 = mobile ? Math.min(W * 0.9, 420) : W * 0.62;
         let h0 = w0 * ratio;
         if (h0 > avail) {
           h0 = avail;
@@ -157,16 +157,6 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
           introRef.current.style.opacity = String(1 - i);
           introRef.current.style.transform = `translate3d(0, ${-90 * i}px, 0)`;
           introRef.current.style.visibility = i >= 0.99 ? "hidden" : "visible";
-        }
-
-        // Second beat: in 0.55-0.65, out 0.82-0.92
-        const bIn = ease(range(p, 0.55, 0.66));
-        const bOut = ease(range(p, 0.82, 0.92));
-        if (beatRef.current) {
-          const o = bIn * (1 - bOut);
-          beatRef.current.style.opacity = String(o);
-          beatRef.current.style.transform = `translate3d(0, ${(1 - bIn) * 40 - bOut * 30}px, 0)`;
-          beatRef.current.style.visibility = o < 0.01 ? "hidden" : "visible";
         }
 
         // Vignette / seamless fade into page bg
@@ -265,7 +255,7 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
     <section
       id="top"
       ref={sectionRef}
-      className="relative h-[300vh] md:h-[420vh]"
+      className="relative h-[180vh] md:h-[240vh]"
     >
       <div
         ref={stageRef}
@@ -324,20 +314,6 @@ export default function ScrollVideoHero({ t }: { t: Dictionary }) {
           className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-col items-center px-5 pt-20 text-center will-change-transform sm:pt-24 [&_a]:pointer-events-auto"
         >
           <Intro t={t} />
-        </div>
-
-        {/* Second beat */}
-        <div
-          ref={beatRef}
-          className="pointer-events-none absolute bottom-16 left-5 z-20 max-w-[calc(100%-2.5rem)] opacity-0 sm:bottom-20 sm:left-12 md:max-w-2xl"
-          style={{ visibility: "hidden" }}
-        >
-          <p className="font-display text-fg text-[clamp(1.75rem,5vw,3.75rem)] leading-[1.05] font-bold tracking-tight">
-            {t.hero.role}
-          </p>
-          <p className="text-muted mt-3 max-w-xl text-sm leading-relaxed sm:text-lg">
-            {t.hero.tagline}
-          </p>
         </div>
 
         {/* Scroll hint */}
