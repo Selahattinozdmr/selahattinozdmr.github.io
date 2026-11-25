@@ -35,16 +35,50 @@ const checks = [
   [tr.includes('rel="noopener noreferrer"'), "dış bağlantılar güvenli"],
 ];
 
-const referenced = [...tr.matchAll(/(?:src|href)="([^"]+)"/g)]
-  .map((m) => m[1])
-  .filter((p) => p.startsWith(`${base}/`) && !p.endsWith(".html"));
+const referencedOf = (html) =>
+  [...html.matchAll(/(?:src|href|poster)="([^"]+)"/g)]
+    .map((m) => m[1])
+    .filter((p) => p.startsWith(`${base}/`) && !p.endsWith(".html"));
 
-const broken = referenced.filter((p) => {
+const broken = [...referencedOf(tr), ...referencedOf(en)].filter((p) => {
   const local = p.slice(base.length).split(/[?#]/)[0];
   return !existsSync(join(out, local));
 });
 
 checks.push([broken.length === 0, `referanslar mevcut${broken.length ? `: ${broken.join(", ")}` : ""}`]);
+
+const pathOf = (url) => {
+  try {
+    return new URL(url).pathname;
+  } catch {
+    return null;
+  }
+};
+const linkTags = (html) => [...html.matchAll(/<link[^>]*>/g)].map((m) => m[0]);
+const findLink = (html, rel, hreflang) =>
+  linkTags(html).find(
+    (tag) =>
+      tag.includes(`rel="${rel}"`) &&
+      (!hreflang || new RegExp(`hreflang="${hreflang}"`, "i").test(tag)),
+  );
+const hrefOf = (tag) => tag?.match(/href="([^"]+)"/)?.[1];
+const metaTags = (html) => [...html.matchAll(/<meta[^>]*>/g)].map((m) => m[0]);
+const metaContent = (html, prop) => {
+  const tag = metaTags(html).find((t) => t.includes(`property="${prop}"`));
+  return tag?.match(/content="([^"]+)"/)?.[1];
+};
+
+const plainTr = tr.replace(/<!--[\s\S]*?-->/g, "");
+
+checks.push(
+  [pathOf(hrefOf(findLink(tr, "canonical"))) === `${base}/tr/`, "TR canonical basePath bir kez"],
+  [pathOf(hrefOf(findLink(en, "canonical"))) === `${base}/en/`, "EN canonical basePath bir kez"],
+  [pathOf(hrefOf(findLink(tr, "alternate", "tr"))) === `${base}/tr/`, "TR hreflang basePath bir kez"],
+  [pathOf(hrefOf(findLink(en, "alternate", "en"))) === `${base}/en/`, "EN hreflang basePath bir kez"],
+  [pathOf(metaContent(tr, "og:image")) === `${base}/images/og.jpg`, "OG görseli basePath bir kez"],
+  [!tr.includes('style="opacity:0') && !en.includes('style="opacity:0'), "SSR'da gizli reveal yok"],
+  [plainTr.includes(">5+<") && plainTr.includes(">3.42<"), "CountUp SSR son değeri basıyor"],
+);
 
 const source = (p) => (existsSync(p) ? readFileSync(p, "utf8") : "");
 const assetTs = source("src/lib/asset.ts");
@@ -56,8 +90,11 @@ checks.push(
   [assetTs.includes("export const siteUrl"), "asset helper: siteUrl"],
   [source("next.config.ts").includes("basePath: process.env.NEXT_PUBLIC_BASE_PATH"), "next.config basePath"],
   [source("src/content/site.ts").includes("siteUrl"), "site URL env'e bağlı"],
-  [source("src/app/(site)/[lang]/layout.tsx").includes("localeHref"), "metadata localeHref kullanıyor"],
-  [source("src/app/(site)/[lang]/layout.tsx").includes('asset("/images/og.jpg")'), "OG görseli basePath'e duyarlı"],
+  [
+    !source("src/app/(site)/[lang]/layout.tsx").includes("localeHref") &&
+      !source("src/app/(site)/[lang]/layout.tsx").includes('asset("/images/og.jpg")'),
+    "metadata basePath'siz yollar kullanıyor",
+  ],
   [source("src/components/sections/Navbar.tsx").includes("localeHref(other)"), "dil bağlantıları basePath'e duyarlı"],
   [source("src/components/hero/ScrollVideoHero.tsx").includes('asset("/video/hero-poster.jpg")'), "hero poster basePath'e duyarlı"],
   [source("src/components/ui/ContactVideoOrb.tsx").includes('asset("/video/orb-loop.mp4")'), "contact video basePath'e duyarlı"],
@@ -178,6 +215,39 @@ checks.push(
   ],
   [source("docs/PLAN.md").includes("Superseded"), "eski plan superseded notlu"],
 );
+
+const darkBlock = globals.match(/:root\s*\{([\s\S]*?)\}/)?.[1] ?? "";
+const lightBlock = globals.match(/:root\[data-theme="light"\]\s*\{([\s\S]*?)\}/)?.[1] ?? "";
+const token = (block, name) => block.match(new RegExp(`--${name}:\\s*([^;]+);`))?.[1]?.trim();
+const hex = (value) => {
+  const match = value?.match(/^#([0-9a-f]{6})$/i);
+  return match ? [0, 2, 4].map((i) => parseInt(match[1].slice(i, i + 2), 16)) : null;
+};
+const luminance = ([r, g, b]) => {
+  const channel = [r, g, b].map((v) => {
+    const n = v / 255;
+    return n <= 0.03928 ? n / 12.92 : ((n + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * channel[0] + 0.7152 * channel[1] + 0.0722 * channel[2];
+};
+const contrast = (a, b) => {
+  const first = luminance(a);
+  const second = luminance(b);
+  const [high, low] = first > second ? [first, second] : [second, first];
+  return (high + 0.05) / (low + 0.05);
+};
+
+for (const [themeName, block] of [
+  ["koyu", darkBlock],
+  ["açık", lightBlock],
+]) {
+  const bg = hex(token(block, "bg"));
+  for (const colorName of ["cyan", "orange", "fg-muted"]) {
+    const fg = hex(token(block, colorName));
+    const ratio = bg && fg ? contrast(fg, bg) : 0;
+    checks.push([ratio >= 4.5, `${themeName} tema ${colorName} AA (${ratio ? ratio.toFixed(2) : "?"})`]);
+  }
+}
 
 let failed = false;
 for (const [ok, label] of checks) {

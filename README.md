@@ -29,7 +29,8 @@ npm run lint
 
 `npm run build` writes the static site to `out/`. `npm run verify` checks that
 the export contains both locales, the root redirect, media assets, basePath-aware
-URLs, and the accessibility/structure invariants used during the redesign.
+canonical/hreflang/OG URLs (exactly once), SSR-visible content, light/dark
+contrast, and the structural invariants used during the redesign.
 
 ## Deploy to GitHub Pages
 

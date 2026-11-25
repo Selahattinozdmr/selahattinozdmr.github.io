@@ -280,14 +280,14 @@ url: siteUrl,
 `src/app/(site)/[lang]/layout.tsx` metadata:
 
 ```ts
-import { asset, localeHref, siteUrl } from "@/lib/asset";
+import { siteUrl } from "@/lib/asset";
 // metadataBase: new URL(siteUrl)
-// alternates: { canonical: localeHref(lang), languages: { tr: localeHref("tr"), en: localeHref("en") } }
-// openGraph.images: [asset("/images/og.jpg")]
-// twitter.images: [asset("/images/og.jpg")]
+// alternates: { canonical: `/${lang}/`, languages: { tr: "/tr/", en: "/en/" } }
+// openGraph.images: ["/images/og.jpg"]
+// twitter.images: ["/images/og.jpg"]
 ```
 
-Kullanılmayan `site` importunu bu dosyadan kaldır (`siteUrl` doğrudan kullanılıyor).
+Metadata yolları basePath içermez; Next `basePath`'i otomatik ekler. `asset()`/`localeHref()` yalnızca HTML medya/link yolları içindir. (Review düzeltmesi: Task 2 Step 3'ün ilk hali metadata'da double basePath üretiyordu.) Kullanılmayan `site` importunu bu dosyadan kaldır (`siteUrl` doğrudan kullanılıyor).
 
 - [ ] **Step 4: Dil bağlantılarını `localeHref`'e çevir**
 

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "../../globals.css";
 import { getDictionary, hasLocale, locales } from "@/content";
-import { asset, localeHref, siteUrl } from "@/lib/asset";
+import { siteUrl } from "@/lib/asset";
 import ThemeScript from "@/components/providers/ThemeScript";
 
 const sans = Inter({ subsets: ["latin", "latin-ext"], variable: "--font-inter" });
@@ -23,17 +23,17 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     title: t.meta.title,
     description: t.meta.description,
     alternates: {
-      canonical: localeHref(lang),
-      languages: { tr: localeHref("tr"), en: localeHref("en") },
+      canonical: `/${lang}/`,
+      languages: { tr: "/tr/", en: "/en/" },
     },
     openGraph: {
       title: t.meta.title,
       description: t.meta.description,
-      images: [asset("/images/og.jpg")],
+      images: ["/images/og.jpg"],
       locale: lang === "tr" ? "tr_TR" : "en_US",
       type: "website",
     },
-    twitter: { card: "summary_large_image", title: t.meta.title, images: [asset("/images/og.jpg")] },
+    twitter: { card: "summary_large_image", title: t.meta.title, images: ["/images/og.jpg"] },
   };
 }
 

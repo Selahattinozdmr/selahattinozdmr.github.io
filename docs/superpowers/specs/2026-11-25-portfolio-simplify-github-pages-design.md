@@ -215,7 +215,10 @@ export const localeHref = (locale: string) => `${basePath}/${locale}/`;
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://selahattinozdmr.github.io";
 ```
-Kullanım: tüm `/video/*`, `/images/*`, `/tr`, `/en` bağlantıları, OG görseli.
+Kullanım: HTML `src`/`href`, medya yolları ve locale bağlantıları.
+Metadata (canonical, hreflang, OG/Twitter görselleri) yolları basePath içermez;
+Next `basePath`'i metadata URL'lerine otomatik ekler. `asset()`/`localeHref()`
+metadata için kullanılmaz.
 `site.url` → `siteUrl` (varsayılan kullanıcı sitesi). Böylece depo yeniden
 adlandırılmazsa CI `NEXT_PUBLIC_SITE_URL`'i proje sitesi adresine ayarlar ve
 canonical/OG dahil her şey doğru kalır.
@@ -287,6 +290,10 @@ iyileştirmedir; kalite düşerse orijinal kalır.
 - `npm run build` → `out/` üretir; `/tr`, `/en`, `/` ve `404.html` var.
 - `npx tsc --noEmit` ve `npm run lint` temiz.
 - `node scripts/verify-build.mjs`:
+  - Canonical/hreflang/OG yolları basePath'i **bir kez** içerir.
+  - SSR HTML'de gizli reveal yoktur; CountUp son değeri basar.
+  - Açık/koyu tema cyan, orange ve muted metin AA (≥4.5:1).
+  - Medya ve `_next` referansları her iki locale için mevcuttur.
   - `out/index.html`, `out/tr/index.html`, `out/en/index.html`, `out/404.html`,
     `out/.nojekyll`, `out/video/hero.mp4`, `out/images/og.jpg` mevcut.
   - `out/index.html` `/tr` hedefini içeriyor.
