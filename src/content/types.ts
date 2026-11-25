@@ -21,6 +21,7 @@ export type Experience = {
   period: string;
   location: string;
   bullets: string[];
+  outcome: string;
 };
 
 export type SkillGroup = {
@@ -71,6 +72,7 @@ export type Dictionary = {
   experience: {
     eyebrow: string;
     title: string;
+    outcomeLabel: string;
     items: Experience[];
   };
   projects: {

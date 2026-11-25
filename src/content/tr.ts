@@ -55,6 +55,7 @@ const tr: Dictionary = {
   experience: {
     eyebrow: "02 — Deneyim",
     title: "Çalıştığım yerler",
+    outcomeLabel: "Ne değişti",
     items: [
       {
         role: "Yazılım Mühendisi Stajyeri",
@@ -64,6 +65,8 @@ const tr: Dictionary = {
         bullets: [
           "Akademi birimi için Java Spring Boot ile REST API'ler geliştirdim; kurumsal eğitim iş akışlarını otomatikleştirip iç sistemlerle entegre ettim.",
         ],
+        outcome:
+          "Kurumsal eğitim iş akışları manuel adımlardan otomatik REST entegrasyonlarına taşındı.",
       },
       {
         role: "Makine Öğrenmesi Stajyeri",
@@ -74,6 +77,8 @@ const tr: Dictionary = {
           "Kaggle veri setleri üzerinde regresyon ve karar ağaçları ile tahmin modelleri geliştirdim.",
           "Çekişmeli Üretici Ağlar (GAN) ve derin pekiştirmeli öğrenme (Deep Q-Learning) üzerine araştırma yaptım.",
         ],
+        outcome:
+          "Tahmin modelleri ve araştırma prototipleri uygulamalı makine öğrenmesi deneyimine dönüştü.",
       },
     ],
   },

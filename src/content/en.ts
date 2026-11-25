@@ -55,6 +55,7 @@ const en: Dictionary = {
   experience: {
     eyebrow: "02 — Experience",
     title: "Where I've worked",
+    outcomeLabel: "What changed",
     items: [
       {
         role: "Software Engineer Intern",
@@ -64,6 +65,8 @@ const en: Dictionary = {
         bullets: [
           "Developed REST APIs with Java Spring Boot for the Academy department, automating corporate training workflows and integrating with internal systems.",
         ],
+        outcome:
+          "Corporate training workflows moved from manual steps to automated REST integrations.",
       },
       {
         role: "Machine Learning Intern",
@@ -74,6 +77,8 @@ const en: Dictionary = {
           "Built predictive models on Kaggle datasets using regression and decision trees.",
           "Researched Generative Adversarial Networks (GANs) and deep reinforcement learning (Deep Q-Learning).",
         ],
+        outcome:
+          "Predictive models and research prototypes turned into hands-on machine learning experience.",
       },
     ],
   },

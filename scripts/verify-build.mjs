@@ -186,11 +186,6 @@ checks.push(
   [sectionFiles.every((f) => !source(f).includes("py-28 md:py-40")), "bölüm boşlukları sıkılaştı"],
   [!source("src/components/ui/SectionHeading.tsx").includes("md:text-6xl"), "başlık ölçeği sakinleşti"],
   [
-    source("src/components/sections/Experience.tsx").includes("whitespace-nowrap") &&
-      source("src/components/sections/Experience.tsx").includes("13rem"),
-    "zaman çizelgesi tarih kolonu",
-  ],
-  [
     source("src/content/tr.ts").includes("GSAP & Motion") && source("src/content/en.ts").includes("GSAP & Motion"),
     "footer metni güncel",
   ],
@@ -217,6 +212,17 @@ checks.push(
     "hero availability içeriği",
   ],
   [!source("src/content/tr.ts").includes("scrollHint"), "scrollHint kalktı"],
+);
+
+checks.push(
+  [!source("src/components/sections/Experience.tsx").includes("gsap"), "Experience GSAP'siz"],
+  [source("src/components/sections/Experience.tsx").includes("SectionShell"), "Experience SectionShell"],
+  [
+    source("src/content/types.ts").includes("outcome: string") &&
+      source("src/content/tr.ts").includes("Kurumsal eğitim iş akışları") &&
+      source("src/content/en.ts").includes("Corporate training workflows"),
+    "Experience outcome içeriği",
+  ],
 );
 
 const nav = source("src/components/sections/Navbar.tsx");
