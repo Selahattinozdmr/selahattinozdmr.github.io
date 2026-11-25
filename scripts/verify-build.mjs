@@ -96,7 +96,6 @@ checks.push(
     "metadata basePath'siz yollar kullanıyor",
   ],
   [source("src/components/sections/Navbar.tsx").includes("localeHref(other)"), "dil bağlantıları basePath'e duyarlı"],
-  [source("src/components/hero/ScrollVideoHero.tsx").includes('asset("/video/hero-poster.jpg")'), "hero poster basePath'e duyarlı"],
   [source("src/components/ui/ContactVideoOrb.tsx").includes('asset("/video/orb-loop.mp4")'), "contact video basePath'e duyarlı"],
   [source("src/components/sections/Projects.tsx").includes("asset(item.image)"), "proje görselleri basePath'e duyarlı"],
   [source("src/components/sections/About.tsx").includes('asset("/images/workstation-desk.jpg")'), "about görseli basePath'e duyarlı"],
@@ -162,7 +161,7 @@ checks.push(
   [!source("src/app/(site)/[lang]/layout.tsx").includes("Space_Grotesk"), "Space Grotesk kalktı"],
   [
     !/(text|bg|border|outline|decoration|from|via|to)-(cyan|orange)/.test(
-      [...sectionFiles, "src/app/(root)/page.tsx", "src/components/hero/ScrollVideoHero.tsx",
+      [...sectionFiles, "src/app/(root)/page.tsx", "src/components/hero/Hero.tsx",
        "src/components/ui/ContactVideoOrb.tsx", "src/components/ui/CopyEmailButton.tsx",
        "src/components/ui/SectionHeading.tsx", "src/components/ui/ThemeToggle.tsx", "src/components/ui/Logo.tsx"]
         .map(source).join("\n"),
@@ -171,7 +170,7 @@ checks.push(
   ],
   [
     !/var\(--(cyan|orange)/.test(
-      [...sectionFiles, "src/app/globals.css", "src/components/hero/ScrollVideoHero.tsx",
+      [...sectionFiles, "src/app/globals.css", "src/components/hero/Hero.tsx",
        "src/components/ui/ContactVideoOrb.tsx", "src/components/ui/Logo.tsx"].map(source).join("\n"),
     ),
     "eski renk değişkenleri kalktı",
@@ -199,18 +198,20 @@ checks.push(
   [source("src/components/sections/About.tsx").includes("<figure"), "About görseli figure"],
 );
 
-const hero = source("src/components/hero/ScrollVideoHero.tsx");
-
 checks.push(
-  [hero.includes("h-[180vh]") && hero.includes("md:h-[240vh]"), "hero yüksekliği kısaldı"],
+  [source("src/components/hero/Hero.tsx").includes("export default function Hero"), "Hero bileşeni"],
   [
-    !hero.includes("beatRef") && !hero.includes("const bIn") && !hero.includes("const bOut"),
-    "hero ikinci beat kalktı",
+    source("src/app/(site)/[lang]/page.tsx").includes("<Hero t={t} />") &&
+      !source("src/app/(site)/[lang]/page.tsx").includes("ScrollVideoHero"),
+    "sayfa yeni Hero'yu kullanıyor",
   ],
   [
-    hero.includes("lastElementChild") && hero.includes("Math.min(W * 0.9, 420)"),
-    "hero mobil ölçümü son intro öğesine bağlı",
+    source("src/content/types.ts").includes("availability: string") &&
+      source("src/content/tr.ts").includes("Tam zamanlı roller") &&
+      source("src/content/en.ts").includes("Open to full-time"),
+    "hero availability içeriği",
   ],
+  [!source("src/content/tr.ts").includes("scrollHint"), "scrollHint kalktı"],
 );
 
 const nav = source("src/components/sections/Navbar.tsx");

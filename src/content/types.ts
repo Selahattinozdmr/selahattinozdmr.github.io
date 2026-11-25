@@ -50,7 +50,14 @@ export type Dictionary = {
     role: string;
     tagline: string;
     location: string;
-    scrollHint: string;
+    timezone: string;
+    availability: string;
+    focus: string;
+    now: string;
+    stack: string[];
+    focusLabel: string;
+    stackLabel: string;
+    nowLabel: string;
     ctaProjects: string;
     ctaContact: string;
   };

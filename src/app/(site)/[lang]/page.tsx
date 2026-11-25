@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "@/content";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import SiteBackdrop from "@/components/ui/SiteBackdrop";
-import ScrollVideoHero from "@/components/hero/ScrollVideoHero";
+import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/sections/Navbar";
 import About from "@/components/sections/About";
 import Experience from "@/components/sections/Experience";
@@ -23,7 +23,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <SiteBackdrop />
       <Navbar t={t} lang={lang} />
       <main className="relative z-10">
-        <ScrollVideoHero t={t} />
+        <Hero t={t} />
         <About t={t} />
         <Experience t={t} />
         <Projects t={t} />
