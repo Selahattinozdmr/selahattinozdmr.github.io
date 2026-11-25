@@ -3,13 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <title>Selahattin Özdemir — OG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --bg: #0d0b09;
-        --fg: #f4efe6;
-        --fg-muted: #b8aea2;
-        --accent: #d97745;
-        --line: rgba(244, 239, 230, 0.16);
+        --bg: #07080a;
+        --fg: #eef2f7;
+        --fg-muted: #9aa4b2;
+        --accent: #7aa2ff;
+        --accent-ink: #a8c1ff;
+        --line: rgba(238, 242, 247, 0.12);
+        --grid: rgba(238, 242, 247, 0.07);
+        --display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+        --mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
       }
 
       * {
@@ -27,23 +37,38 @@
       body {
         background: var(--bg);
         color: var(--fg);
-        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-family: var(--display);
         position: relative;
+      }
+
+      .grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(to right, var(--grid) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+        background-size: 64px 64px;
+        -webkit-mask-image: radial-gradient(
+          ellipse 78% 88% at 50% 42%,
+          #000 30%,
+          transparent 100%
+        );
+        mask-image: radial-gradient(ellipse 78% 88% at 50% 42%, #000 30%, transparent 100%);
       }
 
       .glow {
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(760px 420px at 16% -12%, rgba(217, 119, 69, 0.22), transparent 66%),
-          radial-gradient(640px 380px at 92% 8%, rgba(217, 119, 69, 0.14), transparent 68%);
+          radial-gradient(720px 420px at 14% -8%, rgba(122, 162, 255, 0.2), transparent 68%),
+          radial-gradient(560px 340px at 94% 108%, rgba(122, 162, 255, 0.1), transparent 70%);
       }
 
       .frame {
         position: relative;
         z-index: 1;
         height: 100%;
-        padding: 72px 84px;
+        padding: 64px 88px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -52,37 +77,65 @@
       .top {
         display: flex;
         align-items: center;
-        gap: 16px;
-        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
-        font-size: 15px;
-        letter-spacing: 0.18em;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 14px;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
         color: var(--fg-muted);
       }
 
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
       .mark {
-        width: 16px;
-        height: 16px;
+        width: 12px;
+        height: 12px;
         background: var(--accent);
         transform: rotate(45deg);
+        box-shadow: 0 0 18px rgba(122, 162, 255, 0.55);
+      }
+
+      .top-meta {
+        color: var(--fg-muted);
+        letter-spacing: 0.18em;
+      }
+
+      .middle {
+        padding-top: 8px;
       }
 
       .role {
-        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
-        font-size: 20px;
-        letter-spacing: 0.22em;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--mono);
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: 0.24em;
         text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 22px;
+        color: var(--accent-ink);
+        margin-bottom: 28px;
+      }
+
+      .role::before {
+        content: "";
+        width: 30px;
+        height: 1px;
+        background: var(--accent);
       }
 
       h1 {
-        font-family: Georgia, "Times New Roman", serif;
-        font-weight: 400;
-        font-size: 128px;
-        line-height: 0.92;
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 104px;
+        line-height: 0.94;
         letter-spacing: -0.035em;
         margin: 0;
+        color: var(--fg);
       }
 
       .bottom {
@@ -90,35 +143,49 @@
         align-items: flex-end;
         justify-content: space-between;
         border-top: 1px solid var(--line);
-        padding-top: 26px;
+        padding-top: 24px;
       }
 
       .meta {
-        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
-        font-size: 19px;
-        letter-spacing: 0.16em;
+        font-family: var(--mono);
+        font-size: 18px;
+        letter-spacing: 0.12em;
         color: var(--fg-muted);
       }
 
       .handle {
-        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
-        font-size: 17px;
-        letter-spacing: 0.08em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--mono);
+        font-size: 15px;
+        letter-spacing: 0.06em;
         color: var(--fg-muted);
+      }
+
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
       }
     </style>
   </head>
   <body>
+    <div class="grid"></div>
     <div class="glow"></div>
     <div class="frame">
-      <div class="top"><span class="mark"></span><span>Portfolyo</span></div>
-      <div>
+      <div class="top">
+        <div class="brand"><span class="mark"></span><span>Portfolyo</span></div>
+        <div class="top-meta">TR / EN</div>
+      </div>
+      <div class="middle">
         <div class="role">Yazılım Mühendisi</div>
         <h1>Selahattin Özdemir</h1>
       </div>
       <div class="bottom">
         <div class="meta">Ankara · UTC+3</div>
-        <div class="handle">selahattinozdmr.github.io</div>
+        <div class="handle"><span class="dot"></span>selahattinozdmr.github.io</div>
       </div>
     </div>
   </body>

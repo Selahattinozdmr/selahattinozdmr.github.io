@@ -1,13 +1,13 @@
 # Selahattin Özdemir — Portfolio
 
-Bilingual (TR/EN) editorial single-page portfolio built with Next.js. The site is
-a static export deployed to GitHub Pages.
+Bilingual (TR/EN) technical-minimal single-page portfolio built with Next.js. The
+site is a static export deployed to GitHub Pages.
 
 ## Stack
 
 - Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4
-- Motion for small, purposeful reveals
-- Instrument Serif (display) + Inter (body) + JetBrains Mono (labels)
+- Motion (`motion/react`) for a purposeful, reduced-motion-safe motion layer
+- Space Grotesk (display) + Inter (body) + JetBrains Mono (labels)
 - Static export (`output: "export"`); no server runtime, no GSAP/Lenis/video
 
 Project images are decorative **temporary preview** assets. They are not real
@@ -35,7 +35,7 @@ npm run lint
 `npm run build` writes the static site to `out/`. `npm run verify` checks that
 the export contains both locales, the root redirect, media assets, basePath-aware
 canonical/hreflang/OG URLs (exactly once), SSR-visible content, light/dark
-contrast, the new editorial section structure, and that the legacy video/GSAP/Lenis
+contrast, the technical-minimal section structure, and that the legacy video/GSAP/Lenis
 files and dependencies are gone.
 
 ## Preview the static export
@@ -65,6 +65,7 @@ deployment still works.
 
 ## Docs
 
-- Design: `docs/superpowers/specs/2026-11-25-portfolio-editorial-redesign-design.md`
-- Implementation plan: `docs/superpowers/plans/2026-11-25-portfolio-editorial-redesign.md`
+- Design: `docs/superpowers/specs/2026-11-25-portfolio-technical-minimal-motion-design.md`
+- Implementation plan: `docs/superpowers/plans/2026-11-25-portfolio-technical-minimal-motion.md`
+- Previous design: `docs/superpowers/specs/2026-11-25-portfolio-editorial-redesign-design.md`
 - Superseded design: `docs/superpowers/specs/2026-11-25-portfolio-simplify-github-pages-design.md`
