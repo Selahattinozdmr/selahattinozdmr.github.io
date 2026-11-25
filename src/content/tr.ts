@@ -162,7 +162,7 @@ const tr: Dictionary = {
     copy: "Kopyala",
     copied: "Kopyalandı!",
   },
-  footer: { rights: "Tüm hakları saklıdır.", builtWith: "Next.js, Three.js & GSAP ile geliştirildi", backToTop: "Başa dön" },
+  footer: { rights: "Tüm hakları saklıdır.", builtWith: "Next.js, GSAP & Motion ile geliştirildi", backToTop: "Başa dön" },
 };
 
 export default tr;

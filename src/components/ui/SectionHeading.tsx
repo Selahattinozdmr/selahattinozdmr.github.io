@@ -19,7 +19,7 @@ export default function SectionHeading({
       <p className="font-mono text-sm tracking-widest text-cyan uppercase">{eyebrow}</p>
       <h2
         id={id}
-        className="font-display mt-4 max-w-3xl text-4xl leading-[1.05] font-bold tracking-tight text-fg sm:text-5xl md:text-6xl"
+        className="font-display mt-4 max-w-3xl text-4xl leading-[1.05] font-bold tracking-tight text-fg sm:text-5xl"
       >
         {title}
       </h2>

@@ -162,7 +162,7 @@ const en: Dictionary = {
     copy: "Copy",
     copied: "Copied!",
   },
-  footer: { rights: "All rights reserved.", builtWith: "Built with Next.js, Three.js & GSAP", backToTop: "Back to top" },
+  footer: { rights: "All rights reserved.", builtWith: "Built with Next.js, GSAP & Motion", backToTop: "Back to top" },
 };
 
 export default en;

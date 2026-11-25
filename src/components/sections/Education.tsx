@@ -5,7 +5,7 @@ import Reveal from "@/components/ui/Reveal";
 export default function Education({ t }: { t: Dictionary }) {
   const e = t.education;
   return (
-    <section id="education" aria-labelledby="education-title" className="relative py-28 md:py-40">
+    <section id="education" aria-labelledby="education-title" className="relative py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5">
         <SectionHeading id="education-title" eyebrow={e.eyebrow} title={e.title} />
         <div className="grid gap-6 md:grid-cols-2">

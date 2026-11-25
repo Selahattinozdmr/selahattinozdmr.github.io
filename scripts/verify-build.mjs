@@ -107,6 +107,32 @@ checks.push(
   ],
 );
 
+const sectionFiles = ["About", "Experience", "Projects", "Skills", "Education", "Contact"].map(
+  (name) => `src/components/sections/${name}.tsx`,
+);
+const globals = source("src/app/globals.css");
+
+checks.push(
+  [!existsSync("src/components/ui/TiltCard.tsx"), "TiltCard silindi"],
+  [sectionFiles.every((f) => !source(f).includes("TiltCard")), "bölümler TiltCard kullanmıyor"],
+  [sectionFiles.every((f) => !source(f).includes("py-28 md:py-40")), "bölüm boşlukları sıkılaştı"],
+  [globals.includes("--bg-card: rgba(13, 23, 48, 0.82)"), "koyu tema kart opaklığı"],
+  [globals.includes("--fg-muted: #a6b4d2"), "koyu tema metin kontrastı"],
+  [globals.includes("--bg-card: rgba(255, 255, 255, 0.9)"), "açık tema kart opaklığı"],
+  [!globals.includes("blur(14px)") && globals.includes("blur(8px)"), "glass blur azaltıldı"],
+  [!source("src/components/ui/SectionHeading.tsx").includes("md:text-6xl"), "başlık ölçeği sakinleşti"],
+  [
+    source("src/components/sections/Experience.tsx").includes("whitespace-nowrap") &&
+      source("src/components/sections/Experience.tsx").includes("13rem"),
+    "zaman çizelgesi tarih kolonu",
+  ],
+  [
+    source("src/content/tr.ts").includes("GSAP & Motion") && source("src/content/en.ts").includes("GSAP & Motion"),
+    "footer metni güncel",
+  ],
+  [source("src/components/sections/About.tsx").includes("<figure"), "About görseli figure"],
+);
+
 let failed = false;
 for (const [ok, label] of checks) {
   console.log(`${ok ? "PASS" : "FAIL"} ${label}`);

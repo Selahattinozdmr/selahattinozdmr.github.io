@@ -12,14 +12,14 @@ export default function Contact({ t, children }: { t: Dictionary; children?: Rea
   const github: string = site.github;
   const linkedin: string = site.linkedin;
   return (
-    <section id="contact" aria-labelledby="contact-title" className="relative py-28 md:py-40">
+    <section id="contact" aria-labelledby="contact-title" className="relative py-20 md:py-28">
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div>
           <Reveal>
             <p className="font-mono text-sm tracking-widest text-cyan uppercase">{c.eyebrow}</p>
             <h2
               id="contact-title"
-              className="font-display text-gradient mt-4 text-5xl leading-[1.02] font-bold tracking-tight sm:text-6xl md:text-7xl"
+              className="font-display text-gradient mt-4 text-4xl leading-[1.02] font-bold tracking-tight sm:text-5xl"
             >
               {c.title}
             </h2>

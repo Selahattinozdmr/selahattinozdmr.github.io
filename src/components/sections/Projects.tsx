@@ -3,12 +3,11 @@ import type { Dictionary } from "@/content/types";
 import { asset } from "@/lib/asset";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import TiltCard from "@/components/ui/TiltCard";
 
 export default function Projects({ t }: { t: Dictionary }) {
   const p = t.projects;
   return (
-    <section id="projects" aria-labelledby="projects-title" className="relative py-28 md:py-40">
+    <section id="projects" aria-labelledby="projects-title" className="relative py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5">
         <SectionHeading id="projects-title" eyebrow={p.eyebrow} title={p.title} subtitle={p.subtitle} />
         <ul className="grid gap-6 md:grid-cols-2 md:gap-8">
@@ -17,9 +16,8 @@ export default function Projects({ t }: { t: Dictionary }) {
             return (
               <li key={item.id} className={featured ? "md:col-span-2" : ""}>
                 <Reveal delay={(i % 2) * 0.1} className="h-full">
-                  <TiltCard className="h-full rounded-3xl" max={featured ? 5 : 8}>
                     <article
-                      className={`glass group flex h-full flex-col overflow-hidden rounded-3xl transition-shadow duration-500 hover:shadow-[0_20px_80px_-20px_rgb(var(--cyan-rgb)/0.35)] ${
+                      className={`glass group flex h-full flex-col overflow-hidden rounded-3xl transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_80px_-20px_rgb(var(--cyan-rgb)/0.35)] ${
                         featured ? "md:grid md:grid-cols-[1.3fr_1fr]" : ""
                       }`}
                     >
@@ -30,7 +28,7 @@ export default function Projects({ t }: { t: Dictionary }) {
                           width={1344}
                           height={752}
                           sizes={featured ? "(min-width: 768px) 700px, 100vw" : "(min-width: 768px) 560px, 100vw"}
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                         />
                         <div
                           aria-hidden
@@ -69,7 +67,6 @@ export default function Projects({ t }: { t: Dictionary }) {
                         ) : null}
                       </div>
                     </article>
-                  </TiltCard>
                 </Reveal>
               </li>
             );

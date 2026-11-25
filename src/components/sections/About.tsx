@@ -2,20 +2,19 @@ import Image from "next/image";
 import type { Dictionary } from "@/content/types";
 import { asset } from "@/lib/asset";
 import Reveal from "@/components/ui/Reveal";
-import TiltCard from "@/components/ui/TiltCard";
 import CountUp from "@/components/ui/CountUp";
 
 export default function About({ t }: { t: Dictionary }) {
   const a = t.about;
   return (
-    <section id="about" aria-labelledby="about-title" className="relative py-28 md:py-40">
+    <section id="about" aria-labelledby="about-title" className="relative py-20 md:py-28">
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
         <div>
           <Reveal>
             <p className="font-mono text-sm tracking-widest text-cyan uppercase">{a.eyebrow}</p>
             <h2
               id="about-title"
-              className="font-display mt-4 text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl md:text-6xl"
+              className="font-display mt-4 text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
             >
               {a.title}
             </h2>
@@ -44,24 +43,16 @@ export default function About({ t }: { t: Dictionary }) {
         </div>
 
         <Reveal delay={0.1} className="mx-auto w-full max-w-md">
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute -inset-6 rounded-[2rem] bg-[radial-gradient(circle_at_50%_50%,rgb(var(--cyan-rgb)/0.28),rgb(251_146_60/0.12)_55%,transparent_75%)] blur-2xl"
+          <figure className="glass overflow-hidden rounded-3xl p-2 shadow-[0_20px_60px_-30px_var(--shadow)]">
+            <Image
+              src={asset("/images/workstation-desk.jpg")}
+              alt=""
+              width={1344}
+              height={752}
+              sizes="(min-width: 1024px) 420px, 90vw"
+              className="aspect-[1344/752] w-full rounded-[1.25rem] object-cover"
             />
-            <TiltCard max={12} className="rounded-3xl">
-              <div className="glass overflow-hidden rounded-3xl p-2 shadow-[0_0_60px_-10px_rgb(var(--cyan-rgb)/0.35)]">
-                <Image
-                  src={asset("/images/workstation-desk.jpg")}
-                  alt=""
-                  width={1344}
-                  height={752}
-                  sizes="(min-width: 1024px) 420px, 90vw"
-                  className="aspect-[1344/752] w-full rounded-[1.25rem] object-cover"
-                />
-              </div>
-            </TiltCard>
-          </div>
+          </figure>
         </Reveal>
       </div>
     </section>

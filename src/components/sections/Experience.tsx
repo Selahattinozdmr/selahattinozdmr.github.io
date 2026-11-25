@@ -48,29 +48,29 @@ export default function Experience({ t }: { t: Dictionary }) {
   );
 
   return (
-    <section id="experience" aria-labelledby="experience-title" className="relative py-28 md:py-40">
+    <section id="experience" aria-labelledby="experience-title" className="relative py-20 md:py-28">
       <div ref={root} className="mx-auto max-w-6xl px-5">
         <SectionHeading id="experience-title" eyebrow={e.eyebrow} title={e.title} />
         <ol className="tl-list relative ml-3 md:ml-0">
-          <div aria-hidden className="absolute top-0 bottom-0 left-0 w-px bg-line md:left-[11.5rem]" />
+          <div aria-hidden className="absolute top-0 bottom-0 left-0 w-px bg-line md:left-[13rem]" />
           <div
             aria-hidden
-            className="tl-line absolute top-0 bottom-0 left-0 w-px origin-top bg-gradient-to-b from-cyan via-cyan to-orange shadow-[0_0_14px_2px_rgb(var(--cyan-rgb)/0.6)] md:left-[11.5rem]"
+            className="tl-line absolute top-0 bottom-0 left-0 w-px origin-top bg-gradient-to-b from-cyan via-cyan to-orange shadow-[0_0_14px_2px_rgb(var(--cyan-rgb)/0.6)] md:left-[13rem]"
           />
           {e.items.map((item) => (
             <li
               key={item.company + item.period}
-              className="tl-item relative pb-12 pl-8 last:pb-0 md:grid md:grid-cols-[11.5rem_1fr] md:pl-0"
+              className="tl-item relative pb-12 pl-8 last:pb-0 md:grid md:grid-cols-[13rem_1fr] md:pl-0"
             >
-              <div className="mb-3 md:mb-0 md:pr-10 md:text-right">
-                <p className="font-mono text-xs tracking-wide text-cyan uppercase md:text-sm">{item.period}</p>
+              <div className="mb-3 md:mb-0 md:pr-8 md:text-right">
+                <p className="font-mono text-xs tracking-normal whitespace-nowrap text-cyan uppercase">{item.period}</p>
                 <p className="mt-1 font-mono text-xs text-muted">{item.location}</p>
               </div>
               <span
                 aria-hidden
-                className="tl-dot absolute top-1.5 -left-[5px] h-[11px] w-[11px] rounded-full bg-cyan shadow-[0_0_14px_3px_rgb(var(--cyan-rgb)/0.7)] md:left-[11.5rem] md:-translate-x-1/2"
+                className="tl-dot absolute top-1.5 -left-[5px] h-[11px] w-[11px] rounded-full bg-cyan shadow-[0_0_14px_3px_rgb(var(--cyan-rgb)/0.7)] md:left-[13rem] md:-translate-x-1/2"
               />
-              <div className="glass rounded-2xl p-6 md:ml-10 md:p-8">
+              <div className="glass rounded-2xl p-6 md:ml-10 md:p-7">
                 <h3 className="font-display text-2xl font-bold">{item.role}</h3>
                 <p className="font-display mt-1 text-lg font-semibold text-orange">{item.company}</p>
                 <ul className="mt-4 space-y-3 text-muted">
