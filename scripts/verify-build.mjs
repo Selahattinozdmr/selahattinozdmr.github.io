@@ -9,9 +9,6 @@ const required = [
   "tr/index.html",
   "en/index.html",
   ".nojekyll",
-  "video/hero.mp4",
-  "video/hero-mobile.mp4",
-  "video/orb-loop.mp4",
   "images/og.jpg",
 ];
 
@@ -96,7 +93,6 @@ checks.push(
     "metadata basePath'siz yollar kullanıyor",
   ],
   [source("src/components/sections/Navbar.tsx").includes("localeHref(other)"), "dil bağlantıları basePath'e duyarlı"],
-  [source("src/components/ui/ContactVideoOrb.tsx").includes('asset("/video/orb-loop.mp4")'), "contact video basePath'e duyarlı"],
   [source("src/components/work/WorkRow.tsx").includes("asset(project.image)"), "proje görselleri basePath'e duyarlı"],
   [source("src/app/(root)/page.tsx").includes("basePath"), "kök yönlendirme basePath'e duyarlı"],
   [
@@ -168,8 +164,7 @@ checks.push(
   [
     !/(text|bg|border|outline|decoration|from|via|to)-(cyan|orange)/.test(
       [...sectionFiles, "src/app/(root)/page.tsx", "src/components/hero/Hero.tsx",
-       "src/components/ui/ContactVideoOrb.tsx", "src/components/ui/CopyEmailButton.tsx",
-       "src/components/ui/SectionHeading.tsx", "src/components/ui/ThemeToggle.tsx", "src/components/ui/Logo.tsx"]
+       "src/components/ui/CopyEmailButton.tsx", "src/components/ui/ThemeToggle.tsx", "src/components/ui/Logo.tsx"]
         .map(source).join("\n"),
     ),
     "cyan/orange sınıfları kalktı",
@@ -177,7 +172,7 @@ checks.push(
   [
     !/var\(--(cyan|orange)/.test(
       [...sectionFiles, "src/app/globals.css", "src/components/hero/Hero.tsx",
-       "src/components/ui/ContactVideoOrb.tsx", "src/components/ui/Logo.tsx"].map(source).join("\n"),
+       "src/components/ui/Logo.tsx"].map(source).join("\n"),
     ),
     "eski renk değişkenleri kalktı",
   ],
@@ -191,7 +186,6 @@ checks.push(
   [!existsSync("src/components/ui/TiltCard.tsx"), "TiltCard silindi"],
   [sectionFiles.every((f) => !source(f).includes("TiltCard")), "bölümler TiltCard kullanmıyor"],
   [sectionFiles.every((f) => !source(f).includes("py-28 md:py-40")), "bölüm boşlukları sıkılaştı"],
-  [!source("src/components/ui/SectionHeading.tsx").includes("md:text-6xl"), "başlık ölçeği sakinleşti"],
   [
     source("src/content/tr.ts").includes("Motion & Tailwind") &&
       source("src/content/en.ts").includes("Motion & Tailwind"),
@@ -295,6 +289,32 @@ checks.push(
     "README yayın talimatı",
   ],
   [source("docs/PLAN.md").includes("Superseded"), "eski plan superseded notlu"],
+);
+
+checks.push(
+  [
+    !existsSync("src/components/hero/ScrollVideoHero.tsx") &&
+      !existsSync("src/components/ui/ContactVideoOrb.tsx") &&
+      !existsSync("src/components/providers/SmoothScroll.tsx"),
+    "legacy bileşenler silindi",
+  ],
+  [
+    !existsSync("public/video/hero.mp4") &&
+      !existsSync("public/video/hero-mobile.mp4") &&
+      !existsSync("public/video/orb-loop.mp4") &&
+      !existsSync("public/images/workstation-desk.jpg"),
+    "legacy medya silindi",
+  ],
+  [
+    !("gsap" in deps) && !("@gsap/react" in deps) && !("lenis" in deps),
+    "GSAP/Lenis bağımlılıkları kalktı",
+  ],
+  [readme.includes("temporary preview"), "README görsel notu"],
+  [
+    globals.includes("scroll-behavior: smooth") &&
+      globals.includes("scroll-behavior: auto"),
+    "smooth scroll + reduced-motion override",
+  ],
 );
 
 const darkBlock = globals.match(/:root\s*\{([\s\S]*?)\}/)?.[1] ?? "";

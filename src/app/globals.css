@@ -54,6 +54,7 @@
 
 html {
   background: var(--bg);
+  scroll-behavior: smooth;
 }
 
 /* Smooth palette swap when the user toggles (not on first paint). */
@@ -79,18 +80,6 @@ body {
 ::selection {
   background: var(--accent);
   color: var(--on-accent);
-}
-
-/* Lenis */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
 }
 
 .text-gradient {
@@ -131,6 +120,9 @@ html.lenis body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {

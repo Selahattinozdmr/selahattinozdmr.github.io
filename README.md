@@ -1,13 +1,18 @@
 # Selahattin Özdemir — Portfolio
 
-Bilingual (TR/EN) single-page portfolio built with Next.js. The site is a static
-export deployed to GitHub Pages.
+Bilingual (TR/EN) editorial single-page portfolio built with Next.js. The site is
+a static export deployed to GitHub Pages.
 
 ## Stack
 
 - Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4
-- GSAP + ScrollTrigger, Motion, Lenis
-- Static export (`output: "export"`); no server runtime
+- Motion for small, purposeful reveals
+- Instrument Serif (display) + Inter (body) + JetBrains Mono (labels)
+- Static export (`output: "export"`); no server runtime, no GSAP/Lenis/video
+
+Project images are decorative **temporary preview** assets. They are not real
+product screenshots and are meant to be replaced with actual captures when
+available.
 
 ## Development
 
@@ -30,7 +35,20 @@ npm run lint
 `npm run build` writes the static site to `out/`. `npm run verify` checks that
 the export contains both locales, the root redirect, media assets, basePath-aware
 canonical/hreflang/OG URLs (exactly once), SSR-visible content, light/dark
-contrast, and the structural invariants used during the redesign.
+contrast, the new editorial section structure, and that the legacy video/GSAP/Lenis
+files and dependencies are gone.
+
+## Preview the static export
+
+`next start` does not serve a static export. After `npm run build`, preview the
+generated `out/` directory with:
+
+```bash
+npm run start
+```
+
+This runs `npx serve out` and serves the exported site locally (default
+`http://localhost:3000`).
 
 ## Deploy to GitHub Pages
 
@@ -47,5 +65,6 @@ deployment still works.
 
 ## Docs
 
-- Design: `docs/superpowers/specs/2026-11-25-portfolio-simplify-github-pages-design.md`
-- Implementation plan: `docs/superpowers/plans/2026-11-25-portfolio-simplify-github-pages.md`
+- Design: `docs/superpowers/specs/2026-11-25-portfolio-editorial-redesign-design.md`
+- Implementation plan: `docs/superpowers/plans/2026-11-25-portfolio-editorial-redesign.md`
+- Superseded design: `docs/superpowers/specs/2026-11-25-portfolio-simplify-github-pages-design.md`

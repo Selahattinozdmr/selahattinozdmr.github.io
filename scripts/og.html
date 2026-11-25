@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Selahattin Özdemir — OG</title>
+    <style>
+      :root {
+        --bg: #0d0b09;
+        --fg: #f4efe6;
+        --fg-muted: #b8aea2;
+        --accent: #d97745;
+        --line: rgba(244, 239, 230, 0.16);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        position: relative;
+      }
+
+      .glow {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(760px 420px at 16% -12%, rgba(217, 119, 69, 0.22), transparent 66%),
+          radial-gradient(640px 380px at 92% 8%, rgba(217, 119, 69, 0.14), transparent 68%);
+      }
+
+      .frame {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        padding: 72px 84px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .top {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 15px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--fg-muted);
+      }
+
+      .mark {
+        width: 16px;
+        height: 16px;
+        background: var(--accent);
+        transform: rotate(45deg);
+      }
+
+      .role {
+        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 20px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 22px;
+      }
+
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 400;
+        font-size: 128px;
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        margin: 0;
+      }
+
+      .bottom {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        border-top: 1px solid var(--line);
+        padding-top: 26px;
+      }
+
+      .meta {
+        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 19px;
+        letter-spacing: 0.16em;
+        color: var(--fg-muted);
+      }
+
+      .handle {
+        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 17px;
+        letter-spacing: 0.08em;
+        color: var(--fg-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow"></div>
+    <div class="frame">
+      <div class="top"><span class="mark"></span><span>Portfolyo</span></div>
+      <div>
+        <div class="role">Yazılım Mühendisi</div>
+        <h1>Selahattin Özdemir</h1>
+      </div>
+      <div class="bottom">
+        <div class="meta">Ankara · UTC+3</div>
+        <div class="handle">selahattinozdmr.github.io</div>
+      </div>
+    </div>
+  </body>
+</html>
