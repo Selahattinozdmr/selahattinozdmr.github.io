@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "@/content";
 import SmoothScroll from "@/components/providers/SmoothScroll";
-import BackgroundCanvas from "@/components/three/BackgroundCanvas";
+import SiteBackdrop from "@/components/ui/SiteBackdrop";
 import ScrollVideoHero from "@/components/hero/ScrollVideoHero";
 import Navbar from "@/components/sections/Navbar";
 import About from "@/components/sections/About";
@@ -21,7 +21,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <SmoothScroll>
-      <BackgroundCanvas />
+      <SiteBackdrop />
       <Navbar t={t} lang={lang} />
       <main className="relative z-10">
         <ScrollVideoHero t={t} />

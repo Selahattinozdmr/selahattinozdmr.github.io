@@ -64,6 +64,21 @@ checks.push(
   [source("src/components/sections/Projects.tsx").includes("asset(item.image)"), "proje görselleri basePath'e duyarlı"],
   [source("src/components/sections/About.tsx").includes('asset("/images/workstation-desk.jpg")'), "about görseli basePath'e duyarlı"],
   [source("src/app/(root)/page.tsx").includes("basePath"), "kök yönlendirme basePath'e duyarlı"],
+  [
+    source("src/components/ui/SiteBackdrop.tsx").includes("export default function SiteBackdrop"),
+    "SiteBackdrop bileşeni mevcut",
+  ],
+  [
+    !existsSync("src/components/three/BackgroundCanvas.tsx") &&
+      !existsSync("src/components/three/BackgroundScene.tsx"),
+    "eski 3B arka plan silinmiş",
+  ],
+  [
+    source("src/app/(site)/[lang]/page.tsx").includes("<SiteBackdrop />") &&
+      !source("src/app/(site)/[lang]/page.tsx").includes("BackgroundCanvas"),
+    "sayfa SiteBackdrop kullanıyor",
+  ],
+  [source("src/app/globals.css").includes(".site-backdrop"), "backdrop CSS mevcut"],
 );
 
 let failed = false;
