@@ -176,11 +176,32 @@ const en: Dictionary = {
     title: "My toolbox",
     subtitle: "From enterprise Java to mobile and machine learning.",
     groups: [
-      { title: "Languages", items: ["TypeScript", "JavaScript", "Java", "Python 3", "C#", "SQL"] },
-      { title: "Web & Mobile", items: ["React", "React Native", "Next.js", "Tailwind CSS"] },
-      { title: "Backend & Enterprise", items: ["Java Spring Boot", "Node.js (Express)", "PostgreSQL", "Drizzle ORM", "Prisma", "RBAC / Auth"] },
-      { title: "DevOps & Tools", items: ["Git / GitHub", "Docker", "Postman", "CI/CD"] },
-      { title: "AI & Machine Learning", items: ["Deep Learning", "GANs", "Reinforcement Learning"] },
+      {
+        title: "Enterprise backend",
+        summary: "Enterprise work where correctness and integration matter.",
+        items: ["Java", "Spring Boot", "PostgreSQL", "REST API", "RBAC / Auth"],
+      },
+      {
+        title: "Product engineering",
+        summary: "Web and mobile products from idea to production.",
+        items: ["Next.js", "React", "React Native", "Node.js", "Drizzle ORM", "Prisma", "Tailwind CSS"],
+      },
+      {
+        title: "Foundations",
+        summary: "Typed code, containers and a machine-learning foundation.",
+        items: [
+          "TypeScript",
+          "JavaScript",
+          "Python 3",
+          "C#",
+          "SQL",
+          "Docker",
+          "Git / CI",
+          "Deep Learning",
+          "GANs",
+          "Reinforcement Learning",
+        ],
+      },
     ],
   },
   education: {

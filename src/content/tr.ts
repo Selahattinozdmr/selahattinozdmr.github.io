@@ -178,11 +178,32 @@ const tr: Dictionary = {
     title: "Araç kutum",
     subtitle: "Kurumsal Java'dan mobile ve makine öğrenmesine.",
     groups: [
-      { title: "Programlama Dilleri", items: ["TypeScript", "JavaScript", "Java", "Python 3", "C#", "SQL"] },
-      { title: "Web & Mobil", items: ["React", "React Native", "Next.js", "Tailwind CSS"] },
-      { title: "Backend & Kurumsal", items: ["Java Spring Boot", "Node.js (Express)", "PostgreSQL", "Drizzle ORM", "Prisma", "RBAC / Auth"] },
-      { title: "DevOps & Araçlar", items: ["Git / GitHub", "Docker", "Postman", "CI/CD"] },
-      { title: "Yapay Zekâ & Makine Öğrenmesi", items: ["Derin Öğrenme", "GAN", "Pekiştirmeli Öğrenme"] },
+      {
+        title: "Kurumsal backend",
+        summary: "Doğruluk ve entegrasyonun kritik olduğu kurumsal işler.",
+        items: ["Java", "Spring Boot", "PostgreSQL", "REST API", "RBAC / Auth"],
+      },
+      {
+        title: "Ürün geliştirme",
+        summary: "Fikirden yayına web ve mobil ürünler.",
+        items: ["Next.js", "React", "React Native", "Node.js", "Drizzle ORM", "Prisma", "Tailwind CSS"],
+      },
+      {
+        title: "Temeller",
+        summary: "Tipli kod, konteynerler ve makine öğrenmesi temeli.",
+        items: [
+          "TypeScript",
+          "JavaScript",
+          "Python 3",
+          "C#",
+          "SQL",
+          "Docker",
+          "Git / CI",
+          "Derin Öğrenme",
+          "GAN",
+          "Pekiştirmeli Öğrenme",
+        ],
+      },
     ],
   },
   education: {

@@ -120,7 +120,14 @@ const pkg = JSON.parse(source("package.json"));
 const deps = { ...pkg.dependencies, ...pkg.devDependencies };
 
 checks.push(
-  [source("src/components/sections/Skills.tsx").includes("lg:grid-cols-3"), "yetenekler chip matrisi"],
+  [source("src/components/sections/Skills.tsx").includes("SectionShell"), "Skills SectionShell"],
+  [source("src/content/types.ts").includes("summary: string"), "SkillGroup summary"],
+  [
+    source("src/content/tr.ts").includes("Kurumsal backend") &&
+      source("src/content/en.ts").includes("Enterprise backend"),
+    "3 yetenek grubu",
+  ],
+  [!source("src/components/sections/Skills.tsx").includes("lg:grid-cols-3"), "eski chip matrisi kalktı"],
   [!source("src/components/sections/Skills.tsx").includes("children"), "Skills children prop'u kalktı"],
   [
     source("src/app/(site)/[lang]/page.tsx").includes("<Skills t={t} />") &&

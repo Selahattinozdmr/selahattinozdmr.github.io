@@ -29,6 +29,7 @@ export type Experience = {
 
 export type SkillGroup = {
   title: string;
+  summary: string;
   items: string[];
 };
 
