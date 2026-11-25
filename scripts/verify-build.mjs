@@ -526,6 +526,8 @@ checks.push(
   [globals.includes("@media (prefers-reduced-motion: reduce)"), "reduced motion bloğu"],
 );
 
+const reducedCss = globals.slice(globals.indexOf("@media (prefers-reduced-motion: reduce)"));
+
 checks.push(
   [hero.includes("CursorSpotlight"), "hero spotlight"],
   [hero.includes("Magnetic"), "hero magnetic"],
@@ -535,7 +537,10 @@ checks.push(
   [hero.includes("availability-dot"), "availability pulse"],
   [globals.includes("hero-in") || globals.includes("heroIn"), "hero keyframes"],
   [globals.includes("[data-hero] {"), "hero no-JS CSS seçicisi"],
-  [globals.includes("animation: none !important"), "hero reduced motion off"],
+  [
+    /\[data-hero\]\s*\{\s*animation:\s*none\s*!important/.test(reducedCss),
+    "hero reduced motion off",
+  ],
   [motion("CursorSpotlight").includes("--spot-x"), "CursorSpotlight CSS var"],
   [motion("CursorSpotlight").includes("(hover: hover) and (pointer: fine)"), "spotlight fine pointer"],
   [motion("CursorSpotlight").includes("(prefers-reduced-motion: no-preference)"), "spotlight reduced off"],
