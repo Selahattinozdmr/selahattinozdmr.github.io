@@ -27,10 +27,10 @@ export default function Experience({ t }: { t: Dictionary }) {
             scrollTrigger: { trigger: ".tl-list", start: "top 70%", end: "bottom 60%", scrub: 0.6 },
           },
         );
-        gsap.utils.toArray<HTMLElement>(".tl-item").forEach((el, i) => {
+        gsap.utils.toArray<HTMLElement>(".tl-item").forEach((el) => {
           gsap.from(el, {
             opacity: 0,
-            x: i % 2 === 0 ? -48 : 48,
+            y: 24,
             duration: 0.9,
             ease: "power3.out",
             scrollTrigger: { trigger: el, start: "top 85%", once: true },
