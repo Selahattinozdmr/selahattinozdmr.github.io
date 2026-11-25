@@ -521,6 +521,15 @@ checks.push(
   ],
   [!source("src/app/(site)/[lang]/page.tsx").includes("CursorSpotlight"), "spotlight site geneline yayılmıyor"],
   [globals.includes("gridDrift") || globals.includes("grid-drift"), "grid drift keyframes"],
+  [
+    globals
+      .slice(globals.indexOf("@keyframes grid-drift"), globals.indexOf("@keyframes status-pulse"))
+      .includes("translate3d") &&
+      !globals
+        .slice(globals.indexOf("@keyframes grid-drift"), globals.indexOf("@keyframes status-pulse"))
+        .includes("background-position"),
+    "grid drift yalnızca transform",
+  ],
   [globals.includes("background-size: 64px 64px"), "64px hairline grid"],
   [globals.includes("rgb(var(--accent-rgb) / 0.16)"), "accent radial glow"],
   [globals.includes("@media (prefers-reduced-motion: reduce)"), "reduced motion bloğu"],
@@ -553,6 +562,7 @@ checks.push(
   [workRow.includes("useSpring"), "preview spring"],
   [workRow.includes("springX.jump"), "preview ilk hover'da snap"],
   [workRow.includes("onPointerEnter"), "preview mount on hover"],
+  [workRow.includes("setHovered(false)") && workRow.includes("clearTimeout"), "preview fade sonrası unmount"],
   [workRow.includes("aria-label"), "project link context"],
   [workRow.includes("(hover: hover) and (pointer: fine)"), "preview fine pointer"],
   [workRow.includes("(prefers-reduced-motion: no-preference)"), "preview reduced off"],

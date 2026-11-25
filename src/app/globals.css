@@ -99,30 +99,26 @@ body {
 }
 
 /* Static 64px hairline grid, faded with a radial mask. The slow drift is a
-   background-position loop applied only when motion is welcome. */
+   compositor-only translate loop applied only when motion is welcome. */
 .site-backdrop::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -64px;
   opacity: 0.6;
   background-image:
     linear-gradient(to right, var(--line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--line) 1px, transparent 1px);
   background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
-  mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 64px, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 64px, #000 0%, transparent 75%);
 }
 
 @keyframes grid-drift {
   from {
-    background-position:
-      0 0,
-      0 0;
+    transform: translate3d(0, 0, 0);
   }
   to {
-    background-position:
-      64px 64px,
-      64px 64px;
+    transform: translate3d(64px, 64px, 0);
   }
 }
 

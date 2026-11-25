@@ -16,11 +16,13 @@ type Props = {
 
 const PREVIEW_WIDTH = 280;
 const PREVIEW_HEIGHT = Math.round((PREVIEW_WIDTH * 314) / 560);
+const FADE_MS = 300;
 
 export default function WorkRow({ project, index, labels }: Props) {
   const [enabled, setEnabled] = useState(false);
   const [hovered, setHovered] = useState(false);
   const hoverRef = useRef(false);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const opacity = useMotionValue(0);
@@ -37,6 +39,12 @@ export default function WorkRow({ project, index, labels }: Props) {
     return () => {
       hoverQuery.removeEventListener("change", update);
       motionQuery.removeEventListener("change", update);
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (hideTimer.current) clearTimeout(hideTimer.current);
     };
   }, []);
 
@@ -57,6 +65,10 @@ export default function WorkRow({ project, index, labels }: Props) {
 
   const handlePointerEnter = (event: PointerEvent<HTMLLIElement>) => {
     if (!enabled) return;
+    if (hideTimer.current) {
+      clearTimeout(hideTimer.current);
+      hideTimer.current = null;
+    }
     const next = target(event.clientX, event.clientY);
     x.set(next.x);
     y.set(next.y);
@@ -79,6 +91,11 @@ export default function WorkRow({ project, index, labels }: Props) {
   const handlePointerLeave = () => {
     hoverRef.current = false;
     opacity.set(0);
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    hideTimer.current = setTimeout(() => {
+      hideTimer.current = null;
+      if (!hoverRef.current) setHovered(false);
+    }, FADE_MS);
   };
 
   return (
