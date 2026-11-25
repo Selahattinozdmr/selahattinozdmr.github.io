@@ -13,7 +13,7 @@ const mono = JetBrains_Mono({ subsets: ["latin", "latin-ext"], variable: "--font
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
-
+ 
 export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
