@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 };
 
-export default function Reveal({ children, delay = 0, x = 0, y = 28, className }: Props) {
+export default function Reveal({ children, delay = 0, x = 0, y = 16, className }: Props) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });

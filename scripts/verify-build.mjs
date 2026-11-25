@@ -335,6 +335,15 @@ checks.push(
   ],
 );
 
+checks.push(
+  [source("src/components/motion/ScrollProgress.tsx").includes("useScroll"), "ScrollProgress"],
+  [source("src/components/motion/SectionRule.tsx").includes("useInView"), "SectionRule"],
+  [source("src/components/motion/SectionLabel.tsx").includes("IntersectionObserver"), "SectionLabel"],
+  [source("src/app/(site)/[lang]/page.tsx").includes("<ScrollProgress />"), "sayfa progress kullanıyor"],
+  [source("src/components/ui/SectionShell.tsx").includes('split(" — ")'), "section index parse"],
+  [globals.includes("gridDrift") || globals.includes("grid-drift"), "grid drift keyframes"],
+);
+
 const darkBlock = globals.match(/:root\s*\{([\s\S]*?)\}/)?.[1] ?? "";
 const lightBlock = globals.match(/:root\[data-theme="light"\]\s*\{([\s\S]*?)\}/)?.[1] ?? "";
 const token = (block, name) => block.match(new RegExp(`--${name}:\\s*([^;]+);`))?.[1]?.trim();

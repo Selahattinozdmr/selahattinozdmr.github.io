@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "@/content";
+import ScrollProgress from "@/components/motion/ScrollProgress";
 import SiteBackdrop from "@/components/ui/SiteBackdrop";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/sections/Navbar";
@@ -18,6 +19,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
+      <ScrollProgress />
       <SiteBackdrop />
       <Navbar t={t} lang={lang} />
       <main className="relative z-10">

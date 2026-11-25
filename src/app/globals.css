@@ -98,8 +98,8 @@ body {
     var(--bg);
 }
 
-/* Static 64px hairline grid, faded with a radial mask. Motion (drift) lands
-   in Task 2, not here. */
+/* Static 64px hairline grid, faded with a radial mask. The slow drift is a
+   background-position loop applied only when motion is welcome. */
 .site-backdrop::before {
   content: "";
   position: absolute;
@@ -111,6 +111,37 @@ body {
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
   mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
+}
+
+@keyframes grid-drift {
+  from {
+    background-position:
+      0 0,
+      0 0;
+  }
+  to {
+    background-position:
+      64px 64px,
+      64px 64px;
+  }
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.82);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-backdrop::before {
+    animation: grid-drift 24s linear infinite;
+  }
 }
 
 .site-backdrop::after {
@@ -130,6 +161,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .site-backdrop::before {
+    animation: none;
   }
   *,
   *::before,
