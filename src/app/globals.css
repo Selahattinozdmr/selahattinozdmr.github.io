@@ -1,46 +1,47 @@
 @import "tailwindcss";
 
-/* Warm editorial palette: paper/ink canvas with a single clay accent.
-   Dark is the default; <html data-theme="light"> switches to the light palette.
-   --bg-rgb / --accent-rgb are space-separated channels for rgb(var(--x-rgb) / a). */
+/* Cool technical-minimal palette: monochrome canvas with a single electric-blue
+   accent. Dark is the default; <html data-theme="light"> switches to the light
+   palette. --bg-rgb / --accent-rgb are space-separated channels for
+   rgb(var(--x-rgb) / a). */
 :root {
-  --bg: #0d0b09;
-  --bg-rgb: 13 11 9;
-  --bg-elev: #15110e;
-  --card: rgba(244, 239, 230, 0.04);
-  --line: rgba(244, 239, 230, 0.14);
-  --fg: #f4efe6;
-  --fg-rgb: 244 239 230;
-  --fg-muted: #b8aea2;
-  --accent: #d97745;
-  --accent-rgb: 217 119 69;
-  --accent-ink: #e08a5b;
-  --on-accent: #0d0b09;
+  --bg: #07080a;
+  --bg-rgb: 7 8 10;
+  --bg-elev: #0d0f13;
+  --surface: rgba(255, 255, 255, 0.04);
+  --line: rgba(238, 242, 247, 0.12);
+  --fg: #eef2f7;
+  --fg-rgb: 238 242 247;
+  --fg-muted: #9aa4b2;
+  --accent: #7aa2ff;
+  --accent-rgb: 122 162 255;
+  --accent-ink: #a8c1ff;
+  --on-accent: #07080a;
   --shadow: rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
 
 :root[data-theme="light"] {
-  --bg: #f4efe6;
-  --bg-rgb: 244 239 230;
-  --bg-elev: #fbf8f2;
-  --card: rgba(255, 255, 255, 0.55);
-  --line: rgba(26, 21, 18, 0.14);
-  --fg: #1a1512;
-  --fg-rgb: 26 21 18;
-  --fg-muted: #5f574f;
-  --accent: #b8501f;
-  --accent-rgb: 184 80 31;
-  --accent-ink: #9a3d17;
-  --on-accent: #fff8f0;
-  --shadow: rgba(26, 21, 18, 0.14);
+  --bg: #f4f6f8;
+  --bg-rgb: 244 246 248;
+  --bg-elev: #ffffff;
+  --surface: rgba(255, 255, 255, 0.72);
+  --line: rgba(11, 16, 32, 0.12);
+  --fg: #0b1020;
+  --fg-rgb: 11 16 32;
+  --fg-muted: #596273;
+  --accent: #2b63f0;
+  --accent-rgb: 43 99 240;
+  --accent-ink: #1d4ed8;
+  --on-accent: #ffffff;
+  --shadow: rgba(11, 16, 32, 0.14);
   color-scheme: light;
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-elev: var(--bg-elev);
-  --color-card: var(--card);
+  --color-surface: var(--surface);
   --color-line: var(--line);
   --color-fg: var(--fg);
   --color-muted: var(--fg-muted);
@@ -48,7 +49,7 @@
   --color-accent-ink: var(--accent-ink);
   --color-on-accent: var(--on-accent);
   --font-sans: var(--font-inter);
-  --font-display: var(--font-serif);
+  --font-display: var(--font-grotesk);
   --font-mono: var(--font-jetbrains);
 }
 
@@ -82,14 +83,8 @@ body {
   color: var(--on-accent);
 }
 
-.text-gradient {
-  color: var(--fg);
-  background: none;
-  -webkit-text-fill-color: currentColor;
-}
-
-.glass {
-  background: var(--card);
+.surface {
+  background: var(--surface);
   border: 1px solid var(--line);
 }
 
@@ -100,8 +95,22 @@ body {
   pointer-events: none;
   background:
     radial-gradient(1100px 560px at 20% -10%, rgb(var(--accent-rgb) / 0.16), transparent 68%),
-    radial-gradient(900px 520px at 88% 6%, rgb(var(--accent-rgb) / 0.12), transparent 66%),
     var(--bg);
+}
+
+/* Static 64px hairline grid, faded with a radial mask. Motion (drift) lands
+   in Task 2, not here. */
+.site-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.6;
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
 }
 
 .site-backdrop::after {
@@ -115,7 +124,6 @@ body {
 :root[data-theme="light"] .site-backdrop {
   background:
     radial-gradient(1100px 560px at 20% -10%, rgb(var(--accent-rgb) / 0.1), transparent 68%),
-    radial-gradient(900px 520px at 88% 6%, rgb(var(--accent-rgb) / 0.08), transparent 66%),
     var(--bg);
 }
 

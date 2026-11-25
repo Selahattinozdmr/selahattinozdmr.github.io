@@ -1,6 +1,6 @@
 /**
  * "SÖ" geometric monogram (Higgsfield / GPT Image SVG). Colors come from the
- * theme tokens: accent for the mark and foreground for the umlaut dots.
+ * theme tokens: accent for the mark and muted foreground for the umlaut dots.
  */
 export default function Logo({ className }: { className?: string }) {
   return (

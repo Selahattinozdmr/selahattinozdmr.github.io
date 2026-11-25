@@ -37,7 +37,7 @@ export default function Hero({ t }: { t: Dictionary }) {
             {h.location} · {h.timezone}
           </p>
         </div>
-        <aside className="glass h-fit rounded-2xl p-6 md:p-8">
+        <aside className="surface h-fit rounded-2xl p-6 md:p-8">
           <dl className="space-y-6">
             <div>
               <dt className="font-mono text-[11px] tracking-[0.16em] text-muted uppercase">

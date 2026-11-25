@@ -165,16 +165,18 @@ const sectionFiles = ["About", "Experience", "Projects", "Skills", "Education", 
 const globals = source("src/app/globals.css");
 
 checks.push(
-  [globals.includes("--bg: #0d0b09;"), "koyu kanvas"],
-  [globals.includes("--bg: #f4efe6;"), "açık kanvas"],
-  [globals.includes("--accent: #d97745;"), "koyu accent"],
-  [globals.includes("--accent: #b8501f;"), "açık accent"],
-  [globals.includes("--accent-ink: #e08a5b;"), "koyu accent metin"],
-  [globals.includes("--accent-ink: #9a3d17;"), "açık accent metin"],
-  [globals.includes("--font-display: var(--font-serif)"), "serif display token'ı"],
+  [globals.includes("--bg: #07080a;"), "koyu kanvas"],
+  [globals.includes("--bg: #f4f6f8;"), "açık kanvas"],
+  [globals.includes("--accent: #7aa2ff;"), "koyu accent"],
+  [globals.includes("--accent: #2b63f0;"), "açık accent"],
+  [globals.includes("--accent-ink: #a8c1ff;"), "koyu accent metin"],
+  [globals.includes("--accent-ink: #1d4ed8;"), "açık accent metin"],
+  [globals.includes("--surface:"), "surface token'ı"],
+  [globals.includes("--font-display: var(--font-grotesk)"), "Space Grotesk display"],
+  [source("src/app/(site)/[lang]/layout.tsx").includes("Space_Grotesk"), "Space Grotesk yüklü"],
+  [!source("src/app/(site)/[lang]/layout.tsx").includes("Instrument_Serif"), "Instrument Serif kalktı"],
+  [!/var\(--(card|font-serif)/.test(globals), "eski card/serif token'ı kalktı"],
   [!(/--cyan|--orange|--violet/.test(globals)), "eski renk token'ları kalktı"],
-  [source("src/app/(site)/[lang]/layout.tsx").includes("Instrument_Serif"), "Instrument Serif yüklü"],
-  [!source("src/app/(site)/[lang]/layout.tsx").includes("Space_Grotesk"), "Space Grotesk kalktı"],
   [
     !/(text|bg|border|outline|decoration|from|via|to)-(cyan|orange)/.test(
       [...sectionFiles, "src/app/(root)/page.tsx", "src/components/hero/Hero.tsx",
@@ -190,8 +192,8 @@ checks.push(
     ),
     "eski renk değişkenleri kalktı",
   ],
-  [source("src/components/ui/Logo.tsx").includes("var(--accent)"), "logo accent kullanıyor"],
-  [!source("src/app/icon.svg").includes("#22d3ee") && !source("src/app/icon.svg").includes("#fb923c"), "favicon yeni palet"],
+  [source("src/components/ui/Logo.tsx").includes("var(--accent)"), "logo accent"],
+  [source("src/app/icon.svg").includes("#7aa2ff") && !source("src/app/icon.svg").includes("#d97745"), "favicon yeni palet"],
   [source("src/content/tr.ts").includes('menu: "Menü"'), "TR menü etiketi"],
   [source("src/content/en.ts").includes('menu: "Menu"'), "EN menü etiketi"],
 );
