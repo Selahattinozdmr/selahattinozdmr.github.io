@@ -215,8 +215,8 @@ const tr: Dictionary = {
     gpa: "Mezun — GNO 3.42 / 4.00",
     languagesTitle: "Diller",
     languages: [
-      { name: "Türkçe", level: "Ana dil", score: 5 },
-      { name: "İngilizce", level: "B1", score: 3 },
+      { name: "Türkçe", level: "Ana dil" },
+      { name: "İngilizce", level: "B1" },
     ],
     publicationTitle: "Yayın",
     publication: {
@@ -235,7 +235,7 @@ const tr: Dictionary = {
     copy: "Kopyala",
     copied: "Kopyalandı!",
   },
-  footer: { rights: "Tüm hakları saklıdır.", builtWith: "Next.js, GSAP & Motion ile geliştirildi", backToTop: "Başa dön" },
+  footer: { rights: "Tüm hakları saklıdır.", builtWith: "Next.js, Motion & Tailwind ile geliştirildi", backToTop: "Başa dön" },
 };
 
 export default tr;

@@ -1,81 +1,54 @@
 import type { Dictionary } from "@/content/types";
-import SectionHeading from "@/components/ui/SectionHeading";
+import SectionShell from "@/components/ui/SectionShell";
 import Reveal from "@/components/ui/Reveal";
 
 export default function Education({ t }: { t: Dictionary }) {
   const e = t.education;
   return (
-    <section id="education" aria-labelledby="education-title" className="relative py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5">
-        <SectionHeading id="education-title" eyebrow={e.eyebrow} title={e.title} />
-        <div className="grid gap-6 md:grid-cols-2">
-          <Reveal>
-            <div className="glass h-full rounded-3xl p-7 md:p-9">
-              <p className="font-mono text-xs tracking-wide text-accent-ink uppercase">{e.period}</p>
-              <h3 className="font-display mt-3 text-2xl font-bold md:text-3xl">{e.degree}</h3>
-              <p className="mt-2 text-lg text-accent-ink">{e.school}</p>
-              <p className="mt-6 inline-block rounded-full border border-line px-4 py-1.5 font-mono text-sm text-fg">
-                {e.gpa}
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="glass h-full rounded-3xl p-7 md:p-9">
-              <h3 className="font-mono text-xs tracking-widest text-accent-ink uppercase">{e.languagesTitle}</h3>
-              <ul className="mt-5 space-y-5">
-                {e.languages.map((l) => (
-                  <li key={l.name} className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="font-display text-lg font-semibold">{l.name}</p>
-                      <p className="text-sm text-muted">{l.level}</p>
-                    </div>
-                    <div
-                      role="img"
-                      aria-label={`${l.score} / 5`}
-                      className="flex gap-1.5"
-                    >
-                      {Array.from({ length: 5 }, (_, i) => (
-                        <span
-                          key={i}
-                          aria-hidden
-                          className={`h-2.5 w-2.5 rounded-full ${
-                            i < l.score
-                              ? "bg-accent shadow-[0_0_10px_rgb(var(--accent-rgb)/0.7)]"
-                              : "border border-line bg-transparent"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-          <Reveal delay={0.15} className="md:col-span-2">
-            <div className="glass rounded-3xl p-7 md:p-9">
-              <h3 className="font-mono text-xs tracking-widest text-accent-ink uppercase">{e.publicationTitle}</h3>
-              <div className="mt-4 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-                <div className="max-w-2xl">
-                  <p className="font-display text-xl font-bold md:text-2xl">{e.publication.title}</p>
-                  <p className="mt-1 font-mono text-sm text-accent-ink">{e.publication.venue}</p>
-                  <p className="mt-3 leading-relaxed text-muted">{e.publication.description}</p>
-                </div>
-                <a
-                  href={e.publication.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 py-2.5 text-sm font-medium text-accent-ink transition hover:bg-accent hover:text-on-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-                >
-                  {e.publication.cta}
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                    <path d="M7 17 17 7M8 7h9v9" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </Reveal>
-        </div>
+    <SectionShell id="education" label={e.eyebrow} title={e.title}>
+      <div className="grid gap-10 md:grid-cols-2 md:gap-16">
+        <Reveal y={16}>
+          <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted">{e.period}</p>
+          <h3 className="font-display mt-3 text-2xl leading-snug md:text-3xl">{e.degree}</h3>
+          <p className="mt-1 font-mono text-sm text-accent-ink">{e.school}</p>
+          <p className="mt-4 text-sm text-muted">{e.gpa}</p>
+        </Reveal>
+        <Reveal delay={0.08} y={16}>
+          <h3 className="font-mono text-xs uppercase tracking-[0.16em] text-accent-ink">
+            {e.languagesTitle}
+          </h3>
+          <ul className="mt-4 space-y-2 text-muted">
+            {e.languages.map((l) => (
+              <li key={l.name}>
+                <span className="text-fg">{l.name}</span> — {l.level}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
-    </section>
+      <Reveal delay={0.12} y={16} className="mt-12 border-t border-line pt-8">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-[62ch]">
+            <h3 className="font-mono text-xs uppercase tracking-[0.16em] text-accent-ink">
+              {e.publicationTitle}
+            </h3>
+            <p className="font-display mt-3 text-xl leading-snug md:text-2xl">{e.publication.title}</p>
+            <p className="mt-1 font-mono text-sm text-accent-ink">{e.publication.venue}</p>
+            <p className="mt-3 leading-relaxed text-muted">{e.publication.description}</p>
+          </div>
+          <a
+            href={e.publication.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex w-fit shrink-0 items-center gap-2 font-mono text-sm text-accent-ink underline decoration-accent/40 underline-offset-4 transition hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          >
+            {e.publication.cta}
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M7 17 17 7M8 7h9v9" />
+            </svg>
+          </a>
+        </div>
+      </Reveal>
+    </SectionShell>
   );
 }

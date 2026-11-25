@@ -5,7 +5,7 @@ import CurrentYear from "@/components/ui/CurrentYear";
 export default function Footer({ t }: { t: Dictionary }) {
   return (
     <footer className="relative z-10 border-t border-line">
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-5 py-10 text-sm text-muted md:flex-row md:items-center">
+      <div className="mx-auto flex max-w-[1180px] flex-col items-start justify-between gap-4 px-6 py-10 text-sm text-muted md:flex-row md:items-center md:px-8">
         <p>
           © <CurrentYear /> {site.name}. {t.footer.rights}
         </p>

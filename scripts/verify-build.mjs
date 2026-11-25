@@ -193,8 +193,20 @@ checks.push(
   [sectionFiles.every((f) => !source(f).includes("py-28 md:py-40")), "bölüm boşlukları sıkılaştı"],
   [!source("src/components/ui/SectionHeading.tsx").includes("md:text-6xl"), "başlık ölçeği sakinleşti"],
   [
-    source("src/content/tr.ts").includes("GSAP & Motion") && source("src/content/en.ts").includes("GSAP & Motion"),
+    source("src/content/tr.ts").includes("Motion & Tailwind") &&
+      source("src/content/en.ts").includes("Motion & Tailwind"),
     "footer metni güncel",
+  ],
+  [source("src/components/sections/Education.tsx").includes("SectionShell"), "Education SectionShell"],
+  [!source("src/content/types.ts").includes("score: number"), "dil score kalktı"],
+  [
+    source("src/components/sections/Contact.tsx").includes("SectionShell") &&
+      !source("src/components/sections/Contact.tsx").includes("children"),
+    "Contact çocuksuz",
+  ],
+  [
+    !source("src/app/(site)/[lang]/page.tsx").includes("ContactVideoOrb"),
+    "sayfa orb kullanmıyor",
   ],
 );
 

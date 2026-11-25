@@ -104,7 +104,7 @@ export type Dictionary = {
     period: string;
     gpa: string;
     languagesTitle: string;
-    languages: { name: string; level: string; score: number }[];
+    languages: { name: string; level: string }[];
     publicationTitle: string;
     publication: {
       title: string;

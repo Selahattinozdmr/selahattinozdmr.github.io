@@ -213,8 +213,8 @@ const en: Dictionary = {
     gpa: "Graduated — GPA 3.42 / 4.00",
     languagesTitle: "Languages",
     languages: [
-      { name: "Turkish", level: "Native", score: 5 },
-      { name: "English", level: "B1", score: 3 },
+      { name: "Turkish", level: "Native" },
+      { name: "English", level: "B1" },
     ],
     publicationTitle: "Publication",
     publication: {
@@ -233,7 +233,7 @@ const en: Dictionary = {
     copy: "Copy",
     copied: "Copied!",
   },
-  footer: { rights: "All rights reserved.", builtWith: "Built with Next.js, GSAP & Motion", backToTop: "Back to top" },
+  footer: { rights: "All rights reserved.", builtWith: "Built with Next.js, Motion & Tailwind", backToTop: "Back to top" },
 };
 
 export default en;

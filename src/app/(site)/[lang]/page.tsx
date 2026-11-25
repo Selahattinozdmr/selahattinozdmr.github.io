@@ -10,7 +10,6 @@ import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
 import Education from "@/components/sections/Education";
 import Contact from "@/components/sections/Contact";
-import ContactVideoOrb from "@/components/ui/ContactVideoOrb";
 import Footer from "@/components/sections/Footer";
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
@@ -29,9 +28,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <Projects t={t} />
         <Skills t={t} />
         <Education t={t} />
-        <Contact t={t}>
-          <ContactVideoOrb />
-        </Contact>
+        <Contact t={t} />
       </main>
       <Footer t={t} />
     </SmoothScroll>
