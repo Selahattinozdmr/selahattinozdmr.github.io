@@ -66,7 +66,7 @@ const en: Dictionary = {
           "Developed REST APIs with Java Spring Boot for the Academy department, automating corporate training workflows and integrating with internal systems.",
         ],
         outcome:
-          "Corporate training workflows moved from manual steps to automated REST integrations.",
+          "Corporate training workflows were automated through REST APIs integrated with internal systems.",
       },
       {
         role: "Machine Learning Intern",
@@ -78,7 +78,7 @@ const en: Dictionary = {
           "Researched Generative Adversarial Networks (GANs) and deep reinforcement learning (Deep Q-Learning).",
         ],
         outcome:
-          "Predictive models and research prototypes turned into hands-on machine learning experience.",
+          "Built predictive models and researched GANs and Deep Q-Learning.",
       },
     ],
   },

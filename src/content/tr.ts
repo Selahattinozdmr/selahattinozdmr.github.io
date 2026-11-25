@@ -66,7 +66,7 @@ const tr: Dictionary = {
           "Akademi birimi için Java Spring Boot ile REST API'ler geliştirdim; kurumsal eğitim iş akışlarını otomatikleştirip iç sistemlerle entegre ettim.",
         ],
         outcome:
-          "Kurumsal eğitim iş akışları manuel adımlardan otomatik REST entegrasyonlarına taşındı.",
+          "Kurumsal eğitim iş akışları otomatikleşti; iç sistemlerle entegre REST API'ler.",
       },
       {
         role: "Makine Öğrenmesi Stajyeri",
@@ -78,7 +78,7 @@ const tr: Dictionary = {
           "Çekişmeli Üretici Ağlar (GAN) ve derin pekiştirmeli öğrenme (Deep Q-Learning) üzerine araştırma yaptım.",
         ],
         outcome:
-          "Tahmin modelleri ve araştırma prototipleri uygulamalı makine öğrenmesi deneyimine dönüştü.",
+          "Tahmin modelleri geliştirildi; GAN ve Deep Q-Learning üzerine araştırma.",
       },
     ],
   },

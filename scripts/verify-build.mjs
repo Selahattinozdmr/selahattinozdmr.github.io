@@ -219,8 +219,18 @@ checks.push(
   [source("src/components/sections/Experience.tsx").includes("SectionShell"), "Experience SectionShell"],
   [
     source("src/content/types.ts").includes("outcome: string") &&
-      source("src/content/tr.ts").includes("Kurumsal eğitim iş akışları") &&
-      source("src/content/en.ts").includes("Corporate training workflows"),
+      source("src/content/tr.ts").includes(
+        "Kurumsal eğitim iş akışları otomatikleşti; iç sistemlerle entegre REST API'ler.",
+      ) &&
+      source("src/content/tr.ts").includes(
+        "Tahmin modelleri geliştirildi; GAN ve Deep Q-Learning üzerine araştırma.",
+      ) &&
+      source("src/content/en.ts").includes(
+        "Corporate training workflows were automated through REST APIs integrated with internal systems.",
+      ) &&
+      source("src/content/en.ts").includes(
+        "Built predictive models and researched GANs and Deep Q-Learning.",
+      ),
     "Experience outcome içeriği",
   ],
 );
