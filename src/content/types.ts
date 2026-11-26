@@ -1,3 +1,5 @@
+import type { ProjectMeta } from "./projects";
+
 export const locales = ["tr", "en"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "tr";
@@ -5,18 +7,17 @@ export const defaultLocale: Locale = "tr";
 export const hasLocale = (value: string): value is Locale =>
   (locales as readonly string[]).includes(value);
 
-export type Project = {
+export type ProjectText = {
   id: string;
   name: string;
-  stack: string[];
   description: string;
   problem: string;
   outcome: string;
   details?: string[];
-  image: string;
-  url?: string;
   linkLabel?: string;
 };
+
+export type Project = ProjectText & Omit<ProjectMeta, "id">;
 
 export type Experience = {
   role: string;
@@ -24,7 +25,6 @@ export type Experience = {
   period: string;
   location: string;
   bullets: string[];
-  outcome: string;
 };
 
 export type SkillGroup = {
@@ -33,7 +33,7 @@ export type SkillGroup = {
   items: string[];
 };
 
-export type Dictionary = {
+export type DictionarySource = {
   meta: { title: string; description: string };
   nav: {
     about: string;
@@ -50,7 +50,6 @@ export type Dictionary = {
     themeToDark: string;
   };
   hero: {
-    greeting: string;
     name: string;
     role: string;
     tagline: string;
@@ -76,7 +75,6 @@ export type Dictionary = {
   experience: {
     eyebrow: string;
     title: string;
-    outcomeLabel: string;
     items: Experience[];
   };
   projects: {
@@ -88,7 +86,24 @@ export type Dictionary = {
     outcomeLabel: string;
     caseNoteLabel: string;
     otherTitle: string;
-    items: Project[];
+    items: ProjectText[];
+  };
+  work: {
+    back: string;
+    selectedTitle: string;
+    otherTitle: string;
+    viewCase: string;
+    context: string;
+    problem: string;
+    approach: string;
+    outcome: string;
+    stack: string;
+    live: string;
+    prev: string;
+    next: string;
+    notFoundTitle: string;
+    notFoundBody: string;
+    notFoundCta: string;
   };
   skills: {
     eyebrow: string;
@@ -123,4 +138,8 @@ export type Dictionary = {
     copied: string;
   };
   footer: { rights: string; builtWith: string; backToTop: string };
+};
+
+export type Dictionary = Omit<DictionarySource, "projects"> & {
+  projects: Omit<DictionarySource["projects"], "items"> & { items: Project[] };
 };

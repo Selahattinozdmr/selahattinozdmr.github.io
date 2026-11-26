@@ -1,6 +1,6 @@
-import type { Dictionary } from "./types";
+import type { DictionarySource } from "./types";
 
-const en: Dictionary = {
+const en: DictionarySource = {
   meta: {
     title: "Selahattin Özdemir — Software Engineer",
     description:
@@ -21,7 +21,6 @@ const en: Dictionary = {
     themeToDark: "Switch to dark theme",
   },
   hero: {
-    greeting: "Hi, I'm",
     name: "Selahattin Özdemir",
     role: "Software Engineer",
     tagline: "I build enterprise Java/Spring Boot backends and Next.js/React Native products.",
@@ -55,7 +54,6 @@ const en: Dictionary = {
   experience: {
     eyebrow: "02 — Experience",
     title: "Where I've worked",
-    outcomeLabel: "What changed",
     items: [
       {
         role: "Software Engineer Intern",
@@ -65,8 +63,6 @@ const en: Dictionary = {
         bullets: [
           "Developed REST APIs with Java Spring Boot for the Academy department, automating corporate training workflows and integrating with internal systems.",
         ],
-        outcome:
-          "Corporate training workflows were automated through REST APIs integrated with internal systems.",
       },
       {
         role: "Machine Learning Intern",
@@ -77,8 +73,6 @@ const en: Dictionary = {
           "Built predictive models on Kaggle datasets using regression and decision trees.",
           "Researched Generative Adversarial Networks (GANs) and deep reinforcement learning (Deep Q-Learning).",
         ],
-        outcome:
-          "Built predictive models and researched GANs and Deep Q-Learning.",
       },
     ],
   },
@@ -95,7 +89,6 @@ const en: Dictionary = {
       {
         id: "autosuchen24",
         name: "Autosuchen24",
-        stack: ["React Native", "Node.js", "PostgreSQL"],
         description:
           "Multilingual vehicle marketplace built for a Swiss client. Realtime chat, an admin approval workflow and push notifications on a Node.js + PostgreSQL backend.",
         problem:
@@ -107,13 +100,10 @@ const en: Dictionary = {
           "Realtime chat",
           "Admin approval workflow and push notifications",
         ],
-        image: "/images/autosuchen24.jpg",
-        url: "https://autosuchen24.ch",
       },
       {
         id: "takasgo",
         name: "TakasGo Global",
-        stack: ["Next.js", "Node.js", "PostgreSQL"],
         description:
           "End-to-end bartering marketplace with a normalized PostgreSQL schema and a Node.js REST API handling concurrent offer transactions, plus realtime messaging.",
         problem: "Concurrent barter offers and related data needed to stay consistent.",
@@ -124,13 +114,10 @@ const en: Dictionary = {
           "Concurrent offer transactions",
           "Realtime messaging",
         ],
-        image: "/images/takasgo.jpg",
-        url: "https://www.takasgoglobal.com.tr/",
       },
       {
         id: "mutfix",
         name: "Mutfix",
-        stack: ["Next.js", "Node.js", "PostgreSQL", "RBAC"],
         description:
           "Recipe platform with role-based access control (Chef/Member) and a dynamic reward algorithm. Node.js API on PostgreSQL via Drizzle ORM, with an admin analytics dashboard.",
         problem:
@@ -142,34 +129,44 @@ const en: Dictionary = {
           "Dynamic reward algorithm",
           "Admin analytics panel",
         ],
-        image: "/images/mutfix.jpg",
       },
       {
         id: "nerdeyemek",
         name: "Nerdeyemek",
-        stack: ["Next.js", "React Native", "Node.js"],
         description:
           "Platform listing meals prepared by home chefs. Node.js service layer with server-side caching for high-performance data delivery.",
         problem: "A platform needed to list home-chef meals with high performance.",
         outcome:
           "A server-side cached Node.js service layer with Next.js and React Native clients.",
-        image: "/images/nerdeyemek.jpg",
-        url: "https://nerdeyemek.com",
       },
       {
         id: "quiz",
         name: "Online Quiz System",
-        stack: ["Next.js", "Node.js", "PostgreSQL"],
         description:
           "Parametric exam generation system for schools. Published in a peer-reviewed journal (BILMES, 2024).",
         problem: "Schools needed parametric exam generation and management.",
         outcome:
           "A K-12 exam system built with Next.js + Node.js; peer-reviewed at BILMES 2024.",
-        image: "/images/quiz.jpg",
-        url: "https://dergipark.org.tr/tr/pub/bilmes/article/1613874",
         linkLabel: "Read the article",
       },
     ],
+  },
+  work: {
+    back: "All work",
+    selectedTitle: "Selected work",
+    otherTitle: "Other work",
+    viewCase: "Case study",
+    context: "Context",
+    problem: "Problem",
+    approach: "Approach",
+    outcome: "Outcome",
+    stack: "Stack",
+    live: "Live site",
+    prev: "Previous",
+    next: "Next",
+    notFoundTitle: "Page not found",
+    notFoundBody: "The page you are looking for may have moved or never existed.",
+    notFoundCta: "Back home",
   },
   skills: {
     eyebrow: "04 — Skills",

@@ -1,6 +1,6 @@
-import type { Dictionary } from "./types";
+import type { DictionarySource } from "./types";
 
-const tr: Dictionary = {
+const tr: DictionarySource = {
   meta: {
     title: "Selahattin Özdemir — Yazılım Mühendisi",
     description:
@@ -21,7 +21,6 @@ const tr: Dictionary = {
     themeToDark: "Koyu temaya geç",
   },
   hero: {
-    greeting: "Merhaba, ben",
     name: "Selahattin Özdemir",
     role: "Yazılım Mühendisi",
     tagline: "Kurumsal Java/Spring Boot backend'leri ve Next.js/React Native ürünleri geliştiriyorum.",
@@ -55,7 +54,6 @@ const tr: Dictionary = {
   experience: {
     eyebrow: "02 — Deneyim",
     title: "Çalıştığım yerler",
-    outcomeLabel: "Ne değişti",
     items: [
       {
         role: "Yazılım Mühendisi Stajyeri",
@@ -65,8 +63,6 @@ const tr: Dictionary = {
         bullets: [
           "Akademi birimi için Java Spring Boot ile REST API'ler geliştirdim; kurumsal eğitim iş akışlarını otomatikleştirip iç sistemlerle entegre ettim.",
         ],
-        outcome:
-          "Kurumsal eğitim iş akışları otomatikleşti; iç sistemlerle entegre REST API'ler.",
       },
       {
         role: "Makine Öğrenmesi Stajyeri",
@@ -77,8 +73,6 @@ const tr: Dictionary = {
           "Kaggle veri setleri üzerinde regresyon ve karar ağaçları ile tahmin modelleri geliştirdim.",
           "Çekişmeli Üretici Ağlar (GAN) ve derin pekiştirmeli öğrenme (Deep Q-Learning) üzerine araştırma yaptım.",
         ],
-        outcome:
-          "Tahmin modelleri geliştirildi; GAN ve Deep Q-Learning üzerine araştırma.",
       },
     ],
   },
@@ -95,7 +89,6 @@ const tr: Dictionary = {
       {
         id: "autosuchen24",
         name: "Autosuchen24",
-        stack: ["React Native", "Node.js", "PostgreSQL"],
         description:
           "İsviçreli bir müşteri için çok dilli araç pazaryeri. Node.js + PostgreSQL backend üzerinde gerçek zamanlı sohbet, admin onay akışı ve push bildirimleri.",
         problem:
@@ -107,13 +100,10 @@ const tr: Dictionary = {
           "Gerçek zamanlı sohbet",
           "Admin onay akışı ve push bildirimleri",
         ],
-        image: "/images/autosuchen24.jpg",
-        url: "https://autosuchen24.ch",
       },
       {
         id: "takasgo",
         name: "TakasGo Global",
-        stack: ["Next.js", "Node.js", "PostgreSQL"],
         description:
           "Normalize PostgreSQL şeması ve eşzamanlı teklif işlemlerini yöneten Node.js REST API'si ile uçtan uca takas pazaryeri; gerçek zamanlı mesajlaşma dahil.",
         problem:
@@ -125,13 +115,10 @@ const tr: Dictionary = {
           "Eşzamanlı teklif işlemleri",
           "Gerçek zamanlı mesajlaşma",
         ],
-        image: "/images/takasgo.jpg",
-        url: "https://www.takasgoglobal.com.tr/",
       },
       {
         id: "mutfix",
         name: "Mutfix",
-        stack: ["Next.js", "Node.js", "PostgreSQL", "RBAC"],
         description:
           "Rol tabanlı erişim kontrolü (Şef/Üye) ve dinamik ödül algoritmasına sahip tarif platformu. Drizzle ORM ile PostgreSQL kullanan Node.js API ve admin analitik paneli.",
         problem:
@@ -143,35 +130,45 @@ const tr: Dictionary = {
           "Dinamik ödül algoritması",
           "Admin analitik paneli",
         ],
-        image: "/images/mutfix.jpg",
       },
       {
         id: "nerdeyemek",
         name: "Nerdeyemek",
-        stack: ["Next.js", "React Native", "Node.js"],
         description:
           "Ev şeflerinin hazırladığı yemekleri listeleyen platform. Yüksek performanslı veri sunumu için sunucu taraflı önbellekli Node.js servis katmanı.",
         problem:
           "Ev şeflerinin yemeklerini yüksek performansla listeleyen bir platform gerekiyordu.",
         outcome:
           "Sunucu taraflı önbellekli Node.js servis katmanı; Next.js ve React Native istemcileri.",
-        image: "/images/nerdeyemek.jpg",
-        url: "https://nerdeyemek.com",
       },
       {
         id: "quiz",
         name: "Online Sınav Sistemi",
-        stack: ["Next.js", "Node.js", "PostgreSQL"],
         description:
           "Okullar için parametrik sınav üretim sistemi. Hakemli bir dergide yayımlandı (BILMES, 2024).",
         problem: "Okullar için parametrik sınav üretimi ve yönetimi gerekiyordu.",
         outcome:
           "Next.js + Node.js ile K-12 sınav sistemi; BILMES 2024'te hakemli yayın.",
-        image: "/images/quiz.jpg",
-        url: "https://dergipark.org.tr/tr/pub/bilmes/article/1613874",
         linkLabel: "Makaleyi oku",
       },
     ],
+  },
+  work: {
+    back: "Tüm işler",
+    selectedTitle: "Seçili işler",
+    otherTitle: "Diğer işler",
+    viewCase: "Vaka çalışması",
+    context: "Bağlam",
+    problem: "Problem",
+    approach: "Yaklaşım",
+    outcome: "Sonuç",
+    stack: "Stack",
+    live: "Canlı site",
+    prev: "Önceki",
+    next: "Sonraki",
+    notFoundTitle: "Sayfa bulunamadı",
+    notFoundBody: "Aradığın sayfa taşınmış ya da hiç var olmamış olabilir.",
+    notFoundCta: "Ana sayfaya dön",
   },
   skills: {
     eyebrow: "04 — Yetenekler",

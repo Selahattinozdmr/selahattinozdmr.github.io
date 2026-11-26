@@ -18,10 +18,6 @@ export default function Experience({ t }: { t: Dictionary }) {
                 <h3 className="font-display text-2xl font-normal">{item.role}</h3>
                 <p className="mt-1 font-mono text-sm text-accent-ink">{item.company}</p>
                 <ul className="mt-4 space-y-2 text-muted">{item.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
-                <p className="mt-4 text-sm text-muted">
-                  <span className="font-mono text-xs uppercase tracking-[0.12em] text-accent-ink">{e.outcomeLabel}</span>{" "}
-                  {item.outcome}
-                </p>
               </Reveal>
             </li>
           ))}
