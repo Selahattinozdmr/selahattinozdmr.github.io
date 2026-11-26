@@ -162,6 +162,8 @@ const en: DictionarySource = {
     outcome: "Outcome",
     stack: "Stack",
     live: "Live site",
+    screenshot: "screenshot",
+    newTab: "(opens in a new tab)",
     prev: "Previous",
     next: "Next",
     notFoundTitle: "Page not found",
@@ -230,7 +232,7 @@ const en: DictionarySource = {
     copy: "Copy",
     copied: "Copied!",
   },
-  footer: { rights: "All rights reserved.", builtWith: "Built with Next.js, Motion & Tailwind", backToTop: "Back to top" },
+  footer: { rights: "All rights reserved.", builtWith: "Built with Next.js & Tailwind", backToTop: "Back to top" },
 };
 
 export default en;

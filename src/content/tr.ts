@@ -164,6 +164,8 @@ const tr: DictionarySource = {
     outcome: "Sonuç",
     stack: "Stack",
     live: "Canlı site",
+    screenshot: "ekran görüntüsü",
+    newTab: "(yeni sekmede açılır)",
     prev: "Önceki",
     next: "Sonraki",
     notFoundTitle: "Sayfa bulunamadı",
@@ -232,7 +234,7 @@ const tr: DictionarySource = {
     copy: "Kopyala",
     copied: "Kopyalandı!",
   },
-  footer: { rights: "Tüm hakları saklıdır.", builtWith: "Next.js, Motion & Tailwind ile geliştirildi", backToTop: "Başa dön" },
+  footer: { rights: "Tüm hakları saklıdır.", builtWith: "Next.js & Tailwind ile geliştirildi", backToTop: "Başa dön" },
 };
 
 export default tr;

@@ -49,7 +49,7 @@
   --color-accent-ink: var(--accent-ink);
   --color-on-accent: var(--on-accent);
   --font-sans: var(--font-inter);
-  --font-display: var(--font-grotesk);
+  --font-display: var(--font-inter);
   --font-mono: var(--font-jetbrains);
 }
 
@@ -58,16 +58,11 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Smooth palette swap when the user toggles (not on first paint). */
-html.theme-transition,
-html.theme-transition *,
-html.theme-transition *::before,
-html.theme-transition *::after {
+/* Palette swap when the user toggles the theme (not on first paint). */
+html.theme-transition body {
   transition:
     background-color 0.35s ease,
-    border-color 0.35s ease,
-    color 0.35s ease,
-    fill 0.35s ease !important;
+    color 0.35s ease;
 }
 
 body {
@@ -75,7 +70,11 @@ body {
   color: var(--fg);
   font-family: var(--font-inter), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 ::selection {
@@ -83,225 +82,21 @@ body {
   color: var(--on-accent);
 }
 
-.surface {
-  background: var(--surface);
-  border: 1px solid var(--line);
-}
-
-.site-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(1100px 560px at 20% -10%, rgb(var(--accent-rgb) / 0.16), transparent 68%),
-    var(--bg);
-}
-
-/* Static 64px hairline grid, faded with a radial mask. The slow drift is a
-   compositor-only translate loop applied only when motion is welcome. */
-.site-backdrop::before {
-  content: "";
-  position: absolute;
-  inset: -64px;
-  opacity: 0.6;
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 64px, #000 0%, transparent 75%);
-  mask-image: radial-gradient(ellipse at 50% 64px, #000 0%, transparent 75%);
-}
-
-@keyframes grid-drift {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(64px, 64px, 0);
-  }
-}
-
-@keyframes status-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(0.82);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .site-backdrop::before {
-    animation: grid-drift 24s linear infinite;
-  }
-}
-
-/* Hero intro: pure CSS keyframes so the stagger runs with JS disabled too. */
-@keyframes hero-in {
+/* A single quiet intro: CSS only, so the server HTML never contains inline
+   hidden styles. */
+@keyframes intro-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 14px, 0);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: none;
   }
 }
 
-[data-hero] {
-  animation: hero-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-[data-hero][data-delay="1"] {
-  animation-delay: 0.06s;
-}
-
-[data-hero][data-delay="2"] {
-  animation-delay: 0.12s;
-}
-
-[data-hero][data-delay="3"] {
-  animation-delay: 0.18s;
-}
-
-[data-hero][data-delay="4"] {
-  animation-delay: 0.24s;
-}
-
-[data-hero][data-delay="5"] {
-  animation-delay: 0.3s;
-}
-
-/* Local pointer spotlight: a decorative radial sheen driven by CSS vars. */
-.spotlight {
-  position: relative;
-  --spot-x: 50%;
-  --spot-y: 50%;
-}
-
-.spotlight::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    220px circle at var(--spot-x) var(--spot-y),
-    rgb(var(--accent-rgb) / 0.14),
-    transparent 70%
-  );
-  transition: opacity 0.3s ease;
-}
-
-.spotlight[data-spot="on"]::before {
-  opacity: 1;
-}
-
-/* Mobile menu panel: a faint hairline grid for the technical system. */
-.nav-grid::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.5;
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 48px 48px;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 20%, #000 0%, transparent 78%);
-  mask-image: radial-gradient(ellipse at 50% 20%, #000 0%, transparent 78%);
-}
-
-.magnetic {
-  transition: transform 0.2s ease;
-}
-
-.site-backdrop::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-:root[data-theme="light"] .site-backdrop {
-  background:
-    radial-gradient(1100px 560px at 20% -10%, rgb(var(--accent-rgb) / 0.1), transparent 68%),
-    var(--bg);
-}
-
-/* Project rows: a hairline accent line grows on row hover, no layout shift. */
-.work-row {
-  position: relative;
-}
-
-.work-row::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-@media (hover: hover) {
-  .work-row:hover::after {
-    transform: scaleX(1);
-  }
-}
-
-/* Skill groups: the same hairline accent grows under the active group. */
-.skill-group {
-  position: relative;
-}
-
-.skill-group::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: -0.75rem;
-  left: 0;
-  height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-@media (hover: hover) {
-  .skill-group:hover::after {
-    transform: scaleX(1);
-  }
-}
-
-/* Contact email: the accent rule is drawn left to right on hover/focus. */
-.email-underline {
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0% 2px;
-  transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@media (hover: hover) {
-  .email-underline:hover {
-    background-size: 100% 2px;
-  }
-}
-
-.email-underline:focus-visible {
-  background-size: 100% 2px;
+.intro {
+  animation: intro-in 400ms ease-out both;
 }
 
 /* Copy success: the icon pops once, the label swap stays aria-live. */
@@ -321,51 +116,15 @@ body {
   animation: copy-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Native details: content fades/slides in when opened; the icon rotates via
-   Tailwind's group-open variant. No JS disclosure. */
-@keyframes details-in {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-details[open] .details-body {
-  animation: details-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .work-row::after {
-    transition: none;
-  }
-  .skill-group::after,
-  .email-underline {
-    transition: none;
+  .intro {
+    animation: none;
   }
   .copy-email[data-copied="true"] svg {
     animation: none;
-  }
-  .site-backdrop::before {
-    animation: none;
-  }
-  [data-hero] {
-    animation: none !important;
-  }
-  .availability-dot {
-    animation: none !important;
-  }
-  .spotlight::before {
-    display: none;
-  }
-  .magnetic {
-    transition: none;
   }
   *,
   *::before,

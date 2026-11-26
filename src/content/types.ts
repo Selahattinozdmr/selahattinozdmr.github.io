@@ -99,6 +99,8 @@ export type DictionarySource = {
     outcome: string;
     stack: string;
     live: string;
+    screenshot: string;
+    newTab: string;
     prev: string;
     next: string;
     notFoundTitle: string;
