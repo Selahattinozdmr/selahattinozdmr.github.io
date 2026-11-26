@@ -168,7 +168,7 @@ export default function WorkRow({ project, index, labels }: Props) {
           </a>
         ) : null}
       </div>
-      {hovered && enabled ? (
+      {hovered && enabled && project.image ? (
         <motion.div
           aria-hidden
           className="pointer-events-none fixed top-0 left-0 z-40 transition-opacity duration-300 will-change-transform"

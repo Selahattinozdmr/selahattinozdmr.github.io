@@ -5,8 +5,8 @@ import CompactWorkRow from "@/components/work/CompactWorkRow";
 
 export default function Projects({ t }: { t: Dictionary }) {
   const p = t.projects;
-  const featured = p.items.slice(0, 3);
-  const other = p.items.slice(3);
+  const featured = p.items.filter((project) => project.featured);
+  const other = p.items.filter((project) => !project.featured);
 
   return (
     <SectionShell id="projects" label={p.eyebrow} title={p.title}>
