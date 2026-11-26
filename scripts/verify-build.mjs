@@ -7,6 +7,16 @@ import { join } from "node:path";
 
 const out = "out";
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+// Project ids come from the source data, not from the build output, so a
+// missing case-study page fails even if the sitemap forgot it.
+const projectSource = readFileSync("src/content/projects.ts", "utf8");
+const projects = [...projectSource.matchAll(/\{\s*id:\s*"([^"]+)"([\s\S]*?)\}/g)].map(
+  (m) => ({ id: m[1], featured: /featured:\s*true/.test(m[2]) }),
+);
+const ids = projects.map((p) => p.id);
+const featuredIds = projects.filter((p) => p.featured).map((p) => p.id);
+
 const required = [
   "index.html",
   "404.html",
@@ -14,6 +24,9 @@ const required = [
   "en/index.html",
   ".nojekyll",
   "images/og.jpg",
+  "robots.txt",
+  "sitemap.xml",
+  ...["tr", "en"].flatMap((lang) => ids.map((id) => `${lang}/work/${id}/index.html`)),
 ];
 
 const missing = required.filter((p) => !existsSync(join(out, p)));
@@ -170,6 +183,77 @@ for (const [themeName, block] of [["koyu", darkBlock], ["açık", lightBlock]]) 
   const ratio = accent && onAccent ? contrast(onAccent, accent) : 0;
   checks.push([ratio >= 4.5, `${themeName} on-accent AA (${ratio ? ratio.toFixed(2) : "?"})`]);
 }
+
+// --- Vaka sayfaları, sitemap, 404 ve robots -------------------------------
+
+checks.push([ids.length > 0, `proje id'leri kaynaktan okundu (${ids.length})`]);
+
+for (const lang of ["tr", "en"]) {
+  for (const id of ids) {
+    const path = `/${lang}/work/${id}/`;
+    const html = read(`${lang}/work/${id}/index.html`);
+
+    checks.push([
+      html.includes(`lang="${lang}"`) && /<h1[\s>]/.test(html),
+      `${lang}/work/${id}/ lang ve h1`,
+    ]);
+    checks.push([linkPathIs(html, "canonical", undefined, path), `${lang}/work/${id}/ canonical bir kez`]);
+
+    const alternates = ["tr", "en", "x-default"].map((hl) => ({
+      hl,
+      href: hrefOf(findLink(html, "alternate", hl)),
+    }));
+    checks.push([
+      alternates.every(({ hl, href }) => href !== undefined && pathIsExactly(href, hl === "en" ? `/en/work/${id}/` : `/tr/work/${id}/`)),
+      `${lang}/work/${id}/ hreflang tr/en/x-default`,
+    ]);
+
+    const brokenRefs = referencedOf(html).filter((p) => {
+      const local = p.slice(base.length).split(/[?#]/)[0];
+      return !existsSync(join(out, local));
+    });
+    checks.push([
+      brokenRefs.length === 0,
+      `${lang}/work/${id}/ referanslar mevcut${brokenRefs.length ? `: ${brokenRefs.join(", ")}` : ""}`,
+    ]);
+  }
+}
+
+for (const lang of ["tr", "en"]) {
+  const html = read(`${lang}/index.html`);
+  checks.push([html.includes("application/ld+json"), `${lang}/ index JSON-LD`]);
+  checks.push([/hreflang="x-default"/i.test(html), `${lang}/ x-default hreflang`]);
+  checks.push([metaContent(html, "og:url") !== undefined, `${lang}/ og:url`]);
+  checks.push([
+    featuredIds.every((id) => html.includes(`href="${base}/${lang}/work/${id}/"`)),
+    `${lang}/ öne çıkan vaka linkleri`,
+  ]);
+}
+
+const imagePaths = [
+  ...projectSource.matchAll(/image(?:Mobile)?:\s*"([^"]+)"/g),
+].map((m) => m[1]);
+checks.push([imagePaths.length > 0, `proje görselleri kaynaktan okundu (${imagePaths.length})`]);
+for (const image of imagePaths) {
+  checks.push([existsSync(join(out, image)), `görsel çıktıda var: ${image}`]);
+}
+
+const sitemap = read("sitemap.xml");
+const sitemapPaths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => pathOf(m[1]));
+const expectedPaths = [
+  ...["tr", "en"].map((lang) => `${base}/${lang}/`),
+  ...ids.flatMap((id) => ["tr", "en"].map((lang) => `${base}/${lang}/work/${id}/`)),
+];
+checks.push([
+  expectedPaths.every((path) => sitemapPaths.includes(path)),
+  `sitemap tüm dil ve vaka sayfalarını içeriyor (${sitemapPaths.length})`,
+]);
+checks.push([base === "" || !sitemap.includes(`${base}${base}`), "sitemap basePath iki kez eklenmiyor"]);
+
+const notFound = read("404.html");
+checks.push([notFound.includes('lang="tr"'), "404 lang=tr"]);
+checks.push([/<link[^>]*rel="stylesheet"[^>]*\.css/.test(notFound), "404 stylesheet"]);
+checks.push([read("robots.txt").includes("Sitemap:"), "robots.txt Sitemap satırı"]);
 
 // --- Rapor -----------------------------------------------------------------
 
