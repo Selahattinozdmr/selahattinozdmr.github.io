@@ -2,52 +2,41 @@
 
 /* Cool technical-minimal palette: monochrome canvas with a single electric-blue
    accent. Dark is the default; <html data-theme="light"> switches to the light
-   palette. --bg-rgb / --accent-rgb are space-separated channels for
-   rgb(var(--x-rgb) / a). */
+   palette. */
 :root {
   --bg: #07080a;
-  --bg-rgb: 7 8 10;
   --bg-elev: #0d0f13;
   --surface: rgba(255, 255, 255, 0.04);
   --line: rgba(238, 242, 247, 0.12);
   --fg: #eef2f7;
-  --fg-rgb: 238 242 247;
   --fg-muted: #9aa4b2;
   --accent: #7aa2ff;
-  --accent-rgb: 122 162 255;
   --accent-ink: #a8c1ff;
   --on-accent: #07080a;
-  --shadow: rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
 
 :root[data-theme="light"] {
   --bg: #f4f6f8;
-  --bg-rgb: 244 246 248;
   --bg-elev: #ffffff;
   --surface: rgba(255, 255, 255, 0.72);
   --line: rgba(11, 16, 32, 0.12);
   --fg: #0b1020;
-  --fg-rgb: 11 16 32;
   --fg-muted: #596273;
   --accent: #2b63f0;
-  --accent-rgb: 43 99 240;
   --accent-ink: #1d4ed8;
   --on-accent: #ffffff;
-  --shadow: rgba(11, 16, 32, 0.14);
   color-scheme: light;
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-elev: var(--bg-elev);
-  --color-surface: var(--surface);
   --color-line: var(--line);
   --color-fg: var(--fg);
   --color-muted: var(--fg-muted);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
-  --color-on-accent: var(--on-accent);
   --font-sans: var(--font-inter);
   --font-display: var(--font-inter);
   --font-mono: var(--font-jetbrains);

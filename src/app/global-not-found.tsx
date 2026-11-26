@@ -53,13 +53,13 @@ export default function GlobalNotFound() {
           <nav className="flex flex-wrap gap-3 font-mono text-sm">
             <a
               href={localeHref("tr")}
-              className="rounded-md border border-line px-4 py-2 text-accent-ink transition-colors hover:text-fg"
+              className="inline-flex min-h-11 items-center rounded-md border border-line px-4 py-2 text-accent-ink transition-colors hover:text-fg"
             >
               Türkçe
             </a>
             <a
               href={localeHref("en")}
-              className="rounded-md border border-line px-4 py-2 text-accent-ink transition-colors hover:text-fg"
+              className="inline-flex min-h-11 items-center rounded-md border border-line px-4 py-2 text-accent-ink transition-colors hover:text-fg"
             >
               English
             </a>

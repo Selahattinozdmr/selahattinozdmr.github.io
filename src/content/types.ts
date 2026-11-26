@@ -29,7 +29,6 @@ export type Experience = {
 
 export type SkillGroup = {
   title: string;
-  summary: string;
   items: string[];
 };
 
@@ -38,14 +37,8 @@ export type DictionarySource = {
   nav: {
     about: string;
     experience: string;
-    projects: string;
-    skills: string;
     contact: string;
     switchLanguage: string;
-    openMenu: string;
-    closeMenu: string;
-    menu: string;
-    primary: string;
     themeToLight: string;
     themeToDark: string;
   };
@@ -56,48 +49,28 @@ export type DictionarySource = {
     location: string;
     timezone: string;
     availability: string;
-    focus: string;
     now: string;
     stack: string[];
-    focusLabel: string;
-    stackLabel: string;
     nowLabel: string;
-    ctaProjects: string;
-    ctaContact: string;
   };
   about: {
-    eyebrow: string;
-    title: string;
     paragraphs: string[];
     stats: { value: string; label: string }[];
-    pullQuote: string;
   };
   experience: {
-    eyebrow: string;
-    title: string;
     items: Experience[];
   };
   projects: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
-    visit: string;
-    problemLabel: string;
-    outcomeLabel: string;
-    caseNoteLabel: string;
     otherTitle: string;
     items: ProjectText[];
   };
   work: {
     back: string;
     selectedTitle: string;
-    otherTitle: string;
-    viewCase: string;
     context: string;
     problem: string;
     approach: string;
     outcome: string;
-    stack: string;
     live: string;
     screenshot: string;
     newTab: string;
@@ -105,16 +78,11 @@ export type DictionarySource = {
     next: string;
     notFoundTitle: string;
     notFoundBody: string;
-    notFoundCta: string;
   };
   skills: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
     groups: SkillGroup[];
   };
   education: {
-    eyebrow: string;
     title: string;
     degree: string;
     school: string;
@@ -132,14 +100,13 @@ export type DictionarySource = {
     };
   };
   contact: {
-    eyebrow: string;
     title: string;
     subtitle: string;
     emailLabel: string;
     copy: string;
     copied: string;
   };
-  footer: { rights: string; builtWith: string; backToTop: string };
+  footer: { rights: string; builtWith: string };
 };
 
 export type Dictionary = Omit<DictionarySource, "projects"> & {

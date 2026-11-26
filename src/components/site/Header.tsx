@@ -31,10 +31,10 @@ export default function Header({ lang, t, switchPath = "" }: Props) {
           href={`${localeHref(other)}${switchPath}`}
           hrefLang={other}
           lang={other}
-          aria-label={t.nav.switchLanguage}
           className="inline-flex min-h-11 items-center rounded-full px-3 font-mono text-xs tracking-[0.12em] text-muted uppercase transition-colors hover:text-accent-ink"
         >
-          {other.toUpperCase()}
+          <span aria-hidden>{other.toUpperCase()}</span>
+          <span className="sr-only">{t.nav.switchLanguage}</span>
         </a>
         <ThemeToggle toLightLabel={t.nav.themeToLight} toDarkLabel={t.nav.themeToDark} />
       </div>

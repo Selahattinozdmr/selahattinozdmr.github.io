@@ -9,14 +9,8 @@ const en: DictionarySource = {
   nav: {
     about: "About",
     experience: "Experience",
-    projects: "Projects",
-    skills: "Skills",
     contact: "Contact",
     switchLanguage: "Türkçe",
-    openMenu: "Open menu",
-    closeMenu: "Close menu",
-    menu: "Menu",
-    primary: "Primary",
     themeToLight: "Switch to light theme",
     themeToDark: "Switch to dark theme",
   },
@@ -27,18 +21,11 @@ const en: DictionarySource = {
     location: "Ankara, Turkey",
     timezone: "UTC+3",
     availability: "Open to full-time roles and freelance projects",
-    focus: "Enterprise backend · Product engineering · PostgreSQL",
     now: "Enterprise training automation + full-stack products",
     stack: ["Java", "Spring Boot", "Next.js", "React Native", "PostgreSQL"],
-    focusLabel: "Focus",
-    stackLabel: "Stack",
     nowLabel: "Now",
-    ctaProjects: "Selected work",
-    ctaContact: "Get in touch",
   },
   about: {
-    eyebrow: "01 — About",
-    title: "Backend discipline, full-stack curiosity.",
     paragraphs: [
       "I'm a Software Engineer from Ankara. At a large enterprise technology company in Ankara, I built REST APIs with Java Spring Boot that automate corporate training workflows — the kind of enterprise backend work where correctness and integration matter.",
       "Outside the enterprise, I ship full-stack products with Next.js, React Native and Node.js on PostgreSQL: marketplaces with realtime chat, role-based platforms and a peer-reviewed exam system.",
@@ -49,11 +36,8 @@ const en: DictionarySource = {
       { value: "1", label: "Published paper" },
       { value: "3.42", label: "GPA / 4.00" },
     ],
-    pullQuote: "Enterprise backend work where correctness and integration matter.",
   },
   experience: {
-    eyebrow: "02 — Experience",
-    title: "Where I've worked",
     items: [
       {
         role: "Software Engineer Intern",
@@ -77,13 +61,6 @@ const en: DictionarySource = {
     ],
   },
   projects: {
-    eyebrow: "03 — Projects",
-    title: "Selected work",
-    subtitle: "Products I've designed and built end to end.",
-    visit: "Visit",
-    problemLabel: "Problem",
-    outcomeLabel: "Outcome",
-    caseNoteLabel: "Case note",
     otherTitle: "Other work",
     items: [
       {
@@ -154,13 +131,10 @@ const en: DictionarySource = {
   work: {
     back: "All work",
     selectedTitle: "Selected work",
-    otherTitle: "Other work",
-    viewCase: "Case study",
     context: "Context",
     problem: "Problem",
     approach: "Approach",
     outcome: "Outcome",
-    stack: "Stack",
     live: "Live site",
     screenshot: "screenshot",
     newTab: "(opens in a new tab)",
@@ -168,26 +142,19 @@ const en: DictionarySource = {
     next: "Next",
     notFoundTitle: "Page not found",
     notFoundBody: "The page you are looking for may have moved or never existed.",
-    notFoundCta: "Back home",
   },
   skills: {
-    eyebrow: "04 — Skills",
-    title: "My toolbox",
-    subtitle: "From enterprise Java to mobile and machine learning.",
     groups: [
       {
         title: "Enterprise backend",
-        summary: "Enterprise work where correctness and integration matter.",
         items: ["Java", "Spring Boot", "PostgreSQL", "REST API", "RBAC / Auth"],
       },
       {
         title: "Product engineering",
-        summary: "Web and mobile products from idea to production.",
         items: ["Next.js", "React", "React Native", "Node.js", "Drizzle ORM", "Prisma", "Tailwind CSS"],
       },
       {
         title: "Foundations",
-        summary: "Typed code, containers and a machine-learning foundation.",
         items: [
           "TypeScript",
           "JavaScript",
@@ -204,7 +171,6 @@ const en: DictionarySource = {
     ],
   },
   education: {
-    eyebrow: "05 — Education",
     title: "Education & research",
     degree: "B.Sc. in Software Engineering",
     school: "Aksaray University",
@@ -225,14 +191,13 @@ const en: DictionarySource = {
     },
   },
   contact: {
-    eyebrow: "06 — Contact",
     title: "Let's build something.",
     subtitle: "Open to full-time roles and freelance projects. My inbox is always open.",
     emailLabel: "Send an email",
     copy: "Copy",
     copied: "Copied!",
   },
-  footer: { rights: "All rights reserved.", builtWith: "Built with Next.js & Tailwind", backToTop: "Back to top" },
+  footer: { rights: "All rights reserved.", builtWith: "Built with Next.js & Tailwind" },
 };
 
 export default en;

@@ -9,14 +9,8 @@ const tr: DictionarySource = {
   nav: {
     about: "Hakkımda",
     experience: "Deneyim",
-    projects: "Projeler",
-    skills: "Yetenekler",
     contact: "İletişim",
     switchLanguage: "English",
-    openMenu: "Menüyü aç",
-    closeMenu: "Menüyü kapat",
-    menu: "Menü",
-    primary: "Ana menü",
     themeToLight: "Açık temaya geç",
     themeToDark: "Koyu temaya geç",
   },
@@ -27,18 +21,11 @@ const tr: DictionarySource = {
     location: "Ankara, Türkiye",
     timezone: "UTC+3",
     availability: "Tam zamanlı roller ve freelance projelere açık",
-    focus: "Kurumsal backend · Ürün geliştirme · PostgreSQL",
     now: "Kurumsal eğitim otomasyonu + full-stack ürünler",
     stack: ["Java", "Spring Boot", "Next.js", "React Native", "PostgreSQL"],
-    focusLabel: "Odak",
-    stackLabel: "Stack",
     nowLabel: "Şu an",
-    ctaProjects: "Seçili işler",
-    ctaContact: "İletişime geç",
   },
   about: {
-    eyebrow: "01 — Hakkımda",
-    title: "Backend disiplini, full-stack merakı.",
     paragraphs: [
       "Ankara'da yaşayan bir Yazılım Mühendisiyim. Ankara merkezli büyük bir kurumsal teknoloji şirketinde, kurumsal eğitim süreçlerini otomatikleştiren Java Spring Boot REST API'leri geliştirdim — doğruluğun ve entegrasyonun kritik olduğu kurumsal backend işleri.",
       "Kurumsal dünyanın dışında Next.js, React Native ve Node.js ile PostgreSQL üzerinde uçtan uca ürünler geliştiriyorum: gerçek zamanlı sohbetli pazaryerleri, rol tabanlı platformlar ve hakemli dergide yayımlanmış bir sınav sistemi.",
@@ -49,11 +36,8 @@ const tr: DictionarySource = {
       { value: "1", label: "Yayımlanmış makale" },
       { value: "3.42", label: "GNO / 4.00" },
     ],
-    pullQuote: "Doğruluğun ve entegrasyonun kritik olduğu kurumsal backend işleri.",
   },
   experience: {
-    eyebrow: "02 — Deneyim",
-    title: "Çalıştığım yerler",
     items: [
       {
         role: "Yazılım Mühendisi Stajyeri",
@@ -77,13 +61,6 @@ const tr: DictionarySource = {
     ],
   },
   projects: {
-    eyebrow: "03 — Projeler",
-    title: "Seçili işler",
-    subtitle: "Uçtan uca tasarlayıp geliştirdiğim ürünler.",
-    visit: "Ziyaret et",
-    problemLabel: "Problem",
-    outcomeLabel: "Sonuç",
-    caseNoteLabel: "Vaka notu",
     otherTitle: "Diğer işler",
     items: [
       {
@@ -156,13 +133,10 @@ const tr: DictionarySource = {
   work: {
     back: "Tüm işler",
     selectedTitle: "Seçili işler",
-    otherTitle: "Diğer işler",
-    viewCase: "Vaka çalışması",
     context: "Bağlam",
     problem: "Problem",
     approach: "Yaklaşım",
     outcome: "Sonuç",
-    stack: "Stack",
     live: "Canlı site",
     screenshot: "ekran görüntüsü",
     newTab: "(yeni sekmede açılır)",
@@ -170,26 +144,19 @@ const tr: DictionarySource = {
     next: "Sonraki",
     notFoundTitle: "Sayfa bulunamadı",
     notFoundBody: "Aradığın sayfa taşınmış ya da hiç var olmamış olabilir.",
-    notFoundCta: "Ana sayfaya dön",
   },
   skills: {
-    eyebrow: "04 — Yetenekler",
-    title: "Araç kutum",
-    subtitle: "Kurumsal Java'dan mobile ve makine öğrenmesine.",
     groups: [
       {
         title: "Kurumsal backend",
-        summary: "Doğruluk ve entegrasyonun kritik olduğu kurumsal işler.",
         items: ["Java", "Spring Boot", "PostgreSQL", "REST API", "RBAC / Auth"],
       },
       {
         title: "Ürün geliştirme",
-        summary: "Fikirden yayına web ve mobil ürünler.",
         items: ["Next.js", "React", "React Native", "Node.js", "Drizzle ORM", "Prisma", "Tailwind CSS"],
       },
       {
         title: "Temeller",
-        summary: "Tipli kod, konteynerler ve makine öğrenmesi temeli.",
         items: [
           "TypeScript",
           "JavaScript",
@@ -206,7 +173,6 @@ const tr: DictionarySource = {
     ],
   },
   education: {
-    eyebrow: "05 — Eğitim",
     title: "Eğitim & araştırma",
     degree: "Yazılım Mühendisliği Lisans",
     school: "Aksaray Üniversitesi",
@@ -227,14 +193,13 @@ const tr: DictionarySource = {
     },
   },
   contact: {
-    eyebrow: "06 — İletişim",
     title: "Birlikte bir şeyler inşa edelim.",
     subtitle: "Tam zamanlı pozisyonlara ve freelance projelere açığım. Mesajlarıma her zaman dönüş yaparım.",
     emailLabel: "E-posta gönder",
     copy: "Kopyala",
     copied: "Kopyalandı!",
   },
-  footer: { rights: "Tüm hakları saklıdır.", builtWith: "Next.js & Tailwind ile geliştirildi", backToTop: "Başa dön" },
+  footer: { rights: "Tüm hakları saklıdır.", builtWith: "Next.js & Tailwind ile geliştirildi" },
 };
 
 export default tr;
